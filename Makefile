@@ -1,18 +1,16 @@
 NAME = cub3d
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-MLX = -Lmlx -lmlx -framework OpenGL -framework AppKit
-LIBFT = -Llibft -lft
+LIBFT = Libft/libft.a
 
-SRC = main.c map_parse.c
+SRC = main.c ./parsing/map_parse.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(MAKE) -C Libft
-	$(MAKE) -C mlx
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLX) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@

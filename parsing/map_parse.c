@@ -6,13 +6,20 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 19:57:51 by bjandri           #+#    #+#             */
-/*   Updated: 2024/09/24 20:45:27 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/09/24 22:01:02 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minilibx-linux/mlx.h"
+#include "../header.h"
 
 int check_path(char *str)
 {
-    
+    int len;
+    int i;
+
+    len = ft_strlen(str);
+    i = len - 4;
+    if (str[i] == '.' && str[i + 1] == 'c' && str[i + 2] == 'u' && str[i + 3] == 'b')
+        return (1);
+    return (0);
 }
