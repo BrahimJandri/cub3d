@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   header.h                                           :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bjandri <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/24 20:46:48 by bjandri           #+#    #+#             */
-/*   Updated: 2024/09/24 21:04:24 by bjandri          ###   ########.fr       */
+/*   Created: 2023/11/22 12:13:36 by bjandri           #+#    #+#             */
+/*   Updated: 2023/11/22 12:13:39 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HEADER_H
-# define HEADER_H
+#include "libft.h"
 
-# include "./minilibx-linux/mlx.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include "Libft/libft.h"
+void	ft_bzero(void *s, size_t n)
+{
+	ft_memset(s, '\0', n);
+}
 
-int check_path(char *str);
+// #include <stdio.h>
 
-#endif
+// int main()
+// {
+// 	char f[] = "hello world";
+// 	ft_bzero(f, sizeof(f));
+// 	printf("%s", f);
+
+// 	return (0);
+// }

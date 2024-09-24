@@ -10,7 +10,7 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(MAKE) -C libft
+	$(MAKE) -C Libft
 	$(MAKE) -C mlx
 	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLX) -o $(NAME)
 
@@ -18,12 +18,11 @@ $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	$(MAKE) -C libft clean
-	$(MAKE) -C mlx clean
+	$(MAKE) -C Libft clean
 	rm -f $(OBJ)
 
 fclean: clean
-	$(MAKE) -C libft fclean
+	$(MAKE) -C Libft fclean
 	rm -f $(NAME)
 
 re: fclean all
