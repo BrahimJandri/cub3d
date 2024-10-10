@@ -3,7 +3,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 LIBFT = Libft/libft.a
 
-SRC = main.c ./parsing/map_parse.c
+SRC = main.c ./parsing/map_parse.c ./parsing/read_map.c ./parsing/get_next_line.c ./parsing/get_next_line_utils.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
