@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 11:02:55 by bjandri           #+#    #+#             */
-/*   Updated: 2024/10/10 12:28:02 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/10/10 12:35:53 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,11 @@ void	error_open(int fd)
 	}
 }
 
+int read_map(char *argv)
+{
+    int fd;
 
+    fd = open(argv, O_RDONLY);
+    error_open(fd);
+    
+}
