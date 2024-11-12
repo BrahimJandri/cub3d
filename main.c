@@ -31,5 +31,6 @@ int main(int ac, char **av)
     ft_memset(&game, 0, sizeof(t_game));
     read_map(&game, av[1]);
     ft_check_all_map(&game);
+    printf("Correct Map ✅✅\n");
     return (0);
 }

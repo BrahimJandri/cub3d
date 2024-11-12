@@ -41,32 +41,51 @@ void	error_map(char *msg, t_game *game)
 
 void	ft_check_all_map(t_game *game)
 {
-	ft_check_border_map(game);
+	ft_check_rows_map(game);
+	ft_check_columns_map(game);
 	ft_check_params(game);
 }
 
-void	ft_check_border_map(t_game *game)
+void    ft_check_rows_map(t_game *game)
 {
-	int	i;
-	int	j;
+	int i;
+	char *trimmed_line;
 
-	i = 0;
-	j = game->map_y - 1;
-	while (i < game->map_x)
-	{
-		if (game->map[i][0] != '1' || game->map[i][j] != '1')
-			error_map("Error\nMap is not closed missing walls rows", game);
-		i++;
-	}
-	i = 0;
-	j = game->map_x - 1;
-	while (i < game->map_y)
-	{
-		if (game->map[0][i] != '1' || game->map[j][i] != '1')
-			error_map("Error\nMap is not closed missing walls columns", game);
-		i++;
-	}
+    i = 0;
+    while (i < game->map_x)
+    {
+        trimmed_line = ft_strtrim(game->map[i], " \t\n");
+        if (ft_strlen(trimmed_line) == 0) {
+            i++;
+            continue;
+        }
+        if (trimmed_line[0] != '1' || trimmed_line[ft_strlen(trimmed_line) - 1] != '1')
+            error_map("Error\nMap is not closed: missing walls in rows", game);
+        i++;
+    }
 }
+void    ft_check_columns_map(t_game *game)
+{
+	int i;
+    int j;
+	char *trimmed_line;
+
+    i = 0;
+    j = game->map_x - 1;
+    while (i < game->map_y)
+    {
+        trimmed_line = ft_strtrim(game->map[0], " \t\n");
+        if (ft_strlen(trimmed_line) == 0) {
+            i++;
+            continue;
+        }
+        if (ft_strtrim(game->map[0], " \t\n")[i] != '1' || ft_strtrim(game->map[j], " \t\n")[i] != '1')
+            error_map("Error\nMap is not closed: missing walls in columns", game);
+        i++;
+    }
+}
+
+
 
 void	ft_check_params(t_game *game)
 {
@@ -84,9 +103,7 @@ void	ft_check_params(t_game *game)
 				game->player_x = i;
 				game->player_y = j;
 			}
-			else if (game->map[i][j] != '1' && game->map[i][j] != 'N'
-				&& game->map[i][j] != 'E' && game->map[i][j] != '0'
-				&& game->map[i][j] != 'S' && game->map[i][j] != 'W')
+			else if (game->map[i][j] != '1' && game->map[i][j] != '0' && game->map[i][j] == 'N' && game->map[i][j] == 'S' && game->map[i][j] == 'E' && game->map[i][j] == 'W')
 				error_map("Error\nInvalid params of the map", game);
 			j++;
 		}

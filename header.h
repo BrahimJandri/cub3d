@@ -48,9 +48,11 @@ int     check_path(char *str);
 void	error_open(int fd);
 int     read_map(t_game *game, char *argv);
 void	ft_check_all_map(t_game *game);
-void    ft_check_border_map(t_game *game);
+void    ft_check_rows_map(t_game *game);
+void    ft_check_columns_map(t_game *game);
 void    ft_check_params(t_game *game);
 void	error_map(char *msg, t_game *game);
+
 
 
 #endif
