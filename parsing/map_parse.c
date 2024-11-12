@@ -66,8 +66,6 @@ void ft_check_rows_map(t_game *game)
     }
 }
 
-
-
 void ft_check_columns_map(t_game *game)
 {
     int i;
