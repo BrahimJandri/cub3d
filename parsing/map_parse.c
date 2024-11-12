@@ -46,16 +46,17 @@ void	ft_check_all_map(t_game *game)
 	ft_check_params(game);
 }
 
-void    ft_check_rows_map(t_game *game)
+void ft_check_rows_map(t_game *game)
 {
-	int i;
-	char *trimmed_line;
+    int i;
+    char *trimmed_line;
 
     i = 0;
-    while (i < game->map_x)
+    while (i < game->map_y)
     {
         trimmed_line = ft_strtrim(game->map[i], " \t\n");
-        if (ft_strlen(trimmed_line) == 0) {
+        if (ft_strlen(trimmed_line) == 0)
+		{
             i++;
             continue;
         }
@@ -64,28 +65,27 @@ void    ft_check_rows_map(t_game *game)
         i++;
     }
 }
-void    ft_check_columns_map(t_game *game)
+
+
+
+void ft_check_columns_map(t_game *game)
 {
-	int i;
-    int j;
-	char *trimmed_line;
+    int i;
+    char *trimmed_first_line;
+    char *trimmed_last_line;
 
     i = 0;
-    j = game->map_x - 1;
     while (i < game->map_y)
     {
-        trimmed_line = ft_strtrim(game->map[0], " \t\n");
-        if (ft_strlen(trimmed_line) == 0) {
-            i++;
-            continue;
-        }
-        if (ft_strtrim(game->map[0], " \t\n")[i] != '1' || ft_strtrim(game->map[j], " \t\n")[i] != '1')
-            error_map("Error\nMap is not closed: missing walls in columns", game);
+        trimmed_first_line = ft_strtrim(game->map[i], " \t\n");
+        trimmed_last_line = ft_strtrim(game->map[game->map_y - i - 1], " \t\n");
+        if (ft_strlen(trimmed_first_line) > 0 && trimmed_first_line[0] != '1')
+            error_map("Error\nMap is not closed: missing walls in first column", game);
+        if (ft_strlen(trimmed_last_line) > 0 && trimmed_last_line[ft_strlen(trimmed_last_line) - 1] != '1')
+            error_map("Error\nMap is not closed: missing walls in last column", game);
         i++;
     }
 }
-
-
 
 void	ft_check_params(t_game *game)
 {
