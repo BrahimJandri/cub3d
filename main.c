@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 12:13:19 by bjandri           #+#    #+#             */
-/*   Updated: 2024/10/10 17:38:03 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/11/24 14:59:54 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int main(int ac, char **av)
         return(perror("Error\n"), 1);
     ft_memset(&game, 0, sizeof(t_game));
     read_map(&game, av[1]);
-    ft_check_all_map(&game);
+    ft_check_map(&game);
     printf("Correct Map ✅✅\n");
     return (0);
 }

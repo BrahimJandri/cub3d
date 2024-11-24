@@ -14,19 +14,19 @@ all: $(NAME)
 	@echo "$(BOLD)compiling success ✅$(RESET)"
 
 $(NAME): $(OBJ)
-	@$(MAKE) -C Libft > /dev/null 2>&1  # Suppress output from Libft make
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) > /dev/null 2>&1  # Suppress gcc output
+	@$(MAKE) -C Libft > /dev/null 2>&1
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) > /dev/null 2>&1
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@ > /dev/null 2>&1  # Suppress gcc output
+	@$(CC) $(CFLAGS) -c $< -o $@ > /dev/null 2>&1
 
 clean:
-	@$(MAKE) -C Libft clean > /dev/null 2>&1  # Suppress Libft clean output
+	@$(MAKE) -C Libft clean > /dev/null 2>&1
 	@rm -f $(OBJ)
 	@echo "$(BOLD)obj file removed 🗑$(RESET)"
 
 fclean: clean
-	@$(MAKE) -C Libft fclean > /dev/null 2>&1  # Suppress Libft fclean output
+	@$(MAKE) -C Libft fclean > /dev/null 2>&1
 	@rm -f $(NAME)
 	@echo "$(BOLD)all obj and exec file are removed 💔$(RESET)"
 
