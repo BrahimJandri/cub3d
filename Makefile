@@ -1,8 +1,8 @@
 NAME = cub3d
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 LIBFT = Libft/libft.a
-SRC = main.c ./parsing/map_parse.c ./parsing/read_map.c ./parsing/get_next_line.c ./parsing/get_next_line_utils.c
+SRC = main.c ./parsing/read_map.c ./parsing/get_next_line.c ./parsing/get_next_line_utils.c
 OBJ = $(SRC:.c=.o)
 
 # ANSI escape codes for bold text

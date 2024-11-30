@@ -12,14 +12,17 @@
 
 #include "../header.h"
 
-void error_open(int fd)
-{
-	if (fd == -1)
-	{
-		perror("Error opening file");
-		exit(EXIT_FAILURE);
-	}
-}
+// int check_path(char *str)
+// {
+// 	int len;
+// 	int i;
+
+// 	len = ft_strlen(str);
+// 	i = len - 4;
+// 	if (str[i] == '.' && str[i + 1] == 'c' && str[i + 2] == 'u' && str[i + 3] == 'b')
+// 		return (1);
+// 	return (0);
+// }
 
 int ft_countlines(int fd)
 {
@@ -37,67 +40,62 @@ int ft_countlines(int fd)
 	return (i);
 }
 
-static void ft_fill_map(t_game *game, int fd)
+void check_lines(char *line)
 {
-	int i;
-	char *line;
-	i = 0;
-	game->map = malloc(sizeof(char *) * (game->map_x + 1));
-	if (!game->map)
+	char *line_trimed;
+	int start;
+	int end;
+
+	start = 0;
+	line_trimed = ft_strtrim(line, " \t\n");
+	end = ft_strlen(line_trimed) - 1;
+	printf("line start %c\n", line_trimed[start]);
+	printf("line end %c\n", line_trimed[end]);
+	if(line_trimed[start] != '1' || line_trimed[end] != '1')
 	{
-		perror("Memory allocation error");
-		exit(EXIT_FAILURE);
+		printf("LINE_TRIMED = %s\n", line_trimed);
+		printf("NOT CLOSE\n");
+		exit(1);
 	}
-	while (i < game->map_x)
-	{
-		line = get_next_line(fd);
-		if (line)
-		{
-			game->map[i] = ft_strdup(line);
-			if (!game->map[i])
-			{
-				perror("Memory allocation error");
-				exit(EXIT_FAILURE);
-			}
-			free(line);
-		}
-		else
-		{
-			game->map[i] = ft_strdup("");
-			if (!game->map[i])
-			{
-				perror("Memory allocation error");
-				exit(EXIT_FAILURE);
-			}
-		}
-		i++;
-	}
-	game->map[i] = NULL;
+	else
+		printf("Perfecto\n");
+	free(line_trimed);
 }
 
-int read_map(t_game *game, char *av)
+void error_open(int fd)
 {
-	int fd;
-	char *temp;
-	fd = open(av, O_RDONLY);
-	error_open(fd);
-	game->map_x = ft_countlines(fd);
-	if (game->map_x == 0)
-		error_map("Error\nEmpty map", game);
-	close(fd);
-	fd = open(av, O_RDONLY);
-	error_open(fd);
-	temp = get_next_line(fd);
-	if (!temp)
+	if (fd == -1)
 	{
-		error_map("Error\nInvalid map", game);
+		perror("Error opening file");
+		exit(EXIT_FAILURE);
 	}
-	game->map_y = ft_strlen(temp) - 1;
-	free(temp);
-	close(fd);
-	fd = open(av, O_RDONLY);
+}
+
+void read_map(t_game *game, char *file)
+{
+	(void)game;
+	char *line;
+	int fd;
+	int linecount;
+
+	fd = open(file, O_RDONLY);
 	error_open(fd);
-	ft_fill_map(game, fd);
+	linecount = ft_countlines(fd);
+	if (!linecount)
+	{
+		perror("Error\nEmtpy Map");
+		exit(EXIT_FAILURE);
+	}
 	close(fd);
-	return 0;
+	fd = open(file, O_RDONLY);
+	error_open(fd);
+	line = get_next_line(fd);
+	while (line)
+	{
+		check_lines(line);
+		free(line);
+		line = get_next_line(fd);
+	}
+	free(line);
+	close(fd);
 }

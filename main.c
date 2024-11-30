@@ -12,25 +12,23 @@
 
 #include "header.h"
 
-int check_extension(int ac, char **av)
-{
-    if(ac != 2)
-        return (1);
-    else if(!check_path(av[1]))
-        return (1);
-    else
-        return (0);
-}
+// int check_extension(int ac, char **av)
+// {
+//     if(ac != 2)
+//         return (1);
+//     else if(!check_path(av[1]))
+//         return (1);
+//     else
+//         return (0);
+// }
 
 int main(int ac, char **av)
 {
     t_game game;
-    
-    if(check_extension(ac, av))
-        return(perror("Error\n"), 1);
+    (void)ac;
+    // if(check_extension(ac, av))
+    //     return(perror("Error\nBad Extension"), 1);
     ft_memset(&game, 0, sizeof(t_game));
     read_map(&game, av[1]);
-    ft_check_map(&game);
-    printf("Correct Map ✅✅\n");
     return (0);
 }

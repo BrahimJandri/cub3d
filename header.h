@@ -36,7 +36,7 @@ typedef struct s_game
     int map_y;
 } t_game;
 
-void ft_check_map(t_game *game);
+// void ft_check_map(t_game *game);
 int ft_strllen(char *str);
 char *ft_strjjoin(char *s1, char *s2);
 char *ft_free(char *str);
@@ -45,10 +45,12 @@ char *ft_next_line(char *str);
 char *ft_new_str(char *str);
 char *get_next_line(int fd);
 int check_path(char *str);
+void read_map(t_game *game, char *file);
+int ft_countlines(int fd);
+// void error_open(int fd);
+// void ft_check_params(t_game *game);
+// void error_map(char *msg, t_game *game);
+// void count_params(t_game *game);
 void error_open(int fd);
-int read_map(t_game *game, char *argv);
-void ft_check_params(t_game *game);
-void error_map(char *msg, t_game *game);
-void count_params(t_game *game);
 
 #endif
