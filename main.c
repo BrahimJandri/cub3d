@@ -30,5 +30,6 @@ int main(int ac, char **av)
     //     return(perror("Error\nBad Extension"), 1);
     ft_memset(&game, 0, sizeof(t_game));
     read_map(&game, av[1]);
+    free_all(&game);
     return (0);
 }

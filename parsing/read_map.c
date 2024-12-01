@@ -24,6 +24,20 @@
 // 	return (0);
 // }
 
+
+void	free_all(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	while (game->map[i])
+	{
+		free(game->map[i]);
+		i++;
+	}
+	free(game->map);
+}
+
 void check_lines(char *line)
 {
 	char *line_trimmed;
@@ -113,11 +127,11 @@ static void fill_map(t_game *game, int fd)
 void parse_newline(t_game *game)
 {
 	int i = 0;
-	while(i < game->map_x && game->map[i][0] == '\n')
+	while (i < game->map_x && game->map[i][0] == '\n')
 		i++;
-	while(i < game->map_x)
+	while (i < game->map_x)
 	{
-		if(game->map[i][0] == '\n')
+		if (game->map[i][0] == '\n')
 		{
 			printf("ERROR 404\n");
 			exit(1);

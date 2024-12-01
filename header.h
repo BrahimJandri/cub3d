@@ -47,6 +47,7 @@ char *get_next_line(int fd);
 int check_path(char *str);
 void read_map(t_game *game, char *file);
 int ft_countlines(int fd);
+void free_all(t_game *game);
 // void error_open(int fd);
 // void ft_check_params(t_game *game);
 // void error_map(char *msg, t_game *game);
