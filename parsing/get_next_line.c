@@ -92,8 +92,8 @@ char	*ft_new_str(char *str)
 
 char	*get_next_line(int fd)
 {
-	static char	*str;
-	char		*next_line;
+	static char *str;
+	char *next_line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
