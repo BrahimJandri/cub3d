@@ -106,7 +106,7 @@ void check_map_params(t_game *game)
 				(game->map[i][j] != 'N' && game->map[i][j] != 'S' &&
 				 game->map[i][j] != 'E' && game->map[i][j] != 'W') &&
 				game->map[i][j] != 32 && game->map[i][j] != '\n')
-				error_msg("Bad Params on map");
+				error_msg("Bad Params on map.");
 			if (game->map[i][j] == 'N' || game->map[i][j] == 'S' ||
 				game->map[i][j] == 'E' || game->map[i][j] == 'W')
 			{
