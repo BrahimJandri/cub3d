@@ -106,10 +106,7 @@ void check_map_params(t_game *game)
 				(game->map[i][j] != 'N' && game->map[i][j] != 'S' &&
 				 game->map[i][j] != 'E' && game->map[i][j] != 'W') &&
 				game->map[i][j] != 32 && game->map[i][j] != '\n')
-			{
-				printf("Bad Params on map here == %c\n", game->map[i][j]);
-				exit(0);
-			}
+				error_msg("Bad Params on map");
 			if (game->map[i][j] == 'N' || game->map[i][j] == 'S' ||
 				game->map[i][j] == 'E' || game->map[i][j] == 'W')
 			{
@@ -121,12 +118,8 @@ void check_map_params(t_game *game)
 		}
 		i++;
 	}
-
 	if (!player_found)
-	{
-		printf("Error: Player not found on the map.\n");
-		exit(1);
-	}
+		error_msg("Error: Player not found on the map.");
 }
 
 void draw_map(t_game *game)
