@@ -15,13 +15,13 @@ all: $(NAME)
 	@echo "$(BOLD)compiling success ✅$(RESET)"
 
 $(NAME): $(OBJ) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJ) $(MLXFLAGS) $(LIBFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) $(MLXFLAGS) $(LIBFT) -o $(NAME) > /dev/null 2>&1
 
 $(LIBFT):
-	make -C Libft
+	@make -C Libft > /dev/null 2>&1
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@ > /dev/null 2>&1
+	@$(CC) $(CFLAGS) -c $< -o $@ > /dev/null 2>&1
 
 clean:
 	@$(MAKE) -C Libft clean > /dev/null 2>&1

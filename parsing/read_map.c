@@ -90,6 +90,45 @@ static int error_msg(char *msg)
 	exit(EXIT_FAILURE);
 }
 
+void check_map_params(t_game *game)
+{
+	int i;
+	int j;
+	int player_found = 0;
+
+	i = 0;
+	while (i < game->map_x)
+	{
+		j = 0;
+		while (game->map[i][j])
+		{
+			if ((game->map[i][j] != '1' && game->map[i][j] != '0') &&
+				(game->map[i][j] != 'N' && game->map[i][j] != 'S' &&
+				 game->map[i][j] != 'E' && game->map[i][j] != 'W') &&
+				game->map[i][j] != 32 && game->map[i][j] != '\n')
+			{
+				printf("Bad Params on map here == %c\n", game->map[i][j]);
+				exit(0);
+			}
+			if (game->map[i][j] == 'N' || game->map[i][j] == 'S' ||
+				game->map[i][j] == 'E' || game->map[i][j] == 'W')
+			{
+				game->player_x = i;
+				game->player_y = j;
+				player_found = 1;
+			}
+			j++;
+		}
+		i++;
+	}
+
+	if (!player_found)
+	{
+		printf("Error: Player not found on the map.\n");
+		exit(1);
+	}
+}
+
 void draw_map(t_game *game)
 {
 	int i;
@@ -209,6 +248,7 @@ void read_map(t_game *game, char *file)
 		line = get_next_line(fd);
 	}
 	close(fd);
+	check_map_params(game);
 	parse_lines(game);
 	draw_map(game);
 	close(fd);
