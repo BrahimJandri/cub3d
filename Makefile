@@ -1,6 +1,7 @@
 NAME = cub3d
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+MLXFLAGS = -lm -lX11 -lmlx -lXext
 LIBFT = Libft/libft.a
 SRC = main.c ./parsing/read_map.c ./parsing/get_next_line.c ./parsing/get_next_line_utils.c
 OBJ = $(SRC:.c=.o)
@@ -13,12 +14,14 @@ RESET = \033[0m
 all: $(NAME)
 	@echo "$(BOLD)compiling success ✅$(RESET)"
 
-$(NAME): $(OBJ)
-	$(MAKE) -C Libft > /dev/null 2>&1
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) > /dev/null 2>&1
+$(NAME): $(OBJ) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJ) $(MLXFLAGS) $(LIBFT) -o $(NAME)
 
-# %.o: %.c
-# 	@$(CC) $(CFLAGS) -c $< -o $@ > /dev/null 2>&1
+$(LIBFT):
+	make -C Libft
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@ > /dev/null 2>&1
 
 clean:
 	@$(MAKE) -C Libft clean > /dev/null 2>&1

@@ -101,7 +101,6 @@ void draw_map(t_game *game)
 		i++;
 	}
 }
-
 static void fill_map(t_game *game, int fd)
 {
 	int i;
@@ -124,6 +123,19 @@ static void fill_map(t_game *game, int fd)
 	game->map[i] = NULL;
 }
 
+bool all_walls(char *line)
+{
+	int i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '0')
+			return false;
+		i++;
+	}
+	return true;
+}
 void parse_lines(t_game *game)
 {
 	int i;
@@ -139,8 +151,11 @@ void parse_lines(t_game *game)
 	{
 		if (game->map[index][0] == '\n')
 		{
-			printf("ERROR 404 NEWLINE FOUND\n");
-			exit(1);
+			if (!all_walls(game->map[index - 1]) || !all_walls(game->map[index + 1]))
+			{
+				printf("ERROR 404 NEWLINE FOUND\n");
+				exit(1);
+			}
 		}
 		index++;
 	}

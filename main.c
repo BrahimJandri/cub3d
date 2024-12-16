@@ -31,6 +31,9 @@ int	main(int ac, char **av)
 		return (perror("Error\nBad Extension"), 1);
 	ft_memset(&game, 0, sizeof(t_game));
 	read_map(&game, av[1]);
+	// game.mlx = mlx_init();
+	// game.win = mlx_new_window(game.mlx, 600, 600, "CUB3D");
+	// mlx_loop(game.mlx);
 	free_all(&game);
 	return (0);
 }
