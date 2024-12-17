@@ -34,7 +34,14 @@ void free_all(t_game *game)
 		free(game->map[i]);
 		i++;
 	}
+	i = 0;
+	while (game->map2[i])
+	{
+		free(game->map2[i]);
+		i++;
+	}
 	free(game->map);
+	free(game->map2);
 }
 
 void check_lines(char *line)
@@ -122,37 +129,45 @@ void check_map_params(t_game *game)
 		error_msg("Error: Player not found on the map.");
 }
 
-void draw_map(t_game *game)
+static void fill_map(t_game *game, int fd, char *file)
 {
-	int i;
-
-	i = 0;
-	while (i < game->map_x)
-	{
-		printf("%s\n", game->map[i]);
-		i++;
-	}
-}
-static void fill_map(t_game *game, int fd)
-{
-	int i;
+	int i = 0;
 	char *line;
+	int longest_row = 0;
 
-	i = 0;
+	// First pass: Find the width of the longest line
+	while ((line = get_next_line(fd)))
+	{
+		int len = ft_strlen(line);
+		if (len > longest_row)
+			longest_row = len;
+		free(line);
+	}
+	close(fd);
+
+	// Second pass: Allocate and fill the map
+	fd = open(file, O_RDONLY);
+	error_open(fd);
 	game->map = malloc(sizeof(char *) * (game->map_x + 1));
 	if (!game->map)
 		error_msg("Memory allocation error");
+
 	while (i < game->map_x)
 	{
 		line = get_next_line(fd);
 		if (line)
 		{
-			game->map[i] = ft_strdup(line);
+			game->map[i] = malloc(sizeof(char) * (longest_row + 1));
+			if (!game->map[i])
+				error_msg("Memory allocation error");
+			ft_strlcpy(game->map[i], line, longest_row + 1); // Copy and pad line
 			free(line);
 			i++;
 		}
 	}
 	game->map[i] = NULL;
+	close(fd);
+	game->map_y = longest_row; // Set the map width
 }
 
 bool all_walls(char *line)
@@ -212,6 +227,75 @@ void parse_lines(t_game *game)
 	}
 }
 
+void ft_flood_fill(int x, int y, t_game *game)
+{
+	if (x < 0 || x >= game->map_x || y < 0 || y >= game->map_y ||
+		game->map2[x][y] == '1' || game->map2[x][y] == 'V')
+		return;
+
+	if (game->map2[x][y] == ' ')
+		return; // Treat spaces as invalid tiles
+
+	game->map2[x][y] = 'V'; // Mark visited
+
+	ft_flood_fill(x - 1, y, game); // Up
+	ft_flood_fill(x + 1, y, game); // Down
+	ft_flood_fill(x, y - 1, game); // Left
+	ft_flood_fill(x, y + 1, game); // Right
+}
+
+void map_dup(t_game *game)
+{
+	int i;
+
+	i = 0;
+	game->map2 = malloc(sizeof(char *) * (game->map_x + 1));
+	while (i < game->map_x)
+	{
+		game->map2[i] = ft_strdup(game->map[i]);
+		i++;
+	}
+	game->map2[i] = NULL;
+}
+
+void draw_map(t_game *game)
+{
+	int i;
+
+	i = 0;
+	while (game->map_x > i)
+	{
+		printf("%s", game->map2[i]);
+		i++;
+	}
+}
+void check_borders(t_game *game)
+{
+	int x;
+	int y;
+
+	y = 0;
+	// Check the top and bottom borders
+	while (y < game->map_y)
+	{
+		if (game->map2[0][y] == 'V') // Top border
+			error_msg("Error\nInvalid character 'V' found on the top border");
+		if (game->map2[game->map_x - 1][y] == 'V') // Bottom border
+			error_msg("Error\nInvalid character 'V' found on the bottom border");
+		y++;
+	}
+	x = 0;
+	// Check the left and right borders
+	while (x < game->map_x)
+	{
+		if (game->map2[x][0] == 'V') // Left border
+			error_msg("Error\nInvalid character 'V' found on the left border");
+		if (game->map2[x][game->map_y - 1] == 'V') // Right border
+			error_msg("Error\nInvalid character 'V' found on the right border");
+		x++;
+	}
+}
+
 void read_map(t_game *game, char *file)
 {
 	char *line;
@@ -230,7 +314,7 @@ void read_map(t_game *game, char *file)
 	game->map_x = linecount;
 	fd = open(file, O_RDONLY);
 	error_open(fd);
-	fill_map(game, fd);
+	fill_map(game, fd, file);
 	fd = open(file, O_RDONLY);
 	error_open(fd);
 	line = get_next_line(fd);
@@ -243,6 +327,9 @@ void read_map(t_game *game, char *file)
 	close(fd);
 	check_map_params(game);
 	parse_lines(game);
+	map_dup(game);
+	ft_flood_fill(game->player_x, game->player_y, game);
 	draw_map(game);
+	check_borders(game);
 	close(fd);
 }

@@ -31,6 +31,7 @@ typedef struct s_game
     void *mlx;
     void *win;
     char **map;
+    char **map2;
     int player_x;
     int player_y;
     int map_x;
