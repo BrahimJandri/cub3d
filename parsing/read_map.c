@@ -254,6 +254,8 @@ void map_dup(t_game *game)
 	game->map2 = malloc(sizeof(char *) * (game->map_x + 1));
 	while (i < game->map_x)
 	{
+		if(ft_strlen(game->map[i]) == 0)
+			i++;
 		game->map2[i] = ft_strdup(game->map[i]);
 		i++;
 	}
@@ -277,7 +279,6 @@ void check_borders(t_game *game)
 	int y;
 
 	y = 0;
-	// Check the top and bottom borders
 	while (y < game->map_y)
 	{
 		if (game->map2[0][y] == 'V') // Top border
@@ -287,7 +288,6 @@ void check_borders(t_game *game)
 		y++;
 	}
 	x = 0;
-	// Check the left and right borders
 	while (x < game->map_x)
 	{
 		if (game->map2[x][0] == 'V') // Left border
