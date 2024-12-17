@@ -102,6 +102,7 @@ void check_map_params(t_game *game)
 	int i;
 	int j;
 	int player_found = 0;
+	int n_player;
 
 	i = 0;
 	while (i < game->map_x)
@@ -117,6 +118,7 @@ void check_map_params(t_game *game)
 			if (game->map[i][j] == 'N' || game->map[i][j] == 'S' ||
 				game->map[i][j] == 'E' || game->map[i][j] == 'W')
 			{
+				n_player++;
 				game->player_x = i;
 				game->player_y = j;
 				player_found = 1;
@@ -125,8 +127,8 @@ void check_map_params(t_game *game)
 		}
 		i++;
 	}
-	if (!player_found)
-		error_msg("Error: Player not found on the map.");
+	if (!player_found || n_player != 1)
+		error_msg("Error: Player not found on the map or Multiple player.");
 }
 
 static void fill_map(t_game *game, int fd, char *file)
