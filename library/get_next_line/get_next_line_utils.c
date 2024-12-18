@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header.h"
+#include "../Headers/header.h"
+
 
 int	ft_strllen(char *str)
 {

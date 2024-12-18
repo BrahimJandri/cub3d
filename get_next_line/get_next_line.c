@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header.h"
+#include "../Headers/header.h"
 
 char	*ft_first_line(int fd, char *str)
 {

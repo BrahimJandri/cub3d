@@ -3,7 +3,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 MLXFLAGS = -lm -lX11 -lmlx -lXext
 LIBFT = Libft/libft.a
-SRC = main.c ./parsing/read_map.c ./parsing/get_next_line.c ./parsing/get_next_line_utils.c
+SRC = 
 OBJ = $(SRC:.c=.o)
 
 # ANSI escape codes for bold text
@@ -21,7 +21,7 @@ $(LIBFT):
 	@make -C Libft > /dev/null 2>&1
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@ > /dev/null 2>&1
+	@$(CC) $(CFLAGS) -c $< -o $@ 
 
 clean:
 	@$(MAKE) -C Libft clean > /dev/null 2>&1
