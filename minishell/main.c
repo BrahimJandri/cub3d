@@ -6,14 +6,14 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2024/12/18 11:17:54 by reddamss         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:38:26 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 //x -> -- horizontal , y = | vertical
 
-void draw_circle(t_player *player, t_game *data, int _y, int _x) {
+void draw_circle(t_player *player, t_game *data) {
     int x, y;
     
 
@@ -25,7 +25,7 @@ void draw_circle(t_player *player, t_game *data, int _y, int _x) {
             // Check if the point (x, y) satisfies the circle equation
             if ((x * x + y * y) <= player->radius * player->radius)
             {
-                mlx_pixel_put(data->mlx, data->win, _x + x, _y + y, RED);
+                mlx_pixel_put(data->mlx, data->win, player->x + x, player->y + y, RED);
             }
         }
     }
@@ -47,20 +47,60 @@ void draw_circle(t_player *player, t_game *data, int _y, int _x) {
 //     }
 // }
 
+int get_plyr_y(t_game *data)
+{
+    int	x;
+	int	y;
+
+	y = 0;
+	while (y < data->map_y)//is small than the height
+	{
+		x = 0;
+		while (x < data->map_x - 1)//is small than the width
+		{
+            if(data->map[y][x] == 'P')
+                return(y * TILE + (TILE/2));
+			x++;
+		}
+		y++;
+	}
+    return(-1);
+}
+int get_plyr_x(t_game *data)
+{
+    int	x;
+	int	y;
+
+	y = 0;
+	while (y < data->map_y)//is small than the height
+	{
+		x = 0;
+		while (x < data->map_x - 1)//is small than the width
+		{
+            if(data->map[y][x] == 'P')
+                return(x * TILE + (TILE/2));
+			x++;
+		}
+		y++;
+	}
+    return(-1);
+}
+
 
 void    init_player(t_game *data)
 {
     t_player *dot;
 
     dot = malloc(sizeof(t_player ));
-    dot->y = 3;
-    dot->x = 3;
+    dot->y = get_plyr_y(data);
+    dot->x = get_plyr_x(data);
     dot->radius = TILE / 4;
     dot->turnDir = 0;
     dot->walkDir = 0;
-    dot->rotationAngle = PI / 2;
-    dot->moveSpeed = 2.0;
+    dot->rotationAngle = PI /2;
+    dot->moveSpeed = 4.0;
     dot->rotationSpeed = 2 * (PI / 2);
+    dot->line_lenght = TILE ;
 
     data->player = dot;
 
@@ -82,7 +122,8 @@ int main(int ac, char **av)
     init_player(&data);
 
     draw_map(&data);
-
+    
+    mlx_hook(data.win, 02, 1L<<0, player_control, &data);
     mlx_loop(data.mlx);
     
 }

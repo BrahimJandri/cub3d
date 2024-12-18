@@ -6,12 +6,33 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2024/12/18 11:12:24 by reddamss         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:22:51 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "minishell.h"
+
+void    draw_line(t_player *player, t_game *data)
+{
+    int x;
+    int y;
+    int i = 0;
+    
+    while(i < player->line_lenght)
+    {
+        printf("%f\n", player->rotationAngle);
+        x = player->x + cos(player->rotationAngle) * i;
+        y = player->y + sin(player->rotationAngle) * i;
+        printf("x= %d\ny= %d\n", x, y);
+        
+        mlx_pixel_put(data->mlx, data->win, x, y, RED);
+        i++;
+    }
+    
+}
+
+
 
 void	draw_map(t_game *data)
 {
@@ -27,16 +48,13 @@ void	draw_map(t_game *data)
 		{
 			color = check_number(data->map[y][x]);
 			build_square(data, x * TILE, y * TILE ,color);
-            if(data->map[y][x] == 'P')
-			{
-                draw_circle(data->player, data, y * TILE + (TILE/2), x * TILE + (TILE/2));
-				// write(1, "holala", 6);
-			}
-			
 			x++;
 		}
 		y++;
 	}
+    draw_circle(data->player, data);
+    draw_line(data->player, data);
+
 }
 
 void    build_square(t_game *data, int x, int y, int color)
@@ -50,7 +68,6 @@ void    build_square(t_game *data, int x, int y, int color)
             // usleep(10);
         }
     }
-    usleep(100000);
 }
 
 

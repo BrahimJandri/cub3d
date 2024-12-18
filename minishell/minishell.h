@@ -14,6 +14,21 @@
 #include <stdlib.h>
 #include <fcntl.h>
 
+/*----------- CONTROL KEYS ----------*/
+# define UP 65362
+# define DOWN 65364
+# define RIGHT 65363
+# define LEFT 65361
+# define A 97
+# define W 119
+# define S 115
+# define D 100 
+#define ESC 65307
+#define Q 113
+
+
+
+
 /*----------- COLORS ----------*/
 #define GREY 0x808080
 #define RED 0xFF0000
@@ -29,8 +44,8 @@
 #define PI 3.14159265358979323846
 typedef struct s_player
 {
-    int      x;
-    int      y;
+    double      x;
+    double      y;
     int      radius;
     double      turnDir;
     double      walkDir;
@@ -39,6 +54,7 @@ typedef struct s_player
     double      moveSpeed;
     double      fov;
     double      angle;
+    double      line_lenght;
 } t_player;
 
 typedef struct s_game
@@ -70,6 +86,11 @@ void	allocate_map(char *av, t_game *data);
 void    build_square(t_game *data, int x, int y, int color);
 int    check_number(char c);
 void	draw_map(t_game *data);
-void draw_circle(t_player *player, t_game *data, int y, int x);
+void    draw_circle(t_player *player, t_game *data);
+void    draw_line(t_player *player, t_game *data);
+int     player_control(int key, t_game *data);
+void    update_player(t_game *data, t_player *player);
 
+
+void    update_rotation(t_game *data, t_player *player);
 #endif
