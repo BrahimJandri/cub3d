@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 09:08:43 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/18 10:47:26 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/18 11:05:24 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_first_line(int fd, char *str)
 	if (!buf)
 		return (NULL);
 	ret = 1;
-	while (ret != 0 && !ft_strchr(str, '\n'))
+	while (ret != 0 && !ft_strrchr(str, '\n'))
 	{
 		ret = read(fd, buf, BUFFER_SIZE);
 		if (ret == -1)
@@ -31,7 +31,7 @@ char	*ft_first_line(int fd, char *str)
 			return (NULL);
 		}
 		buf[ret] = '\0';
-		str = ft_strjoin(str, buf);
+		str = ft_strjjoin(str, buf);
 		if (!str)
 			return (NULL);
 	}
@@ -75,7 +75,7 @@ char	*ft_new_str(char *str)
 		i++;
 	if (!str[i])
 		return (ft_free(str));
-	new_str = malloc(sizeof(char) * (ft_strlen(str) - i + 1));
+	new_str = malloc(sizeof(char) * (ft_strllen(str) - i + 1));
 	if (!new_str)
 		return (ft_free(str));
 	i++;

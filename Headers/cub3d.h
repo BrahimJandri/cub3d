@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   header.h                                           :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:46:48 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/18 10:44:20 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/18 11:21:16 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HEADER_H
-#define HEADER_H
+#ifndef CUB3D_H
+#define CUB3D_H
 
-#include "../minilibx/mlx.h"
+#include "../library/minilibx/mlx.h"
 #include "../library/Libft/libft.h"
-#include <get_next_line.h>
+#include "../library/get_next_line/get_next_line.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <unistd.h>
 #include <signal.h>
 #include <fcntl.h>
-
 
 typedef struct s_game
 {
@@ -34,11 +33,13 @@ typedef struct s_game
     char *ea_texture;
     int floor_color;
     int ceiling_color;
+    int map_start;
+    int line_number;
     size_t map_width;
     size_t map_height;
-    int map_start;
 } t_game;
 
-
+void error_msg(char *str);
+void parse_config(t_game *game, char **av);
 
 #endif

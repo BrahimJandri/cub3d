@@ -1,31 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/13 09:08:51 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/18 11:07:03 by bjandri          ###   ########.fr       */
+/*   Created: 2024/12/18 11:13:25 by bjandri           #+#    #+#             */
+/*   Updated: 2024/12/18 11:23:10 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "../../Headers/cub3d.h"
 
-# include <fcntl.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
-# endif
-
-char	*get_next_line(int fd);
-int		ft_strllen(char *str);
-char	*ft_strjjoin(char *s1, char *s2);
-char	*ft_strchr(const char *str, int c);
-char	*ft_free(char *str);
-
-#endif
+void error_msg(char *str)
+{
+    ft_putstr_fd(str, 2);
+    exit(1);
+}
