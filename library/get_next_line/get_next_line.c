@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 09:08:43 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/18 11:05:24 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/19 10:28:01 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_first_line(int fd, char *str)
 	if (!buf)
 		return (NULL);
 	ret = 1;
-	while (ret != 0 && !ft_strrchr(str, '\n'))
+	while (ret != 0 && !ft_strchr(str, '\n'))
 	{
 		ret = read(fd, buf, BUFFER_SIZE);
 		if (ret == -1)

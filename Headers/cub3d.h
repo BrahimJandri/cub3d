@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:46:48 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/18 11:21:16 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/18 13:08:44 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,6 @@ typedef struct s_game
 
 void error_msg(char *str);
 void parse_config(t_game *game, char **av);
+void read_map(t_game *game, char *file);
 
 #endif

@@ -1,9 +1,9 @@
 NAME = cub3d
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 MLXFLAGS = -lm -lX11 -lmlx -lXext
 LIBFT = ./library/Libft/libft.a
-SRC = ./parsing/main.c ./parsing/parse_config/parse_config.c ./parsing/utils/utils1.c
+SRC = ./parsing/parsing.c ./library/get_next_line/get_next_line.c ./library/get_next_line/get_next_line_utils.c 
 OBJ = $(SRC:.c=.o)
 
 # ANSI escape codes for bold text
@@ -21,7 +21,7 @@ $(LIBFT):
 	@make -C ./library/Libft > /dev/null 2>&1
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@ > /dev/null 2>&1
+	@$(CC) $(CFLAGS) -c $< -o $@ 
 
 clean:
 	@$(MAKE) -C ./library/Libft clean > /dev/null 2>&1
