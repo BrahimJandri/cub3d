@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:45:30 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/19 10:40:57 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/19 15:03:59 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,19 @@ int open_file(const char *file)
     if (fd == -1)
         return error_msg("Error: Open file failed\n"), -1;
     return fd;
+}
+
+void free_all(t_game *game)
+{
+    int i;
+
+    i = 0;
+    while (game->map[i])
+    {
+        free(game->map[i]);
+        i++;
+    }
+    free(game->map);
 }
 
 size_t ft_arraylen(char **array)
@@ -85,45 +98,66 @@ char *parse_textures_and_colors(t_game *game, char *line, int fd)
 char *skip_empty_lines(int fd)
 {
     char *line = get_next_line(fd);
-    while (line && *line == '\n')
+
+    while (line)
     {
-        free(line);
-        line = get_next_line(fd);
+        char *trimmed_line = ft_strtrim(line, " \t");
+
+        if (*trimmed_line == '\0')
+        {
+            free(line);
+            free(trimmed_line);
+            line = get_next_line(fd);
+        }
+        else
+        {
+            free(trimmed_line);
+            break;
+        }
     }
     return line;
 }
 
-void validate_map(t_game *game)
+void check_map_params(t_game *game)
 {
-    size_t i = 0;
+    size_t i;
+    size_t j;
+
+    i = 0;
     while (i < game->map_height)
     {
-        size_t j = 0;
-        while (j < game->map_width)
+        char *trimed_line = ft_strtrim(game->map[i], " \t");
+        j = 0;
+        while (trimed_line[j])
         {
-            if (game->map[i][j] != '1' && game->map[i][j] != '0' &&
-                game->map[i][j] != 'N' && game->map[i][j] != 'S' &&
-                game->map[i][j] != 'E' && game->map[i][j] != 'W')
-                error_msg("Error: Invalid character in map\n");
-
-            if ((i == 0 || i == game->map_height - 1 ||
-                 j == 0 || j == game->map_width - 1) &&
-                game->map[i][j] != '1')
-                error_msg("Error: Map not enclosed by walls\n");
-
+            if (trimed_line[j] != '1' && trimed_line[j] != '0' &&
+                trimed_line[j] != 'N' && trimed_line[j] != 'S' &&
+                trimed_line[j] != 'E' && trimed_line[j] != 'W')
+            {
+                printf("\nhere ==> %s\n", trimed_line);
+                error_msg("Bad Params on map.");
+            }
+            if (trimed_line[j] == 'N' || trimed_line[j] == 'S' ||
+                trimed_line[j] == 'E' || trimed_line[j] == 'W')
+            {
+                game->player_x = i;
+                game->player_y = j;
+                game->player_found = 1;
+            }
             j++;
         }
+        free(trimed_line);
         i++;
     }
+    if (!game->player_found)
+        error_msg("Error: Player not found on the map.");
 }
-
 
 void error_msg(char *str)
 {
     ft_putstr_fd(str, 2);
     exit(1);
 }
-
 
 void init_game(t_game *game)
 {
@@ -135,42 +169,46 @@ void init_game(t_game *game)
     game->ea_texture = NULL;
     game->floor_color = -1;
     game->ceiling_color = -1;
-    game->line_number = 1;
     game->map_width = 0;
     game->map_height = 0;
+    game->player_found = 0;
 }
 
-void fill_map(t_game *game, int fd)
+void fill_map(t_game *game, const char *file)
 {
+    int fd = open_file(file);
+
+    size_t i = 0;
     char *line = skip_empty_lines(fd);
     line = parse_textures_and_colors(game, line, fd);
-    // if (!line || *line != '1')
-    //     error_msg("Error: Invalid map format\n");
-    game->map = ft_calloc(game->map_height + 1, sizeof(char *));
-    int i = 0;
+
+    game->map = malloc(sizeof(char *) * (game->map_height + 1));
+    if (!game->map)
+        error_msg("Memory allocation error");
+
     while (line)
     {
-        game->map[i++] = ft_strdup(line);
+        game->map[i] = ft_strdup(line);
+        i++;
         free(line);
         line = get_next_line(fd);
     }
+    game->map[i] = NULL;
+    close(fd);
 }
 
 void calculate_map_dimensions(t_game *game, const char *file)
 {
     int fd = open_file(file);
-    char *line = get_next_line(fd);
-
+    char *line = skip_empty_lines(fd);
+    line = parse_textures_and_colors(game, line, fd);
     while (line)
     {
         char *trimed_line = ft_strtrim(line, " \t");
-        if (*trimed_line == '1' || *trimed_line == '0')
-        {
-            game->map_height++;
-            size_t line_length = ft_strlen(trimed_line);
-            if (line_length > game->map_width)
-                game->map_width = line_length;
-        }
+        game->map_height++;
+        size_t line_length = ft_strlen(trimed_line);
+        if (line_length > game->map_width)
+            game->map_width = line_length;
         free(line);
         free(trimed_line);
         line = get_next_line(fd);
@@ -181,7 +219,7 @@ void calculate_map_dimensions(t_game *game, const char *file)
 void draw_map(t_game *game)
 {
     size_t i = 0;
-    while(i <= game->map_height)
+    while (game->map[i])
     {
         printf("%s", game->map[i]);
         i++;
@@ -192,9 +230,9 @@ void read_map(t_game *game, char *file)
     int fd = open_file(file);
 
     calculate_map_dimensions(game, file);
-    fill_map(game, fd);
+    fill_map(game, file);
     draw_map(game);
-    validate_map(game);
+    check_map_params(game);
     close(fd);
 }
 
@@ -224,6 +262,7 @@ int main(int ac, char **av)
     if (ac != 2)
         return (ft_putstr_fd("Error\nUsage : Cub3d map.cub", 2), 1);
     parse_config(game, av);
+    free_all(game);
     free(game);
     return (0);
 }
