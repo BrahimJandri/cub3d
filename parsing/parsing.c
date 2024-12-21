@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:45:30 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/21 12:39:59 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/21 12:57:16 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int open_file(const char *file)
 {
     int fd = open(file, O_RDONLY);
     if (fd == -1)
-        return error_msg("Error: Open file failed\n"), -1;
+        return error_msg("Error\nOpen file failed\n"), -1;
     return fd;
 }
 
@@ -61,14 +61,14 @@ int parse_color(char *str, t_game *game)
     // Trim leading/trailing whitespace or newline characters
     char *trimmed_str = ft_strtrim(str, " \t\n");
     if (!trimmed_str)
-        error_msg("Error: Memory allocation failed while trimming\n");
+        error_msg("Error\nMemory allocation failed while trimming\n");
 
     // Split the trimmed string by commas
     char **parts = ft_split(trimmed_str, ',');
     if (!parts)
     {
         free(trimmed_str);
-        error_msg("Error: Memory allocation failed while splitting\n");
+        error_msg("Error\nMemory allocation failed while splitting\n");
     }
 
     // Check if the split resulted in exactly 3 parts (RGB)
@@ -79,7 +79,7 @@ int parse_color(char *str, t_game *game)
     {
         ft_free_split(parts);
         free(trimmed_str);
-        error_msg("Error: Invalid color format\n");
+        error_msg("Error\nInvalid color format\n");
     }
 
     // Parse and validate the RGB components
@@ -94,7 +94,7 @@ int parse_color(char *str, t_game *game)
         {
             ft_free_split(parts);
             free(trimmed_str);
-            error_msg("Error: Color values must be in the range 0-255\n");
+            error_msg("Error\nColor values must be in the range 0-255\n");
         }
         i++;
     }
@@ -154,7 +154,7 @@ char *parse_texture(char *line, char **texture, t_game *game)
     else
     {
         // Handle error if split fails or the format is incorrect
-        error_msg("Error: Invalid texture line format.");
+        error_msg("Error\nInvalid texture line format.");
     }
 
     // Free the split line array and the trimmed line
@@ -202,7 +202,6 @@ void check_map_params(t_game *game)
 {
     int i;
     int j;
-    int player_found = 0;
 
     i = 0;
     while (i < game->map_height)
@@ -214,20 +213,20 @@ void check_map_params(t_game *game)
                 (game->map[i][j] != 'N' && game->map[i][j] != 'S' &&
                  game->map[i][j] != 'E' && game->map[i][j] != 'W') &&
                 game->map[i][j] != 32 && game->map[i][j] != '\n')
-                error_msg("Bad Params on map.");
+                error_msg("Error\nBad Params on map.");
             if (game->map[i][j] == 'N' || game->map[i][j] == 'S' ||
                 game->map[i][j] == 'E' || game->map[i][j] == 'W')
             {
                 game->player_x = i;
                 game->player_y = j;
-                player_found = 1;
+                game->player_found = 1;
             }
             j++;
         }
         i++;
     }
-    if (!player_found)
-        error_msg("Error: Player not found on the map.");
+    if (!game->player_found)
+        error_msg("Error\nPlayer not found on the map.");
 }
 
 // Error handling function
@@ -264,7 +263,7 @@ void fill_map(t_game *game, const char *file)
 
     game->map = malloc(sizeof(char *) * (game->map_height + 1));
     if (!game->map)
-        error_msg("Memory allocation error");
+        error_msg("Error\nMemory allocation error");
 
     // Now fill the map with 1s and 0s
     while (line)
@@ -357,7 +356,7 @@ void check_config(t_game *game)
 {
     printf("config count ==> %d\n", game->config_count);
     if (game->config_count / 2 != 6)
-        error_msg("Error in Textures or Colors");
+        error_msg("Error\nTextures or Colors are not correct.");
 }
 
 // Read the entire map, including textures, colors, and map content
@@ -379,9 +378,9 @@ void check_extension(const char *file)
 
     fd = open(file, O_RDONLY);
     if (fd == -1)
-        error_msg("Error: File deosn't exicte or no permession\n");
+        error_msg("Error\nFile deosn't exist or no permession\n");
     if (ft_strncmp(file + ft_strlen(file) - 4, ".cub", 4) != 0)
-        error_msg("Error: Invalid file extension File must have a .cub extension.\n");
+        error_msg("Error\nInvalid file extension File must have a .cub extension.\n");
 }
 
 void parse_config(t_game *game, char **av)
@@ -397,7 +396,7 @@ int main(int ac, char **av)
 
     game = (t_game *)malloc(sizeof(t_game));
     if (ac != 2)
-        return (ft_putstr_fd("Error\nUsage : Cub3d map.cub", 2), 1);
+        return (ft_putstr_fd("Error\nUsage : Cub3d map.cub\n", 2), 1);
     parse_config(game, av);
     free_all(game);
     return (0);
