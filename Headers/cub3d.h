@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:46:48 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/19 11:15:10 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/21 10:28:22 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_game
     int player_x;
     int player_y;
     int player_found;
+    int config_count;
     size_t map_width;
     size_t map_height;
 } t_game;
