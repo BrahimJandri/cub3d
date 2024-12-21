@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:45:30 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/21 11:26:01 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/21 11:51:12 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void free_all(t_game *game)
 // Function to calculate the length of an array of strings
 size_t ft_arraylen(char **array)
 {
-    size_t length = 0;
+    int length = 0;
     while (array[length])
         length++;
     return length;
@@ -46,7 +46,7 @@ size_t ft_arraylen(char **array)
 // Free memory allocated for a split array of strings
 void ft_free_split(char **array)
 {
-    size_t i = 0;
+    int i = 0;
     while (array[i])
     {
         free(array[i]);
@@ -175,8 +175,8 @@ char *parse_textures_and_colors(t_game *game, char *line, int fd)
 // Check if the map contains valid parameters and find the player position
 void check_map_params(t_game *game)
 {
-    size_t i;
-    size_t j;
+    int i;
+    int j;
     int player_found = 0;
 
     i = 0;
@@ -233,7 +233,7 @@ void init_game(t_game *game)
 void fill_map(t_game *game, const char *file)
 {
     int fd = open_file(file);
-    size_t i = 0;
+    int i = 0;
     char *line = skip_empty_lines(fd);                // Skip empty lines at the start
     line = parse_textures_and_colors(game, line, fd); // Parse textures and colors
 
@@ -267,7 +267,7 @@ void calculate_map_dimensions(t_game *game, const char *file)
     {
         char *trimed_line = ft_strtrim(line, " \t");
         game->map_height++;
-        size_t line_length = ft_strlen(trimed_line);
+        int line_length = ft_strlen(trimed_line);
         if (line_length > game->map_width)
             game->map_width = line_length;
         free(line);
@@ -280,18 +280,46 @@ void calculate_map_dimensions(t_game *game, const char *file)
 // Function to draw the map
 void draw_map(t_game *game)
 {
-    size_t i = 0;
-    while (game->map[i])
+    int i = 0;
+    while (game->map_dup[i])
     {
-        printf("%s", game->map[i]);
+        printf("%s", game->map_dup[i]);
         i++;
     }
 }
 
+void ft_flood_fill(int x, int y, t_game *game)
+{
+    if (x < 0 || x >= game->map_height || y < 0 || y >= game->map_width || game->map_dup[x][y] == '1' || game->map_dup[x][y] == 'V')
+        return;
+    if (game->map_dup[x][y] == 'S' || game->map_dup[x][y] == 'E' || game->map_dup[x][y] == 'W' || game->map_dup[x][y] == 'N')
+        game->map_dup[x][y] = 'V';
+    if (game->map_dup[x][y] != 'S' || game->map_dup[x][y] != 'E' || game->map_dup[x][y] != 'W' || game->map_dup[x][y] != 'N')
+        game->map_dup[x][y] = 'V';
+    ft_flood_fill(x - 1, y, game);
+    ft_flood_fill(x + 1, y, game);
+    ft_flood_fill(x, y - 1, game);
+    ft_flood_fill(x, y + 1, game);
+}
+
+void map_dup(t_game *game)
+{
+	int i;
+
+	i = 0;
+	game->map_dup = malloc(sizeof(char *) * (game->map_height + 1));
+	while (i < game->map_height)
+	{
+		game->map_dup[i] = ft_strdup(game->map[i]);
+		i++;
+	}
+	game->map_dup[i] = NULL;
+}
+
 void print_config(t_game *game)
 {
-    printf("\n\nGame->height ==> %ld\n", game->map_height);
-    printf("Game->width ==> %ld\n", game->map_width);
+    printf("\n\nGame->height ==> %d\n", game->map_height);
+    printf("Game->width ==> %d\n", game->map_width);
     printf("Game->floor_color ==> %d\n", game->floor_color);
     printf("Game->ceiling_color ==> %d\n", game->ceiling_color);
     printf("Game->no_texture ==> %s\n", game->no_texture);
@@ -305,9 +333,11 @@ void read_map(t_game *game, char *file)
 {
     calculate_map_dimensions(game, file); // First calculate map dimensions
     fill_map(game, file);                 // Then fill the map
+    check_map_params(game);               // Check map for valid parameters and player position
+    // print_config(game);
+    map_dup(game);
+    ft_flood_fill(game->player_x, game->player_y, game);
     draw_map(game);                       // Draw the map on the screen
-    // check_map_params(game);               // Check map for valid parameters and player position
-    print_config(game);
 }
 
 void check_extension(const char *file)
