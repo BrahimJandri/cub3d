@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:45:30 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/21 11:03:27 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/21 11:26:01 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,22 +56,34 @@ void ft_free_split(char **array)
 }
 
 // Parse a color from the string
-int parse_color(char *str)
+int parse_color(char *str, t_game *game)
 {
-    int colors[3];
-    char **parts = ft_split(str, ',');
+    // Trim any leading/trailing whitespace or newline characters
+    char *trimmed_str = ft_strtrim(str, " \t\n");
+
+    // Split the trimmed string by commas (',')
+    char **parts = ft_split(trimmed_str, ',');
+
+    // Check if the split resulted in exactly 3 parts (RGB)
     if (!parts || ft_arraylen(parts) != 3)
         error_msg("Error: Invalid color format\n");
 
-    int i = 0;
-    while (i < 3)
+    // Parse the RGB components into integers
+    int colors[3];
+    for (int i = 0; i < 3; i++)
     {
+        // Convert the string to an integer and store it in the colors array
         colors[i] = ft_atoi(parts[i]);
-        i++;
     }
+    game->config_count++;
 
+    // Combine the RGB values into a single 24-bit color (8 bits per channel)
     int color = (colors[0] << 16) | (colors[1] << 8) | colors[2];
+
+    // Clean up by freeing the memory used by the split array and the trimmed string
     ft_free_split(parts);
+    free(trimmed_str);
+
     return color;
 }
 
@@ -100,6 +112,31 @@ char *skip_empty_lines(int fd)
         }
     }
 }
+char *parse_texture(char *line, char **texture, t_game *game)
+{
+    // Trim any leading/trailing whitespaces and newline characters
+    char *trimmed_line = ft_strtrim(line, " \t\n");
+
+    // Split the trimmed line by spaces
+    char **split_line = ft_split(trimmed_line, ' ');
+
+    // Assuming the first part is the identifier ("NO"), and the second part is the texture path
+    if (split_line && ft_arraylen(split_line) >= 2)
+    {
+        *texture = ft_strdup(split_line[1]); // Store the texture path
+        game->config_count++;
+    }
+    else
+    {
+        // Handle error if split fails or the format is incorrect
+        error_msg("Error: Invalid texture line format.");
+    }
+
+    // Free the split line array and the trimmed line
+    ft_free_split(split_line);
+    free(trimmed_line);
+    return (*texture);
+}
 
 // Parse textures and colors from the file
 char *parse_textures_and_colors(t_game *game, char *line, int fd)
@@ -114,38 +151,19 @@ char *parse_textures_and_colors(t_game *game, char *line, int fd)
             line = get_next_line(fd);
             continue;
         }
-
         // Now we can check the texture or color definitions, as the line is valid
         if (ft_strncmp(line, "NO ", 3) == 0)
-        {
-            game->no_texture = ft_strdup(line + 3);
-            game->config_count++;
-        }
+            game->no_texture = parse_texture(line, &game->no_texture, game);
         else if (ft_strncmp(line, "SO ", 3) == 0)
-        {
-            game->so_texture = ft_strdup(line + 3);
-            game->config_count++;
-        }
+            game->so_texture = parse_texture(line, &game->so_texture, game);
         else if (ft_strncmp(line, "WE ", 3) == 0)
-        {
-            game->we_texture = ft_strdup(line + 3);
-            game->config_count++;
-        }
+            game->we_texture = parse_texture(line, &game->we_texture, game);
         else if (ft_strncmp(line, "EA ", 3) == 0)
-        {
-            game->ea_texture = ft_strdup(line + 3);
-            game->config_count++;
-        }
+            game->ea_texture = parse_texture(line, &game->ea_texture, game);
         else if (ft_strncmp(line, "F ", 2) == 0)
-        {
-            game->floor_color = parse_color(line + 2);
-            game->config_count++;
-        }
+            game->floor_color = parse_color(line + 2, game);
         else if (ft_strncmp(line, "C ", 2) == 0)
-        {
-            game->ceiling_color = parse_color(line + 2);
-            game->config_count++;
-        }
+            game->ceiling_color = parse_color(line + 2, game);
         else
             break;
         free(line);
@@ -157,34 +175,34 @@ char *parse_textures_and_colors(t_game *game, char *line, int fd)
 // Check if the map contains valid parameters and find the player position
 void check_map_params(t_game *game)
 {
-	size_t i;
-	size_t j;
-	int player_found = 0;
+    size_t i;
+    size_t j;
+    int player_found = 0;
 
-	i = 0;
-	while (i < game->map_height)
-	{
-		j = 0;
-		while (game->map[i][j])
-		{
-			if ((game->map[i][j] != '1' && game->map[i][j] != '0') &&
-				(game->map[i][j] != 'N' && game->map[i][j] != 'S' &&
-				 game->map[i][j] != 'E' && game->map[i][j] != 'W') &&
-				game->map[i][j] != 32 && game->map[i][j] != '\n')
-				error_msg("Bad Params on map.");
-			if (game->map[i][j] == 'N' || game->map[i][j] == 'S' ||
-				game->map[i][j] == 'E' || game->map[i][j] == 'W')
-			{
-				game->player_x = i;
-				game->player_y = j;
-				player_found = 1;
-			}
-			j++;
-		}
-		i++;
-	}
-	if (!player_found)
-		error_msg("Error: Player not found on the map.");
+    i = 0;
+    while (i < game->map_height)
+    {
+        j = 0;
+        while (game->map[i][j])
+        {
+            if ((game->map[i][j] != '1' && game->map[i][j] != '0') &&
+                (game->map[i][j] != 'N' && game->map[i][j] != 'S' &&
+                 game->map[i][j] != 'E' && game->map[i][j] != 'W') &&
+                game->map[i][j] != 32 && game->map[i][j] != '\n')
+                error_msg("Bad Params on map.");
+            if (game->map[i][j] == 'N' || game->map[i][j] == 'S' ||
+                game->map[i][j] == 'E' || game->map[i][j] == 'W')
+            {
+                game->player_x = i;
+                game->player_y = j;
+                player_found = 1;
+            }
+            j++;
+        }
+        i++;
+    }
+    if (!player_found)
+        error_msg("Error: Player not found on the map.");
 }
 
 // Error handling function
@@ -276,10 +294,10 @@ void print_config(t_game *game)
     printf("Game->width ==> %ld\n", game->map_width);
     printf("Game->floor_color ==> %d\n", game->floor_color);
     printf("Game->ceiling_color ==> %d\n", game->ceiling_color);
-    printf("Game->no_texture ==> %s", game->no_texture);
-    printf("Game->so_texture ==> %s", game->so_texture);
-    printf("Game->we_texture ==> %s", game->we_texture);
-    printf("Game->ea_texture ==> %s", game->ea_texture);
+    printf("Game->no_texture ==> %s\n", game->no_texture);
+    printf("Game->so_texture ==> %s\n", game->so_texture);
+    printf("Game->we_texture ==> %s\n", game->we_texture);
+    printf("Game->ea_texture ==> %s\n", game->ea_texture);
 }
 
 // Read the entire map, including textures, colors, and map content
@@ -288,8 +306,8 @@ void read_map(t_game *game, char *file)
     calculate_map_dimensions(game, file); // First calculate map dimensions
     fill_map(game, file);                 // Then fill the map
     draw_map(game);                       // Draw the map on the screen
-    check_map_params(game);               // Check map for valid parameters and player position
-    // print_config(game);
+    // check_map_params(game);               // Check map for valid parameters and player position
+    print_config(game);
 }
 
 void check_extension(const char *file)
