@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:45:30 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/21 11:51:12 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/21 12:39:59 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,29 +58,54 @@ void ft_free_split(char **array)
 // Parse a color from the string
 int parse_color(char *str, t_game *game)
 {
-    // Trim any leading/trailing whitespace or newline characters
+    // Trim leading/trailing whitespace or newline characters
     char *trimmed_str = ft_strtrim(str, " \t\n");
+    if (!trimmed_str)
+        error_msg("Error: Memory allocation failed while trimming\n");
 
-    // Split the trimmed string by commas (',')
+    // Split the trimmed string by commas
     char **parts = ft_split(trimmed_str, ',');
+    if (!parts)
+    {
+        free(trimmed_str);
+        error_msg("Error: Memory allocation failed while splitting\n");
+    }
 
     // Check if the split resulted in exactly 3 parts (RGB)
-    if (!parts || ft_arraylen(parts) != 3)
-        error_msg("Error: Invalid color format\n");
-
-    // Parse the RGB components into integers
-    int colors[3];
-    for (int i = 0; i < 3; i++)
+    int count = 0;
+    while (parts[count])
+        count++;
+    if (count != 3)
     {
-        // Convert the string to an integer and store it in the colors array
-        colors[i] = ft_atoi(parts[i]);
+        ft_free_split(parts);
+        free(trimmed_str);
+        error_msg("Error: Invalid color format\n");
     }
-    game->config_count++;
+
+    // Parse and validate the RGB components
+    int colors[3];
+    int i = 0;
+    while (i < 3)
+    {
+        colors[i] = ft_atoi(parts[i]); // Convert string to integer
+
+        // Check if the color value is in the range 0-255
+        if (colors[i] < 0 || colors[i] > 255)
+        {
+            ft_free_split(parts);
+            free(trimmed_str);
+            error_msg("Error: Color values must be in the range 0-255\n");
+        }
+        i++;
+    }
 
     // Combine the RGB values into a single 24-bit color (8 bits per channel)
     int color = (colors[0] << 16) | (colors[1] << 8) | colors[2];
 
-    // Clean up by freeing the memory used by the split array and the trimmed string
+    // Update the game's configuration count
+    game->config_count++;
+
+    // Clean up memory
     ft_free_split(parts);
     free(trimmed_str);
 
@@ -304,16 +329,16 @@ void ft_flood_fill(int x, int y, t_game *game)
 
 void map_dup(t_game *game)
 {
-	int i;
+    int i;
 
-	i = 0;
-	game->map_dup = malloc(sizeof(char *) * (game->map_height + 1));
-	while (i < game->map_height)
-	{
-		game->map_dup[i] = ft_strdup(game->map[i]);
-		i++;
-	}
-	game->map_dup[i] = NULL;
+    i = 0;
+    game->map_dup = malloc(sizeof(char *) * (game->map_height + 1));
+    while (i < game->map_height)
+    {
+        game->map_dup[i] = ft_strdup(game->map[i]);
+        i++;
+    }
+    game->map_dup[i] = NULL;
 }
 
 void print_config(t_game *game)
@@ -328,16 +353,24 @@ void print_config(t_game *game)
     printf("Game->ea_texture ==> %s\n", game->ea_texture);
 }
 
+void check_config(t_game *game)
+{
+    printf("config count ==> %d\n", game->config_count);
+    if (game->config_count / 2 != 6)
+        error_msg("Error in Textures or Colors");
+}
+
 // Read the entire map, including textures, colors, and map content
 void read_map(t_game *game, char *file)
 {
     calculate_map_dimensions(game, file); // First calculate map dimensions
     fill_map(game, file);                 // Then fill the map
-    check_map_params(game);               // Check map for valid parameters and player position
-    // print_config(game);
+    print_config(game);
+    check_config(game);
+    check_map_params(game); // Check map for valid parameters and player position
     map_dup(game);
     ft_flood_fill(game->player_x, game->player_y, game);
-    draw_map(game);                       // Draw the map on the screen
+    draw_map(game); // Draw the map on the screen
 }
 
 void check_extension(const char *file)
