@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/bjandri/Desktop/cub3d",
-      "program": "/home/bjandri/Desktop/cub3d/build/Debug/outDebug",
+      "cwd": "/home/bjandri/Desktop/Cub3d/parsing",
+      "program": "/home/bjandri/Desktop/Cub3d/parsing/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
