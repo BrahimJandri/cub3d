@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:45:30 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/21 12:57:16 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/21 13:24:05 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,6 +259,7 @@ void fill_map(t_game *game, const char *file)
     int fd = open_file(file);
     int i = 0;
     char *line = skip_empty_lines(fd);                // Skip empty lines at the start
+    game->config_count = 0;
     line = parse_textures_and_colors(game, line, fd); // Parse textures and colors
 
     game->map = malloc(sizeof(char *) * (game->map_height + 1));
@@ -355,7 +356,7 @@ void print_config(t_game *game)
 void check_config(t_game *game)
 {
     printf("config count ==> %d\n", game->config_count);
-    if (game->config_count / 2 != 6)
+    if (game->config_count != 6)
         error_msg("Error\nTextures or Colors are not correct.");
 }
 
