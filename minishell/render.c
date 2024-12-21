@@ -6,7 +6,7 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2024/12/18 15:22:51 by reddamss         ###   ########.fr       */
+/*   Updated: 2024/12/18 16:01:02 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void    draw_line(t_player *player, t_game *data)
     
     while(i < player->line_lenght)
     {
-        printf("%f\n", player->rotationAngle);
+        printf("%2.f\n", player->rotationAngle);
         x = player->x + cos(player->rotationAngle) * i;
         y = player->y + sin(player->rotationAngle) * i;
         printf("x= %d\ny= %d\n", x, y);
@@ -52,6 +52,7 @@ void	draw_map(t_game *data)
 		}
 		y++;
 	}
+    
     draw_circle(data->player, data);
     draw_line(data->player, data);
 

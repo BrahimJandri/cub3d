@@ -6,9 +6,10 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:27:31 by reddamss          #+#    #+#             */
-/*   Updated: 2024/12/18 15:38:01 by reddamss         ###   ########.fr       */
+/*   Updated: 2024/12/21 10:45:30 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 
@@ -19,33 +20,34 @@ int     player_control(int key, t_game *data)
     player = data->player;
     if (key == UP)
     {
+        
         printf("up\n");
         player->walkDir = 1;
-        update_player(data, data->player);
+        if(data->map[(int)player->y / TILE][(int)player->x / TILE] != '1')
+            update_player(data, data->player);
         // player->walkDir = 0;
     }
     if (key == DOWN)
     {
         printf("down\n");
         player->walkDir= -1;
-        update_player(data, data->player);
+        if(data->map[(int)player->y / TILE][(int)player->x / TILE] != '1')
+            update_player(data, data->player);
         // player-> = 0;
-
-
     }
     if (key == RIGHT)
     {
         player->turnDir = 0.1;
         printf("right\n");
         update_rotation(data, data->player);
-        player->turnDir = 0;
+        // player->turnDir = 0;
     }
     if (key == LEFT)
     {
         player->turnDir = -0.1;
         printf("left\n");
         update_rotation(data, data->player);
-        player->turnDir = 0;
+        // player->turnDir = 0;
 
     }
     return 1;

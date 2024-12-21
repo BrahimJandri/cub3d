@@ -6,7 +6,7 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2024/12/18 15:38:26 by reddamss         ###   ########.fr       */
+/*   Updated: 2024/12/21 10:26:38 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void    init_player(t_game *data)
     dot = malloc(sizeof(t_player ));
     dot->y = get_plyr_y(data);
     dot->x = get_plyr_x(data);
-    dot->radius = TILE / 4;
+    dot->radius = TILE / 5;
     dot->turnDir = 0;
     dot->walkDir = 0;
     dot->rotationAngle = PI /2;
@@ -119,9 +119,9 @@ int main(int ac, char **av)
     allocate_map(av[1], &data);
     data.mlx = mlx_init();
     data.win = mlx_new_window(data.mlx, S_WIDTH, S_HEIGHT, "gta");
-    init_player(&data);
+    init_player(&data);//init dakchi d lplayer kamlo hna
 
-    draw_map(&data);
+    draw_map(&data);//rsm lmap o zid lplayer o fov flkher d lfunction
     
     mlx_hook(data.win, 02, 1L<<0, player_control, &data);
     mlx_loop(data.mlx);
