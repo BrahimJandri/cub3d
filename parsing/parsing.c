@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:45:30 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/21 13:24:05 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/21 15:18:41 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,30 @@ int open_file(const char *file)
     return fd;
 }
 
+void free_texture(t_game *game)
+{
+    if (game->so_texture)
+    {
+        free(game->so_texture);
+        game->so_texture = NULL;
+    }
+    if (game->no_texture)
+    {
+        free(game->no_texture);
+        game->no_texture = NULL;
+    }
+    if (game->we_texture)
+    {
+        free(game->we_texture);
+        game->we_texture = NULL;
+    }
+    if (game->ea_texture)
+    {
+        free(game->ea_texture);
+        game->ea_texture = NULL;
+    }
+}
+
 // Free memory allocated for game
 void free_all(t_game *game)
 {
@@ -30,8 +54,18 @@ void free_all(t_game *game)
         free(game->map[i]);
         i++;
     }
+    i = 0;
+    while (game->map_dup[i])
+    {
+        free(game->map_dup[i]);
+        i++;
+    }
     free(game->map);
-    free(game);
+    game->map = NULL;
+    free(game->map_dup);
+    game->map_dup = NULL;
+    free_texture(game);
+    // free(game);
 }
 
 // Function to calculate the length of an array of strings
@@ -176,6 +210,7 @@ char *parse_textures_and_colors(t_game *game, char *line, int fd)
             line = get_next_line(fd);
             continue;
         }
+        free(trimmed_line);
         // Now we can check the texture or color definitions, as the line is valid
         if (ft_strncmp(line, "NO ", 3) == 0)
             game->no_texture = parse_texture(line, &game->no_texture, game);
@@ -253,12 +288,33 @@ void init_game(t_game *game)
     game->config_count = 0;
 }
 
+void check_map_boundaries(t_game *game)
+{
+    int i = 0;
+
+    while(game->map[0][i])
+    {
+        while(game->map[0][i] && (game->map[0][i] == '\n' || game->map[0][i] == ' ' || game->map[0][i] == '\t'))
+            i++;
+        while(game->map[0][i])
+        {
+            if(game->map[0][i] != '1')
+            {
+                printf("game->map[i] ==> %s\n", game->map[0]);
+                printf("game->map[0][i] ==> %c\n", game->map[0][i]);
+                error_msg("Error\nMap Not Surounded by Walls");
+            }
+            i++;
+        }
+    }
+}
+
 // Fill the game map with the content of the file
 void fill_map(t_game *game, const char *file)
 {
     int fd = open_file(file);
     int i = 0;
-    char *line = skip_empty_lines(fd);                // Skip empty lines at the start
+    char *line = skip_empty_lines(fd); // Skip empty lines at the start
     game->config_count = 0;
     line = parse_textures_and_colors(game, line, fd); // Parse textures and colors
 
@@ -266,10 +322,9 @@ void fill_map(t_game *game, const char *file)
     if (!game->map)
         error_msg("Error\nMemory allocation error");
 
-    // Now fill the map with 1s and 0s
     while (line)
     {
-        if (*line != '\0') // Ignore empty lines
+        if (*line != '\0')
         {
             game->map[i] = ft_strdup(line);
             i++;
@@ -364,7 +419,8 @@ void check_config(t_game *game)
 void read_map(t_game *game, char *file)
 {
     calculate_map_dimensions(game, file); // First calculate map dimensions
-    fill_map(game, file);                 // Then fill the map
+    fill_map(game, file);
+    check_map_boundaries(game);
     print_config(game);
     check_config(game);
     check_map_params(game); // Check map for valid parameters and player position
