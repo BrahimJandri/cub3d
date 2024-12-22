@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:45:30 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/22 10:49:06 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/22 11:14:11 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -311,24 +311,17 @@ void check_map_boundaries(t_game *game)
     int i = 0;
     int j;
 
-    // Process each line of the map
     while (game->map[i])
     {
         j = 0;
-
-        // Skip leading spaces or tabs
         while (game->map[i][j] && (game->map[i][j] == ' ' || game->map[i][j] == '\t'))
             j++;
-
-        // Check if this is an empty line
         if (game->map[i][j] == '\0' || game->map[i][j] == '\n')
         {
             i++;
             continue; // Skip empty or whitespace-only lines
         }
-
-        // Check if the first line is surrounded by walls
-        if (i == 0) 
+        if (i == 0)
         {
             while (game->map[i][j] && game->map[i][j] != '\n')
             {
@@ -341,31 +334,56 @@ void check_map_boundaries(t_game *game)
         {
             while (game->map[i][j] && game->map[i][j] != '\n')
             {
-                if (game->map[i][j] != '1')
+                if (game->map[i][j] != '1' && game->map[i][j] != ' ')
+                {
+                    printf("game->map[i][j] == %c\n", game->map[i][j]);
                     error_msg("Error\nMap Not Surrounded by Walls at Bottom Boundary");
+                }
                 j++;
             }
         }
         else // Check middle lines
         {
-            // Ensure the line starts and ends with '1'
             if (game->map[i][j] != '1')
                 error_msg("Error\nMap Not Surrounded by Walls in Middle Line");
-
-            // Move to the end of the line
             while (game->map[i][j] && game->map[i][j] != '\n')
                 j++;
-
-            // Ensure the line ends with '1'
             if (game->map[i][j - 1] != '1')
                 error_msg("Error\nMap Not Surrounded by Walls in Middle Line");
         }
-
-        // Move to the next line
         i++;
     }
 }
 
+void check_map_columns(t_game *game)
+{
+    int i;
+    int j = 0;
+
+    for (j = 0; j < game->map_width; j++)
+    {
+        i = 0;
+
+        // Skip rows with only spaces or tabs
+        while (game->map[i] && (game->map[i][j] == ' ' || game->map[i][j] == '\t' || game->map[i][j] == '\n' || game->map[i][j] == '\0'))
+            i++;
+
+        // Check the first valid cell in the column
+        if (game->map[i] && game->map[i][j] != '1')
+            error_msg("Error\nMap Not Surrounded by Walls at Left Boundary");
+
+        // Move down the column to check the last cell
+        while (game->map[i] && game->map[i][j] != '\n')
+            i++;
+
+        // Check the last valid cell in the column
+        while (i > 0 && (game->map[i - 1][j] == ' ' || game->map[i - 1][j] == '\t' || game->map[i - 1][j] == '\n' || game->map[i - 1][j] == '\0'))
+            i--;
+
+        if (i > 0 && game->map[i - 1][j] != '1')
+            error_msg("Error\nMap Not Surrounded by Walls at Right Boundary");
+    }
+}
 
 // Fill the game map with the content of the file
 void fill_map(t_game *game, const char *file)
@@ -403,7 +421,7 @@ void calculate_map_dimensions(t_game *game, const char *file)
 
     while (line)
     {
-        char *trimed_line = ft_strtrim(line, " \t");
+        char *trimed_line = ft_strtrim(line, " \t\n");
         game->map_height++;
         int line_length = ft_strlen(trimed_line);
         if (line_length > game->map_width)
@@ -482,6 +500,7 @@ void read_map(t_game *game, char *file)
     print_config(game);
     check_config(game);
     check_map_params(game); // Check map for valid parameters and player position
+    check_map_columns(game);
     map_dup(game);
     count_params(game);
     printf("player_x == %d\nplayer_y == %d\n", game->player_x, game->player_x);
