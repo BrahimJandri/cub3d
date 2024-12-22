@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjandri <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 12:19:07 by bjandri           #+#    #+#             */
-/*   Updated: 2023/11/22 12:19:08 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/22 09:02:31 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,3 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 		i++;
 	}
 }
-
-// #include <stdio.h>
-
-// void    f(unsigned int i, char *str)
-// {
-//     if (i % 2 != 0)
-//         *str -= 32;
-//     else
-//         *str += 32;
-// }
-
-// int    main(void)
-// {
-//     char str[] = "HeLlO";
-//     ft_striteri(str, f);
-//     printf("%s", str);
-//     return (0);
-// }

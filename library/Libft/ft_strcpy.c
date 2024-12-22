@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: reddamss <damssi.art@gmail.com>            +#+  +:+       +#+        */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 00:58:00 by reddamss          #+#    #+#             */
-/*   Updated: 2023/11/30 12:33:56 by reddamss         ###   ########.fr       */
+/*   Updated: 2024/12/22 09:04:10 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_striteri(const char *s, void (*f)(unsigned int, char *))
+char	*ft_strcpy(char *s1, char *s2)
 {
 	int	i;
 
 	i = 0;
-	if (!s || !f)
-		return ;
-	while (s[i])
+	while (s2[i])
 	{
-		f(i, (char *)&s[i]);
+		s1[i] = s2[i];
 		i++;
 	}
-	return ;
+	s1[i] = s2[i];
+	return (s1);
 }
