@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:45:30 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/21 15:18:41 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/22 10:49:06 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,6 +232,33 @@ char *parse_textures_and_colors(t_game *game, char *line, int fd)
     return line; // Return the line (could be NULL or valid line after processing)
 }
 
+void count_params(t_game *game)
+{
+    int i;
+    int j;
+    int count;
+
+    i = 0;
+    count = 0;
+    while (i < game->map_height)
+    {
+        j = 0;
+        while (j < game->map_width)
+        {
+            if (game->map[i][j] == 'N' || game->map[i][j] == 'S' || game->map[i][j] == 'E' || game->map[i][j] == 'W')
+            {
+                game->player_x = i;
+                game->player_y = j;
+                count++;
+            }
+            j++;
+        }
+        i++;
+    }
+    if (count != 1)
+        error_msg("Error\nInvalid params of the map");
+}
+
 // Check if the map contains valid parameters and find the player position
 void check_map_params(t_game *game)
 {
@@ -249,19 +276,10 @@ void check_map_params(t_game *game)
                  game->map[i][j] != 'E' && game->map[i][j] != 'W') &&
                 game->map[i][j] != 32 && game->map[i][j] != '\n')
                 error_msg("Error\nBad Params on map.");
-            if (game->map[i][j] == 'N' || game->map[i][j] == 'S' ||
-                game->map[i][j] == 'E' || game->map[i][j] == 'W')
-            {
-                game->player_x = i;
-                game->player_y = j;
-                game->player_found = 1;
-            }
             j++;
         }
         i++;
     }
-    if (!game->player_found)
-        error_msg("Error\nPlayer not found on the map.");
 }
 
 // Error handling function
@@ -291,23 +309,63 @@ void init_game(t_game *game)
 void check_map_boundaries(t_game *game)
 {
     int i = 0;
+    int j;
 
-    while(game->map[0][i])
+    // Process each line of the map
+    while (game->map[i])
     {
-        while(game->map[0][i] && (game->map[0][i] == '\n' || game->map[0][i] == ' ' || game->map[0][i] == '\t'))
-            i++;
-        while(game->map[0][i])
+        j = 0;
+
+        // Skip leading spaces or tabs
+        while (game->map[i][j] && (game->map[i][j] == ' ' || game->map[i][j] == '\t'))
+            j++;
+
+        // Check if this is an empty line
+        if (game->map[i][j] == '\0' || game->map[i][j] == '\n')
         {
-            if(game->map[0][i] != '1')
-            {
-                printf("game->map[i] ==> %s\n", game->map[0]);
-                printf("game->map[0][i] ==> %c\n", game->map[0][i]);
-                error_msg("Error\nMap Not Surounded by Walls");
-            }
             i++;
+            continue; // Skip empty or whitespace-only lines
         }
+
+        // Check if the first line is surrounded by walls
+        if (i == 0) 
+        {
+            while (game->map[i][j] && game->map[i][j] != '\n')
+            {
+                if (game->map[i][j] != '1')
+                    error_msg("Error\nMap Not Surrounded by Walls at Top Boundary");
+                j++;
+            }
+        }
+        else if (game->map[i + 1] == NULL) // Check the last line
+        {
+            while (game->map[i][j] && game->map[i][j] != '\n')
+            {
+                if (game->map[i][j] != '1')
+                    error_msg("Error\nMap Not Surrounded by Walls at Bottom Boundary");
+                j++;
+            }
+        }
+        else // Check middle lines
+        {
+            // Ensure the line starts and ends with '1'
+            if (game->map[i][j] != '1')
+                error_msg("Error\nMap Not Surrounded by Walls in Middle Line");
+
+            // Move to the end of the line
+            while (game->map[i][j] && game->map[i][j] != '\n')
+                j++;
+
+            // Ensure the line ends with '1'
+            if (game->map[i][j - 1] != '1')
+                error_msg("Error\nMap Not Surrounded by Walls in Middle Line");
+        }
+
+        // Move to the next line
+        i++;
     }
 }
+
 
 // Fill the game map with the content of the file
 void fill_map(t_game *game, const char *file)
@@ -425,6 +483,8 @@ void read_map(t_game *game, char *file)
     check_config(game);
     check_map_params(game); // Check map for valid parameters and player position
     map_dup(game);
+    count_params(game);
+    printf("player_x == %d\nplayer_y == %d\n", game->player_x, game->player_x);
     ft_flood_fill(game->player_x, game->player_y, game);
     draw_map(game); // Draw the map on the screen
 }
