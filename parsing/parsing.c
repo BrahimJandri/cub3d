@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:45:30 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/22 11:14:11 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/23 10:53:12 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ int parse_color(char *str, t_game *game)
     char *trimmed_str = ft_strtrim(str, " \t\n");
     if (!trimmed_str)
         error_msg("Error\nMemory allocation failed while trimming\n");
-
     // Split the trimmed string by commas
     char **parts = ft_split(trimmed_str, ',');
     if (!parts)
@@ -104,7 +103,6 @@ int parse_color(char *str, t_game *game)
         free(trimmed_str);
         error_msg("Error\nMemory allocation failed while splitting\n");
     }
-
     // Check if the split resulted in exactly 3 parts (RGB)
     int count = 0;
     while (parts[count])
@@ -115,14 +113,12 @@ int parse_color(char *str, t_game *game)
         free(trimmed_str);
         error_msg("Error\nInvalid color format\n");
     }
-
     // Parse and validate the RGB components
     int colors[3];
     int i = 0;
     while (i < 3)
     {
         colors[i] = ft_atoi(parts[i]); // Convert string to integer
-
         // Check if the color value is in the range 0-255
         if (colors[i] < 0 || colors[i] > 255)
         {
@@ -132,18 +128,43 @@ int parse_color(char *str, t_game *game)
         }
         i++;
     }
-
     // Combine the RGB values into a single 24-bit color (8 bits per channel)
     int color = (colors[0] << 16) | (colors[1] << 8) | colors[2];
-
     // Update the game's configuration count
     game->config_count++;
-
     // Clean up memory
     ft_free_split(parts);
     free(trimmed_str);
-
     return color;
+}
+
+char *skip_texture_colors(int fd, char *line)
+{
+    while (line)
+    {
+        char *trimmed_line = ft_strtrim(line, " \t");
+        if (*trimmed_line == '\n')
+        {
+            free(line);
+            free(trimmed_line);
+            line = get_next_line(fd);
+            continue;
+        }
+        free(trimmed_line);
+        if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0 || ft_strncmp(line, "WE ", 3) == 0 || ft_strncmp(line, "EA ", 3) == 0)
+        {
+            free(line);
+            line = get_next_line(fd);
+        }
+        else if (ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "C ", 2) == 0)
+        {
+            free(line);
+            line = get_next_line(fd);
+        }
+        else
+            break;
+    }
+    return line; // Return the line (could be NULL or valid line after processing)
 }
 
 // Function to skip empty lines and lines with only spaces/tabs/newlines
@@ -240,10 +261,10 @@ void count_params(t_game *game)
 
     i = 0;
     count = 0;
-    while (i < game->map_height)
+    while (i < game->map_height && game->map[i])
     {
         j = 0;
-        while (j < game->map_width)
+        while (j < game->map_width && game->map[i][j])
         {
             if (game->map[i][j] == 'N' || game->map[i][j] == 'S' || game->map[i][j] == 'E' || game->map[i][j] == 'W')
             {
@@ -358,58 +379,30 @@ void check_map_boundaries(t_game *game)
 void check_map_columns(t_game *game)
 {
     int i;
-    int j = 0;
+    int j;
 
-    for (j = 0; j < game->map_width; j++)
+    j = 0;
+    while (j < game->map_width)
     {
         i = 0;
-
         // Skip rows with only spaces or tabs
-        while (game->map[i] && (game->map[i][j] == ' ' || game->map[i][j] == '\t' || game->map[i][j] == '\n' || game->map[i][j] == '\0'))
+        while (game->map[i] &&
+               (j >= (int)ft_strlen(game->map[i]) || game->map[i][j] == ' ' || game->map[i][j] == '\t' || game->map[i][j] == '\n' || game->map[i][j] == '\0'))
             i++;
-
         // Check the first valid cell in the column
-        if (game->map[i] && game->map[i][j] != '1')
+        if (game->map[i] && j < (int)ft_strlen(game->map[i]) && game->map[i][j] != '1')
             error_msg("Error\nMap Not Surrounded by Walls at Left Boundary");
-
         // Move down the column to check the last cell
-        while (game->map[i] && game->map[i][j] != '\n')
+        while (game->map[i] && j < (int)ft_strlen(game->map[i]) && game->map[i][j] != '\n')
             i++;
-
         // Check the last valid cell in the column
-        while (i > 0 && (game->map[i - 1][j] == ' ' || game->map[i - 1][j] == '\t' || game->map[i - 1][j] == '\n' || game->map[i - 1][j] == '\0'))
+        while (i > 0 &&
+               (j >= (int)ft_strlen(game->map[i - 1]) || game->map[i - 1][j] == ' ' || game->map[i - 1][j] == '\t' || game->map[i - 1][j] == '\n' || game->map[i - 1][j] == '\0'))
             i--;
-
-        if (i > 0 && game->map[i - 1][j] != '1')
+        if (i > 0 && j < (int)ft_strlen(game->map[i - 1]) && game->map[i - 1][j] != '1')
             error_msg("Error\nMap Not Surrounded by Walls at Right Boundary");
+        j++;
     }
-}
-
-// Fill the game map with the content of the file
-void fill_map(t_game *game, const char *file)
-{
-    int fd = open_file(file);
-    int i = 0;
-    char *line = skip_empty_lines(fd); // Skip empty lines at the start
-    game->config_count = 0;
-    line = parse_textures_and_colors(game, line, fd); // Parse textures and colors
-
-    game->map = malloc(sizeof(char *) * (game->map_height + 1));
-    if (!game->map)
-        error_msg("Error\nMemory allocation error");
-
-    while (line)
-    {
-        if (*line != '\0')
-        {
-            game->map[i] = ft_strdup(line);
-            i++;
-        }
-        free(line);
-        line = get_next_line(fd);
-    }
-    game->map[i] = NULL;
-    close(fd);
 }
 
 // Calculate the map's dimensions
@@ -433,30 +426,76 @@ void calculate_map_dimensions(t_game *game, const char *file)
     close(fd);
 }
 
+// Fill the game map with the content of the file
+void fill_map(t_game *game, const char *file)
+{
+    int fd = open_file(file);
+    int i = 0;
+    char *line = skip_empty_lines(fd); // Skip empty lines at the start
+    line = skip_texture_colors(fd, line);
+
+    game->map = malloc(sizeof(char *) * (game->map_height + 1));
+    if (!game->map)
+        error_msg("Error\nMemory allocation error");
+
+    while (line)
+    {
+        if (*line != '\0')
+        {
+            game->map[i] = ft_strdup(line);
+            i++;
+        }
+        free(line);
+        line = get_next_line(fd);
+    }
+    game->map[i] = NULL;
+    close(fd);
+}
+
+
 // Function to draw the map
 void draw_map(t_game *game)
 {
     int i = 0;
-    while (game->map_dup[i])
+    while (game->map[i])
     {
-        printf("%s", game->map_dup[i]);
+        printf("%s", game->map[i]);
         i++;
     }
 }
 
-void ft_flood_fill(int x, int y, t_game *game)
+bool ft_flood_fill(int x, int y, t_game *game)
 {
-    if (x < 0 || x >= game->map_height || y < 0 || y >= game->map_width || game->map_dup[x][y] == '1' || game->map_dup[x][y] == 'V')
-        return;
-    if (game->map_dup[x][y] == 'S' || game->map_dup[x][y] == 'E' || game->map_dup[x][y] == 'W' || game->map_dup[x][y] == 'N')
-        game->map_dup[x][y] = 'V';
-    if (game->map_dup[x][y] != 'S' || game->map_dup[x][y] != 'E' || game->map_dup[x][y] != 'W' || game->map_dup[x][y] != 'N')
-        game->map_dup[x][y] = 'V';
-    ft_flood_fill(x - 1, y, game);
-    ft_flood_fill(x + 1, y, game);
-    ft_flood_fill(x, y - 1, game);
-    ft_flood_fill(x, y + 1, game);
+    bool up, down, left, right;
+
+    // Check if we are out of bounds
+    if (x < 0 || y < 0 || x >= game->map_height || y >= game->map_width)
+        return false; // Found an edge without walls.
+
+    // Check if the current cell is already visited or is a wall
+    if (game->map_dup[x][y] == 'V' || game->map_dup[x][y] == '1')
+        return true;
+
+    // Check if there is a '0' followed by a space in any direction
+    if ((game->map[x][y] == '0' && (x > 0 && game->map[x - 1][y] == ' ')) || // Up
+        (game->map[x][y] == '0' && (x < game->map_height - 1 && game->map[x + 1][y] == ' ')) || // Down
+        (game->map[x][y] == '0' && (y > 0 && game->map[x][y - 1] == ' ')) || // Left
+        (game->map[x][y] == '0' && (y < game->map_width - 1 && game->map[x][y + 1] == ' '))) // Right
+        return false;
+
+    // Mark the current cell as visited
+    game->map_dup[x][y] = 'V';
+
+    // Recursively check all directions
+    up = ft_flood_fill(x - 1, y, game);
+    down = ft_flood_fill(x + 1, y, game);
+    left = ft_flood_fill(x, y - 1, game);
+    right = ft_flood_fill(x, y + 1, game);
+
+    // Return the result of all directions
+    return (up && down && left && right);
 }
+
 
 void map_dup(t_game *game)
 {
@@ -494,8 +533,9 @@ void check_config(t_game *game)
 // Read the entire map, including textures, colors, and map content
 void read_map(t_game *game, char *file)
 {
-    calculate_map_dimensions(game, file); // First calculate map dimensions
+    calculate_map_dimensions(game, file);
     fill_map(game, file);
+    draw_map(game); // Draw the map on the screen
     check_map_boundaries(game);
     print_config(game);
     check_config(game);
@@ -504,8 +544,8 @@ void read_map(t_game *game, char *file)
     map_dup(game);
     count_params(game);
     printf("player_x == %d\nplayer_y == %d\n", game->player_x, game->player_x);
-    ft_flood_fill(game->player_x, game->player_y, game);
-    draw_map(game); // Draw the map on the screen
+    if (!ft_flood_fill(game->player_x, game->player_y, game))
+        error_msg("Error\nMap Not Surrounded by Walls or Found a Hole in the Map");
 }
 
 void check_extension(const char *file)
