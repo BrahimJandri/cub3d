@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:45:30 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/23 11:21:22 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/23 11:43:38 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	free_all(t_game *game)
 	free(game->map_dup);
 	game->map_dup = NULL;
 	free_texture(game);
-	// free(game);
+	free(game);
 }
 
 // Function to calculate the length of an array of strings
@@ -191,6 +191,10 @@ char	*skip_texture_colors(int fd, char *line)
 char	*skip_empty_lines(int fd)
 {
 	char *line = get_next_line(fd); // Get the first line from the file
+    if(line == NULL)
+    {
+        error_msg("Error\nEmpty file.\n");
+    }
 	while (true)
 	{
 		if (line == NULL) // If there are no more lines (EOF)
