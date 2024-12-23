@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:46:48 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/21 11:43:44 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/23 12:39:51 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,24 @@
 #include <unistd.h>
 #include <signal.h>
 #include <fcntl.h>
+
+
+typedef struct s_img
+{
+    void *img;
+    char *addr;
+    int bits_per_pixel;
+    int line_length;
+    int endian;
+} t_img;
+
+typedef struct s_mlx
+{
+    void *mlx;
+    void *win;
+    t_img img;
+} t_mlx;
+
 
 typedef struct s_game
 {

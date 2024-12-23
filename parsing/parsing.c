@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:45:30 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/23 11:43:38 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/23 13:26:20 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,20 @@ void	ft_free_split(char **array)
 	free(array);
 }
 
+int count_sep(char *str)
+{
+    int i;
+
+    i = 0;
+    while (*str)
+    {
+        if (*str == ',')
+            i++;
+        str++;
+    }
+    return (i);
+}
+
 // Parse a color from the string
 int	parse_color(char *str, t_game *game)
 {
@@ -112,6 +126,10 @@ int	parse_color(char *str, t_game *game)
 	if (!trimmed_str)
 		error_msg("Error\nMemory allocation failed while trimming\n");
 	// Split the trimmed string by commas
+    if(count_sep(trimmed_str) != 2)
+    {
+        error_msg("Error\nInvalid color format\n");
+    }
 	parts = ft_split(trimmed_str, ',');
 	if (!parts)
 	{
@@ -274,7 +292,6 @@ char	*parse_textures_and_colors(t_game *game, char *line, int fd)
 		line = get_next_line(fd);
 	}
 	return (line);
-		// Return the line (could be NULL or valid line after processing)
 }
 
 void	count_params(t_game *game)
@@ -488,6 +505,7 @@ void	fill_map(t_game *game, const char *file)
 	game->map[i] = NULL;
 	close(fd);
 }
+//TODO
 
 // Function to draw the map
 void	draw_map(t_game *game)
