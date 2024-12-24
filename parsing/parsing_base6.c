@@ -6,15 +6,15 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:01:36 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/24 13:02:38 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/24 13:22:20 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Headers/cub3d.h"
 
-int open_file(const char *file)
+int	open_file(const char *file)
 {
-	int fd;
+	int	fd;
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
@@ -22,7 +22,7 @@ int open_file(const char *file)
 	return (fd);
 }
 
-void free_texture(t_game *game)
+void	free_texture(t_game *game)
 {
 	if (game->so_texture)
 	{
@@ -46,10 +46,9 @@ void free_texture(t_game *game)
 	}
 }
 
-// Free memory allocated for game
-void free_all(t_game *game)
+void	free_all(t_game *game)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (game->map[i])
@@ -71,10 +70,9 @@ void free_all(t_game *game)
 	free(game);
 }
 
-// Function to calculate the length of an array of strings
-size_t ft_arraylen(char **array)
+size_t	ft_arraylen(char **array)
 {
-	int length;
+	int	length;
 
 	length = 0;
 	while (array[length])
@@ -82,10 +80,9 @@ size_t ft_arraylen(char **array)
 	return (length);
 }
 
-// Free memory allocated for a split array of strings
-void ft_free_split(char **array)
+void	ft_free_split(char **array)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (array[i])
@@ -95,5 +92,3 @@ void ft_free_split(char **array)
 	}
 	free(array);
 }
-
-

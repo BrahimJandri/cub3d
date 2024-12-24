@@ -6,13 +6,13 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:41:24 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/24 12:49:34 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/24 13:23:34 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Headers/cub3d.h"
 
-void read_map(t_game *game, char *file)
+void	read_map(t_game *game, char *file)
 {
 	calculate_map_dimensions(game, file);
 	fill_map(game, file);
@@ -26,7 +26,7 @@ void read_map(t_game *game, char *file)
 		error_msg("Error\nInvalid Map");
 }
 
-void init_game(t_game *game)
+void	init_game(t_game *game)
 {
 	game->map = NULL;
 	game->map_dup = NULL;
@@ -42,9 +42,9 @@ void init_game(t_game *game)
 	game->config_count = 0;
 }
 
-void check_extension(const char *file)
+void	check_extension(const char *file)
 {
-	int fd;
+	int	fd;
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
@@ -53,7 +53,7 @@ void check_extension(const char *file)
 		error_msg("Error\nInvalid file extension\n");
 }
 
-void parse_config(t_game *game, char **av)
+void	parse_config(t_game *game, char **av)
 {
 	check_extension(av[1]);
 	init_game(game);
