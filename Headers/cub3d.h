@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:46:48 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/23 12:39:51 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/24 13:09:35 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,26 +23,12 @@
 #include <signal.h>
 #include <fcntl.h>
 
-
-typedef struct s_img
-{
-    void *img;
-    char *addr;
-    int bits_per_pixel;
-    int line_length;
-    int endian;
-} t_img;
-
-typedef struct s_mlx
-{
-    void *mlx;
-    void *win;
-    t_img img;
-} t_mlx;
-
+#define TILE_SIZE 32
 
 typedef struct s_game
 {
+    void *win;
+    void *mlx;
     char **map;
     char **map_dup;
     char *no_texture;
@@ -62,5 +48,28 @@ typedef struct s_game
 void error_msg(char *str);
 void parse_config(t_game *game, char **av);
 void read_map(t_game *game, char *file);
+void draw_map(t_game *game);
+void check_extension(const char *file);
+void count_params(t_game *game);
+void check_config(t_game *game);
+void check_map_params(t_game *game);
+void check_map_boundaries(t_game *game);
+void check_map_columns(t_game *game);
+void map_dup(t_game *game);
+void free_all(t_game *game);
+void calculate_map_dimensions(t_game *game,const char *file);
+void fill_map(t_game *game,const char *file);
+bool ft_flood_fill(int x, int y, t_game *game);
+char *skip_empty_lines(int fd);
+char *parse_textures_and_colors(t_game *game, char *line, int fd);
+char *skip_texture_colors(int fd, char *line);
+char *parse_texture(char *line, char **texture, t_game *game);
+int parse_color(char *str, t_game *game);
+int count_sep(char *str);
+int open_file(const char *file);
+void free_texture(t_game *game);
+void ft_free_split(char **array);
+size_t ft_arraylen(char **array);
+
 
 #endif

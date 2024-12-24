@@ -1,0 +1,99 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_base6.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/24 13:01:36 by bjandri           #+#    #+#             */
+/*   Updated: 2024/12/24 13:02:38 by bjandri          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../Headers/cub3d.h"
+
+int open_file(const char *file)
+{
+	int fd;
+
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+		return (error_msg("Error\nOpen file failed\n"), -1);
+	return (fd);
+}
+
+void free_texture(t_game *game)
+{
+	if (game->so_texture)
+	{
+		free(game->so_texture);
+		game->so_texture = NULL;
+	}
+	if (game->no_texture)
+	{
+		free(game->no_texture);
+		game->no_texture = NULL;
+	}
+	if (game->we_texture)
+	{
+		free(game->we_texture);
+		game->we_texture = NULL;
+	}
+	if (game->ea_texture)
+	{
+		free(game->ea_texture);
+		game->ea_texture = NULL;
+	}
+}
+
+// Free memory allocated for game
+void free_all(t_game *game)
+{
+	int i;
+
+	i = 0;
+	while (game->map[i])
+	{
+		free(game->map[i]);
+		i++;
+	}
+	i = 0;
+	while (game->map_dup[i])
+	{
+		free(game->map_dup[i]);
+		i++;
+	}
+	free(game->map);
+	game->map = NULL;
+	free(game->map_dup);
+	game->map_dup = NULL;
+	free_texture(game);
+	free(game);
+}
+
+// Function to calculate the length of an array of strings
+size_t ft_arraylen(char **array)
+{
+	int length;
+
+	length = 0;
+	while (array[length])
+		length++;
+	return (length);
+}
+
+// Free memory allocated for a split array of strings
+void ft_free_split(char **array)
+{
+	int i;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
+}
+
+
