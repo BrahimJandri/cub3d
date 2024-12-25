@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:45:08 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/24 13:21:13 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/25 15:31:09 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	check_map_boundaries(t_game *game)
 		{
 			while (game->map[i][j] && game->map[i][j] != '\n')
 			{
-				if (game->map[i][j] != '1')
+				if (game->map[i][j] != '1' && game->map[i][j] != ' ' && game->map[i][j] != '\t') 
 					error_msg("Error\nMap Not Surrounded by Walls");
 				j++;
 			}
@@ -136,11 +136,11 @@ void	check_map_boundaries(t_game *game)
 		else
 		{
 			if (game->map[i][j] != '1')
-				error_msg("Error\nMap Not Surrounded by Walls in Middle Line");
-			while (game->map[i][j] && game->map[i][j] != '\n')
+				error_msg("Error\nMap Not Surrounded by Walls in Middle Line 1");
+			while (game->map[i][j] && game->map[i][j] != '\n') 
 				j++;
-			if (game->map[i][j - 1] != '1')
-				error_msg("Error\nMap Not Surrounded by Walls in Middle Line");
+			if (game->map[i][j - 1] != '1' && game->map[i][j - 1] != ' ' && game->map[i][j - 1] != '\t')
+				error_msg("Error\nMap Not Surrounded by Walls in Middle Line 2");
 		}
 		i++;
 	}

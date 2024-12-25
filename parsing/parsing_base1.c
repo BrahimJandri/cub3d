@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:41:24 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/24 13:23:34 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/25 15:05:40 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	read_map(t_game *game, char *file)
 	count_params(game);
 	check_config(game);
 	check_map_params(game);
-	check_map_boundaries(game);
 	check_map_columns(game);
+	check_map_boundaries(game);
 	map_dup(game);
 	if (!ft_flood_fill(game->player_x, game->player_y, game))
 		error_msg("Error\nInvalid Map");
