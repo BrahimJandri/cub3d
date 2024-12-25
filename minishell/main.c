@@ -6,7 +6,7 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2024/12/21 10:26:38 by reddamss         ###   ########.fr       */
+/*   Updated: 2024/12/25 13:40:15 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void    init_player(t_game *data)
     dot->line_lenght = TILE ;
 
     data->player = dot;
-
+    data->num_rays = 16;
 
 }
 

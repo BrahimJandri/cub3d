@@ -42,6 +42,7 @@
 
 #define TILE 40
 #define PI 3.14159265358979323846
+#define FOV 90 * (PI / 180)
 typedef struct s_player
 {
     double      x;
@@ -64,7 +65,9 @@ typedef struct s_game
     void    *img;
     char    **map;
     int     map_y;
-    int     map_x;
+    int     map_x;//|||||||||||||||||||||||||||||||||||||||||
+    double  num_rays;
+    // you were going to add the number of rays the player will have
     t_player    *player;
 }t_game;
 
@@ -93,4 +96,9 @@ void    update_player(t_game *data, t_player *player);
 
 
 void    update_rotation(t_game *data, t_player *player);
+
+
+/*_____________functions_functions______________*/
+void    cast_rays(t_player *player, t_game *data, int *rays);
+void    draw_rays(t_player *player, t_game *data);
 #endif

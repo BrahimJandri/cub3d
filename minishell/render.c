@@ -6,7 +6,7 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2024/12/18 16:01:02 by reddamss         ###   ########.fr       */
+/*   Updated: 2024/12/25 11:20:51 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	draw_map(t_game *data)
     
     draw_circle(data->player, data);
     draw_line(data->player, data);
+    draw_rays(data->player, data);
 
 }
 
@@ -78,5 +79,41 @@ int    check_number(char c)
         return GREY;
     if(c == '0' || c == 'P')
         return WHITE;
-    return BLACK;
+    return GOLDEN;
 }
+
+
+void    draw_rays(t_player *player, t_game *data)
+{
+    double i;
+    double x;
+    double y;
+    double j;
+    
+    i = 0;
+
+    double rayAngle = player->rotationAngle - (FOV / 2);
+    
+    while(i < data->num_rays)//this while fill the array of rays while changing the rayAngle
+    {//
+        // printf("rayAngle is %.2lf.\n", rayAngle);
+
+        /*_______________________________________________*/
+            j = 0;
+            while(j < player->line_lenght)
+            {
+                x = player->x + cos(rayAngle) * j;
+                y = player->y + sin(rayAngle) * j;
+    
+                mlx_pixel_put(data->mlx, data->win, x, y, RED);
+                j++;
+            }
+        /*_______________________________________________*/
+        
+        // rays[(int)i] = rayAngle;
+        rayAngle += FOV / data->num_rays;
+        i++;
+    }
+}
+
+//NORMALIZE THE VALUE OF THE ANGLE
