@@ -12,7 +12,7 @@
 
 #include "../Headers/cub3d.h"
 
-char *parse_texture_line(t_game *game, char *line)
+char	*parse_texture_line(t_game *game, char *line)
 {
 	if (ft_strncmp(line, "NO ", 3) == 0)
 		game->no_texture = parse_texture(line, &game->no_texture, game);
@@ -23,24 +23,24 @@ char *parse_texture_line(t_game *game, char *line)
 	else if (ft_strncmp(line, "EA ", 3) == 0)
 		game->ea_texture = parse_texture(line, &game->ea_texture, game);
 	else
-		return NULL;
-	return line;
+		return (NULL);
+	return (line);
 }
 
-char *parse_color_line(t_game *game, char *line)
+char	*parse_color_line(t_game *game, char *line)
 {
 	if (ft_strncmp(line, "F ", 2) == 0)
 		game->floor_color = parse_color(line + 2, game);
 	else if (ft_strncmp(line, "C ", 2) == 0)
 		game->ceiling_color = parse_color(line + 2, game);
 	else
-		return NULL;
-	return line;
+		return (NULL);
+	return (line);
 }
 
-char *parse_textures_and_colors(t_game *game, char *line, int fd)
+char	*parse_textures_and_colors(t_game *game, char *line, int fd)
 {
-	char *trimmed_line;
+	char	*trimmed_line;
 
 	while (line)
 	{
@@ -50,24 +50,24 @@ char *parse_textures_and_colors(t_game *game, char *line, int fd)
 			free(line);
 			free(trimmed_line);
 			line = get_next_line(fd);
-			continue;
+			continue ;
 		}
 		free(trimmed_line);
 		if (parse_texture_line(game, line) == NULL)
 		{
 			if (parse_color_line(game, line) == NULL)
-				break;
+				break ;
 		}
 		free(line);
 		line = get_next_line(fd);
 	}
-	return line;
+	return (line);
 }
 
-char *skip_empty_lines(int fd)
+char	*skip_empty_lines(int fd)
 {
-	char *line;
-	char *trimmed_line;
+	char	*line;
+	char	*trimmed_line;
 
 	line = get_next_line(fd);
 	if (line == NULL)
@@ -93,12 +93,12 @@ char *skip_empty_lines(int fd)
 	}
 }
 
-void calculate_map_dimensions(t_game *game, const char *file)
+void	calculate_map_dimensions(t_game *game, const char *file)
 {
-	int fd;
-	char *line;
-	char *trimed_line;
-	int line_length;
+	int		fd;
+	char	*line;
+	char	*trimed_line;
+	int		line_length;
 
 	fd = open_file(file);
 	line = skip_empty_lines(fd);
@@ -117,19 +117,20 @@ void calculate_map_dimensions(t_game *game, const char *file)
 	close(fd);
 }
 
-char *read_and_process_line(int fd)
+char	*read_and_process_line(int fd)
 {
-	char *line;
+	char	*line;
 
 	line = skip_empty_lines(fd);
-	return skip_texture_colors(fd, line);
+	return (skip_texture_colors(fd, line));
 }
 
-char *pad_line(const char *line, int map_width)
+char	*pad_line(const char *line, int map_width)
 {
-	int line_length = ft_strlen(line);
-	char *padded_line;
+	int		line_length;
+	char	*padded_line;
 
+	line_length = ft_strlen(line);
 	if (line_length < map_width)
 	{
 		padded_line = malloc(map_width + 1);
@@ -143,21 +144,21 @@ char *pad_line(const char *line, int map_width)
 	{
 		padded_line = ft_strdup(line);
 	}
-	return padded_line;
+	return (padded_line);
 }
 
-void fill_map(t_game *game, const char *file)
+void	fill_map(t_game *game, const char *file)
 {
-	int fd;
-	int i = 0;
-	char *line;
+	int		fd;
+	int		i;
+	char	*line;
 
+	i = 0;
 	fd = open_file(file);
 	line = read_and_process_line(fd);
 	game->map = malloc(sizeof(char *) * (game->map_height + 1));
 	if (!game->map)
 		error_msg("Error\nMemory allocation error");
-
 	while (line)
 	{
 		if (*line != '\0')

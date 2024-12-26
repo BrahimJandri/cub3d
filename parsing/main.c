@@ -24,7 +24,8 @@ int	main(int ac, char **av)
 
 	game = (t_game *)malloc(sizeof(t_game));
 	if (ac != 2)
-		return (ft_putstr_fd("Error\nUsage : Cub3d map.cub\n", 2),free(game), 1);
+		return (ft_putstr_fd("Error\nUsage : Cub3d map.cub\n", 2), free(game),
+			1);
 	parse_config(game, av);
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, game->map_width * TILE_SIZE,

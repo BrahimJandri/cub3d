@@ -12,9 +12,9 @@
 
 #include "../Headers/cub3d.h"
 
-int count_sep(char *str)
+int	count_sep(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (*str)
@@ -26,7 +26,7 @@ int count_sep(char *str)
 	return (i);
 }
 
-int ft_isspace(char *str)
+int	ft_isspace(char *str)
 {
 	while (*str)
 	{
@@ -37,9 +37,9 @@ int ft_isspace(char *str)
 	return (1);
 }
 
-char *skip_texture_colors(int fd, char *line)
+char	*skip_texture_colors(int fd, char *line)
 {
-	char *trimmed_line;
+	char	*trimmed_line;
 
 	while (line)
 	{
@@ -49,30 +49,32 @@ char *skip_texture_colors(int fd, char *line)
 			free(line);
 			free(trimmed_line);
 			line = get_next_line(fd);
-			continue;
+			continue ;
 		}
 		free(trimmed_line);
-		if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0 || ft_strncmp(line, "WE ", 3) == 0 || ft_strncmp(line, "EA ", 3) == 0)
+		if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0
+			|| ft_strncmp(line, "WE ", 3) == 0 || ft_strncmp(line, "EA ",
+				3) == 0)
 		{
 			free(line);
 			line = get_next_line(fd);
 		}
 		else if (ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "C ",
-															  2) == 0)
+				2) == 0)
 		{
 			free(line);
 			line = get_next_line(fd);
 		}
 		else
-			break;
+			break ;
 	}
 	return (line);
 }
 
-char *parse_texture(char *line, char **texture, t_game *game)
+char	*parse_texture(char *line, char **texture, t_game *game)
 {
-	char *trimmed_line;
-	char **split_line;
+	char	*trimmed_line;
+	char	**split_line;
 
 	trimmed_line = ft_strtrim(line, " \t\n");
 	split_line = ft_split(trimmed_line, ' ');
@@ -88,9 +90,9 @@ char *parse_texture(char *line, char **texture, t_game *game)
 	return (*texture);
 }
 
-static void validate_color_format(char *str)
+static void	validate_color_format(char *str)
 {
-	char *trimmed_str;
+	char	*trimmed_str;
 
 	trimmed_str = ft_strtrim(str, " \t\n");
 	if (!trimmed_str)
@@ -103,10 +105,10 @@ static void validate_color_format(char *str)
 	free(trimmed_str);
 }
 
-static char **split_and_trim_color_parts(char *str)
+static char	**split_and_trim_color_parts(char *str)
 {
-	char *trimmed_str;
-	char **parts;
+	char	*trimmed_str;
+	char	**parts;
 
 	trimmed_str = ft_strtrim(str, " \t\n");
 	if (!trimmed_str)
@@ -118,9 +120,9 @@ static char **split_and_trim_color_parts(char *str)
 	return (parts);
 }
 
-static void validate_color_parts_count(char **parts)
+static void	validate_color_parts_count(char **parts)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	while (parts[count])
@@ -132,9 +134,9 @@ static void validate_color_parts_count(char **parts)
 	}
 }
 
-static void validate_and_parse_color_values(char **parts, int *colors)
+static void	validate_and_parse_color_values(char **parts, int *colors)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < 3)
@@ -154,16 +156,16 @@ static void validate_and_parse_color_values(char **parts, int *colors)
 	}
 }
 
-static int convert_to_color(int *colors)
+static int	convert_to_color(int *colors)
 {
-	return (colors[0] << 16) | (colors[1] << 8) | colors[2];
+	return ((colors[0] << 16) | (colors[1] << 8) | colors[2]);
 }
 
-int parse_color(char *str, t_game *game)
+int	parse_color(char *str, t_game *game)
 {
-	int colors[3];
-	int color;
-	char **parts;
+	int		colors[3];
+	int		color;
+	char	**parts;
 
 	validate_color_format(str);
 	parts = split_and_trim_color_parts(str);
