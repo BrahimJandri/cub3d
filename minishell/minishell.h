@@ -6,6 +6,7 @@
 #define BUFFER_SIZE 1
 #endif
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <unistd.h>
 #include "../minilibx-linux/mlx.h"
@@ -42,7 +43,13 @@
 
 #define TILE 40
 #define PI 3.14159265358979323846
-#define FOV 90 * (PI / 180)
+#define FOV 60 * (PI / 180)
+
+
+
+
+
+/*_______________PLAYER_STRCUT_________________*/
 typedef struct s_player
 {
     double      x;
@@ -58,6 +65,24 @@ typedef struct s_player
     double      line_lenght;
 } t_player;
 
+/*________________RAY_STRUCT_________________*/
+typedef struct s_ray
+{
+    //used double data type for NOW, u can change it later;
+    double      x_hit;
+    double      y_hit;
+    double      distance;
+    bool        ray_down;
+    bool        ray_up;
+    bool        ray_right;
+    bool        ray_left;
+    double      x_steps;
+    double      y_steps;
+    double      x_intercept;
+    double      y_intercept;
+}t_ray;
+
+/*________________GAME_STRUCT________________*/
 typedef struct s_game
 {
     void    *mlx;
@@ -69,6 +94,7 @@ typedef struct s_game
     double  num_rays;
     // you were going to add the number of rays the player will have
     t_player    *player;
+    t_ray       *ray;
 }t_game;
 
 
@@ -99,6 +125,7 @@ void    update_rotation(t_game *data, t_player *player);
 
 
 /*_____________functions_functions______________*/
-void    cast_rays(t_player *player, t_game *data, int *rays);
+
 void    draw_rays(t_player *player, t_game *data);
+double      normalize_angle(double angle);
 #endif
