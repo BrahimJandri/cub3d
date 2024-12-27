@@ -1,9 +1,11 @@
 {
   "files.associations": {
+    "*.dart": "bat",
     "minishell.h": "c",
     "stdlib.h": "c",
     "fcntl.h": "c",
-    "math.h": "c"
+    "math.h": "c",
+    "cub3d.h": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": "",
   "C_Cpp_Runner.cCompilerPath": "gcc",
