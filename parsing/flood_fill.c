@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_base4.c                                    :+:      :+:    :+:   */
+/*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:52:43 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/24 13:24:14 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/27 09:06:10 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,11 @@ void	map_dup(t_game *game)
 
 bool	ft_flood_fill(int x, int y, t_game *game)
 {
-	bool up, down, left, right;
+	bool	up;
+	bool	down;
+	bool	left;
+	bool	right;
+
 	if (x < 0 || y < 0 || x >= game->map_height || y >= game->map_width)
 		return (false);
 	if (game->map_dup[x][y] == 'V' || game->map_dup[x][y] == '1')
