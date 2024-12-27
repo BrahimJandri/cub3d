@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 09:12:30 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/27 09:13:08 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/27 09:19:58 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	**split_and_trim_color_parts(char *str)
 	return (parts);
 }
 
-static void	validate_color_parts_count(char **parts)
+void	validate_color_parts_count(char **parts)
 {
 	int	count;
 
@@ -41,7 +41,7 @@ static void	validate_color_parts_count(char **parts)
 	}
 }
 
-static void	validate_and_parse_color_values(char **parts, int *colors)
+void	validate_and_parse_color_values(char **parts, int *colors)
 {
 	int	i;
 

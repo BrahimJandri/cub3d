@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_base5.c                                    :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:00:36 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/27 09:13:05 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/27 09:56:02 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char	*parse_texture(char *line, char **texture, t_game *game)
 	return (*texture);
 }
 
-static void	validate_color_format(char *str)
+void	validate_color_format(char *str)
 {
 	char	*trimmed_str;
 
