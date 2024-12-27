@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:46:48 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/21 11:43:44 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/27 09:56:10 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,12 @@
 #include <signal.h>
 #include <fcntl.h>
 
+#define TILE_SIZE 32
+
 typedef struct s_game
 {
+    void *win;
+    void *mlx;
     char **map;
     char **map_dup;
     char *no_texture;
@@ -44,5 +48,30 @@ typedef struct s_game
 void error_msg(char *str);
 void parse_config(t_game *game, char **av);
 void read_map(t_game *game, char *file);
-
+void draw_map(t_game *game);
+void check_extension(const char *file);
+void count_params(t_game *game);
+void check_config(t_game *game);
+void check_map_params(t_game *game);
+void check_map_boundaries(t_game *game);
+void check_map_columns(t_game *game);
+void map_dup(t_game *game);
+void free_all(t_game *game);
+void calculate_map_dimensions(t_game *game, const char *file);
+void fill_map(t_game *game, const char *file);
+bool ft_flood_fill(int x, int y, t_game *game);
+char *skip_empty_lines(int fd);
+char *parse_textures_and_colors(t_game *game, char *line, int fd);
+char *skip_texture_colors(int fd, char *line);
+char *parse_texture(char *line, char **texture, t_game *game);
+int parse_color(char *str, t_game *game);
+int count_sep(char *str);
+int open_file(const char *file);
+void free_texture(t_game *game);
+void ft_free_split(char **array);
+size_t ft_arraylen(char **array);
+int ft_isspace(char *str);
+void validate_color_parts_count(char **parts);
+void validate_and_parse_color_values(char **parts, int *colors);
+void validate_color_format(char *str);
 #endif
