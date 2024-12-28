@@ -33,5 +33,5 @@ int	main(int ac, char **av)
 	draw_map(game);
 	mlx_loop(game->mlx);
 	free_all(game);
-	return (0);
+ 	return (0);
 }
