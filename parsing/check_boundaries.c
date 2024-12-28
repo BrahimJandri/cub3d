@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 08:58:21 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/27 09:56:43 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/28 15:26:48 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ void	check_middle_lines(t_game *game, int i)
 			|| game->map[i][j] == '\t'))
 		j++;
 	if (game->map[i][j] != '1')
-		error_msg("Error\nMap Not Surrounded by Walls in Middle Line 1");
+		error_msg("Error\nMap Not Surrounded by Walls in Middle Line");
 	while (game->map[i][j] && game->map[i][j] != '\n')
 		j++;
 	if (game->map[i][j - 1] != '1' && game->map[i][j - 1] != ' '
 		&& game->map[i][j - 1] != '\t')
-		error_msg("Error\nMap Not Surrounded by Walls in Middle Line 2");
+		error_msg("Error\nMap Not Surrounded by Walls in Middle Line");
 }
 
 void	check_map_boundaries(t_game *game)
