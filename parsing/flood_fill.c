@@ -12,9 +12,9 @@
 
 #include "../Headers/cub3d.h"
 
-void map_dup(t_game *game)
+void	map_dup(t_game *game)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	game->map_dup = malloc(sizeof(char *) * (game->map_height + 1));
@@ -26,12 +26,12 @@ void map_dup(t_game *game)
 	game->map_dup[i] = NULL;
 }
 
-bool ft_flood_fill(int x, int y, t_game *game)
+bool	ft_flood_fill(int x, int y, t_game *game)
 {
-	bool up;
-	bool down;
-	bool left;
-	bool right;
+	bool	up;
+	bool	down;
+	bool	left;
+	bool	right;
 
 	if (x < 0 || y < 0 || x >= game->map_height || y >= game->map_width)
 		return (false);

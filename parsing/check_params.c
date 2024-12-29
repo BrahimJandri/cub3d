@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:45:08 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/27 08:59:18 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/29 11:40:38 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,8 @@ void	check_map_params(t_game *game)
 void	check_config(t_game *game)
 {
 	if (game->config_count != 6)
+	{
+		free_texture(game);
 		error_msg("Error\nTextures or Colors are not correct.");
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 08:54:39 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/27 08:55:19 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/29 11:50:18 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 char	*parse_texture_line(t_game *game, char *line)
 {
 	if (ft_strncmp(line, "NO ", 3) == 0)
-		game->no_texture = parse_texture(line, &game->no_texture, game);
+		parse_texture(line, game, 0);
 	else if (ft_strncmp(line, "SO ", 3) == 0)
-		game->so_texture = parse_texture(line, &game->so_texture, game);
+		parse_texture(line, game, 1);
 	else if (ft_strncmp(line, "WE ", 3) == 0)
-		game->we_texture = parse_texture(line, &game->we_texture, game);
+		parse_texture(line, game, 2);
 	else if (ft_strncmp(line, "EA ", 3) == 0)
-		game->ea_texture = parse_texture(line, &game->ea_texture, game);
+		parse_texture(line, game, 3);
 	else
 		return (NULL);
 	return (line);

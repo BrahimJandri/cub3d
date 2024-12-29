@@ -1,8 +1,6 @@
 
-NO                                              ./path_to_the_north_texture
-
-SO         ./path_to_the_south_texture
-
+NO ./path_to_the_north_texture
+SO ./path_to_the_south_texture
 WE ./path_to_the_west_texture
 EA ./path_to_the_east_texture
 
@@ -11,8 +9,8 @@ C 225,30,55
 
 11111111111
 10000000001
-11111111111
-111101111
-11 10E01 111
-111101111
+1111111111 11
+111101111111  11
+110001  10E01 10111
+111101111111111
 11111111111
