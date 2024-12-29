@@ -38,11 +38,12 @@
 #define GOLDEN 0xFFDF00
 #define CREAM 0xFFFDD0
 
-#define S_WIDTH 1200
-#define S_HEIGHT 800
+#define S_WIDTH 600
+#define S_HEIGHT 600
 
 #define TILE 40
 #define PI 3.14159265358979323846
+#define TWO_PI 6.28318530718 
 #define FOV 60 * (PI / 180)
 
 
@@ -116,7 +117,7 @@ void    build_square(t_game *data, int x, int y, int color);
 int    check_number(char c);
 void	draw_map(t_game *data);
 void    draw_circle(t_player *player, t_game *data);
-void    draw_line(t_player *player, t_game *data);
+void    draw_line(t_player *player, t_game *data, double x_hit, double  y_hit );
 int     player_control(int key, t_game *data);
 void    update_player(t_game *data, t_player *player);
 
@@ -128,4 +129,7 @@ void    update_rotation(t_game *data, t_player *player);
 
 void    draw_rays(t_player *player, t_game *data);
 double      normalize_angle(double angle);
+void    cast_rays(t_player *player, t_game *data, double angle);
+
+
 #endif

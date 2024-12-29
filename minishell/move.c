@@ -6,7 +6,7 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:27:31 by reddamss          #+#    #+#             */
-/*   Updated: 2024/12/26 18:25:46 by reddamss         ###   ########.fr       */
+/*   Updated: 2024/12/28 10:57:19 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int     player_control(int key, t_game *data)
     }
     if (key == LEFT)
     {
-        player->turnDir = -0.04;
+        player->turnDir = -0.04;    
         // printf("left\n");
         update_rotation(data, data->player);
     }
