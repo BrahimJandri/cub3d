@@ -6,11 +6,33 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 08:54:39 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/29 11:50:18 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/29 12:44:39 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Headers/cub3d.h"
+
+void check_texture_validtion(t_game *game)
+{
+	int fd;
+
+	fd = open(game->no_texture, O_RDONLY);
+	if(fd == -1)
+		error_msg("Error: Cannot open file");
+	fd = 0;
+	fd = open(game->so_texture, O_RDONLY);
+	if(fd = -1)
+		error_msg("Error: Cannot open file");
+	fd = 0;
+	fd = open(game->ea_texture, O_RDONLY);
+	if(fd = -1)
+		error_msg("Error: Cannot open file");
+	fd = 0;
+	fd = open(game->no_texture, O_RDONLY);
+	if(fd = -1)
+		error_msg("Error: Cannot open file");
+
+}
 
 char	*parse_texture_line(t_game *game, char *line)
 {
