@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:46:48 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/29 11:51:57 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/29 13:15:43 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,5 @@ int ft_isspace(char *str);
 void validate_color_parts_count(char **parts);
 void validate_and_parse_color_values(char **parts, int *colors);
 void validate_color_format(char *str);
+void check_texture_validtion(t_game *game);
 #endif

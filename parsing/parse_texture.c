@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 08:54:39 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/29 12:44:39 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/29 13:27:06 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,27 @@ void check_texture_validtion(t_game *game)
 
 	fd = open(game->no_texture, O_RDONLY);
 	if(fd == -1)
-		error_msg("Error: Cannot open file");
+	{
+		error_msg("Error: Cannot open Texture\n");
+	}
 	fd = 0;
 	fd = open(game->so_texture, O_RDONLY);
-	if(fd = -1)
-		error_msg("Error: Cannot open file");
+	if(fd == -1)
+	{
+		error_msg("Error: Cannot open Texture\n");
+	}
 	fd = 0;
 	fd = open(game->ea_texture, O_RDONLY);
-	if(fd = -1)
-		error_msg("Error: Cannot open file");
+	if(fd == -1)
+	{
+		error_msg("Error: Cannot open Texture\n");
+	}
 	fd = 0;
-	fd = open(game->no_texture, O_RDONLY);
-	if(fd = -1)
-		error_msg("Error: Cannot open file");
-
+	fd = open(game->we_texture, O_RDONLY);
+	if(fd == -1)
+	{
+		error_msg("Error: Cannot open Texture\n");
+	}
 }
 
 char	*parse_texture_line(t_game *game, char *line)
