@@ -12,6 +12,7 @@
 #include "../minilibx-linux/mlx.h"
 #include "../libft/libft.h"
 #include <math.h>
+#include <limits.h>
 #include <stdlib.h>
 #include <fcntl.h>
 

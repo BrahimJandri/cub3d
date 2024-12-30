@@ -6,7 +6,7 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2024/12/26 18:21:54 by reddamss         ###   ########.fr       */
+/*   Updated: 2024/12/30 11:41:58 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,10 @@ int get_plyr_x(t_game *data)
 		while (x < data->map_x - 1)//is small than the width
 		{
             if(data->map[y][x] == 'P')
+            {
+                data->map[y][x] = '0';
                 return(x * TILE + (TILE/2));
+            }
 			x++;
 		}
 		y++;
@@ -97,7 +100,7 @@ void    init_player(t_game *data)
     dot->radius = TILE / 5;
     dot->turnDir = 0;
     dot->walkDir = 0;
-    dot->rotationAngle = PI / 2;
+    dot->rotationAngle = PI/ 2;
     dot->moveSpeed = 4.0;
     dot->rotationSpeed = 2 * (PI / 2);
     dot->line_lenght = 50 ;
