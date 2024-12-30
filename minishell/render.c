@@ -6,7 +6,7 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2024/12/30 12:48:28 by reddamss         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:24:27 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	draw_map(t_game *data)
     
     draw_circle(data->player, data);
     // draw_line(data->player, data);
-    line(data->player, data);
+    // line(data->player, data);
     
     draw_rays(data->player, data);
     // cast_rays(data->player, data, data->player->rotationAngle);
@@ -134,7 +134,7 @@ int    is_it_wall(t_game *data, double   x, double   y)
 {
     if((x < 0 || x > data->map_x * TILE) || (y < 0 || y > data->map_y * TILE))
     {
-        printf("Happend and x = %2.f, y = %2.f\n", x, y);
+        // printf("Happend and x = %2.f, y = %2.f\n", x, y);
         return 1;
     }
     double map_x;
@@ -142,7 +142,7 @@ int    is_it_wall(t_game *data, double   x, double   y)
 
     map_x = floor(x / TILE);
     map_y = floor(y / TILE);
-    printf("mapx = %2.lf. mapy = %2.lf\n",map_x, map_y);
+    // printf("mapx = %2.lf. mapy = %2.lf\n",map_x, map_y);
     return(data->map[(int)map_y ][(int)map_x] != '0');
 }
 
@@ -173,20 +173,20 @@ void    cast_rays(t_player *player, t_game *data, double angle)
     ray->ray_right = angle < (PI * 0.5) || angle > (1.5 * PI); //HERE
     ray->ray_left = !ray->ray_right;
     
-    printf("down = %d, with angle: %2.3lf\n", ray->ray_down, angle);
-    printf("the player->y = %lf\n",player->y);
+    // printf("down = %d, with angle: %2.3lf\n", ray->ray_down, angle);
+    // printf("the player->y = %lf\n",player->y);
     ray->y_intercept = floor(player->y / TILE) * TILE;
     if(ray->ray_down)
         ray->y_intercept += TILE;
     
-    printf("the player->x = %lf\n",player->x);
+    // printf("the player->x = %lf\n",player->x);
     ray->x_intercept = player->x + (ray->y_intercept - player->y) / tan(angle);
     //calculating the xstep and ystep
     ray->y_steps = TILE;
     if(ray->ray_up)
         ray->y_steps *= -1;
         
-    printf("intecept_x = %lf, intercept_y = %lf\n",ray->x_intercept, ray->y_intercept);
+    // printf("intecept_x = %lf, intercept_y = %lf\n",ray->x_intercept, ray->y_intercept);
 
     ray->x_steps = TILE / tan(angle);
     if(ray->ray_left && ray->x_steps > 0)
@@ -205,7 +205,7 @@ void    cast_rays(t_player *player, t_game *data, double angle)
     if (ray->ray_up)
         next_ytouch--;
         
-    printf("touch_x = %lf, touch_y = %lf\n",next_xtouch, next_ytouch);//x = 220, y =120
+    // printf("touch_x = %lf, touch_y = %lf\n",next_xtouch, next_ytouch);//x = 220, y =120
 
     while(next_ytouch > 0 && next_ytouch < S_HEIGHT && next_xtouch > 0 && next_xtouch < S_WIDTH)
     {
@@ -248,7 +248,7 @@ void    cast_rays(t_player *player, t_game *data, double angle)
     
     // printf("down = %d, with angle: %2.3lf\n", ray->ray_down, angle);
     
-    printf("the player->x = %lf player-> y = %lf\n",player->x, player->y);//x = 220, y= 100;
+    // printf("the player->x = %lf player-> y = %lf\n",player->x, player->y);//x = 220, y= 100;
     ray->x_intercept = floor(player->x / TILE) * TILE;
     if(ray->ray_right)
         ray->x_intercept += TILE;
@@ -258,14 +258,14 @@ void    cast_rays(t_player *player, t_game *data, double angle)
     
     //calculating the xstep and ystep
 
-    printf("intecept_x = %lf, intercept_y = %lf\n",ray->x_intercept, ray->y_intercept);
+    // printf("intecept_x = %lf, intercept_y = %lf\n",ray->x_intercept, ray->y_intercept);
     ray->x_steps = TILE;
     if(ray->ray_left)
         ray->x_steps *= -1;
         
         
     ray->y_steps = TILE * tan(angle);
-    printf("y_steps = %lf\n", ray->y_steps);
+    // printf("y_steps = %lf\n", ray->y_steps);
     if(ray->ray_up && ray->y_steps > 0)
         ray->y_steps *= -1;
     if(ray->ray_down && ray->y_steps < 0)
@@ -289,7 +289,7 @@ void    cast_rays(t_player *player, t_game *data, double angle)
     {
         if(is_it_wall(data, vert_next_xtouch, vert_next_ytouch))
         {
-            printf("VER touched it\n");
+            // printf("VER touched it\n");
             found_vert_wall = true;
             vert_hit_wally = vert_next_ytouch;
             vert_hit_wallx = vert_next_xtouch;
@@ -301,7 +301,7 @@ void    cast_rays(t_player *player, t_game *data, double angle)
             vert_next_ytouch += ray->y_steps;
         }
     }
-    printf("hit_x = %lf, hit_y = %lf\n", vert_hit_wallx, vert_hit_wally);
+    // printf("hit_x = %lf, hit_y = %lf\n", vert_hit_wallx, vert_hit_wally);
     // draw_line(player, data, vert_hit_wallx, vert_hit_wally);
 
 ////////smon ghan tzrt manwa i9rbn i lplayer
@@ -323,13 +323,18 @@ void    cast_rays(t_player *player, t_game *data, double angle)
     {
         ray->x_hit = hit_wallx;
         ray->y_hit = hit_wally;
+        ray->distance = horz_hits_distance;
     }
     else
     {
         ray->x_hit = vert_hit_wallx;
         ray->y_hit = vert_hit_wally;
+        ray->distance = ver_hits_distance;
     }
-    draw_line(player, data, ray->x_hit, ray->y_hit);
+    player->rotationAngle = angle;
+    
+        
+    
 
     
     // draw_line(player, data, ray->x_hit, ray->y_hit);
@@ -353,11 +358,7 @@ double      normalize_angle(double angle)
     }
     return angle;
 }  
-
-
-
-
-/*__DRAWING_RAYS_WITH_FIXED_LENGTH__*/
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void    draw_rays(t_player *player, t_game *data)
 {
     double i;
@@ -369,15 +370,52 @@ void    draw_rays(t_player *player, t_game *data)
 
     double rayAngle = player->rotationAngle - (FOV / 2);
     
+    // cast_rays(player,data,rayAngle);
     while(i < data->num_rays)//this while fill the array of rays while changing the rayAngle
     {//
-        // printf("rayAngle is %.2lf.\n", rayAngle);
-        cast_rays(player,data,rayAngle);
+            cast_rays(player, data, rayAngle);
+            sleep(1);
+            // j = 0;
 
+            draw_line(player, data, data->ray->x_hit, data->ray->y_hit);
+            
+            // while(j < data->ray->distance)
+            // {
+            //     x = player->x + cos(rayAngle) * j;
+            //     y = player->y + sin(rayAngle) * j;
+    
+            //     mlx_pixel_put(data->mlx, data->win, x, y, RED);
+            //     j++;
+            // }
 
         rayAngle += FOV / data->num_rays;
         i++;
     }
+    printf("player positions are[%f][%f]\n", player->y, player->x);
 }
+
+
+/*__DRAWING_RAYS_WITH_FIXED_LENGTH__*/
+// void    draw_rays(t_player *player, t_game *data)
+// {
+//     double i;
+//     // double x;
+//     // double y;
+//     // double j;
+    
+//     i = 0;
+
+//     double rayAngle = player->rotationAngle - (FOV / 2);
+    
+//     while(i < data->num_rays)//this while fill the array of rays while changing the rayAngle
+//     {//
+//         // printf("rayAngle is %.2lf.\n", rayAngle);
+//         cast_rays(player,data,rayAngle);
+
+
+//         rayAngle += FOV / data->num_rays;
+//         i++;
+//     }
+// }
 
 //NORMALIZE THE VALUE OF THE ANGLE

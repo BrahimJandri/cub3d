@@ -6,7 +6,7 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2024/12/30 11:41:58 by reddamss         ###   ########.fr       */
+/*   Updated: 2024/12/30 16:23:16 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ int main(int ac, char **av)
     init_ray(&data);
 
     draw_map(&data);//rsm lmap o zid lplayer o fov flkher d lfunction
-    
+    // mlx_loop_hook()
     mlx_hook(data.win, 02, 1L<<0, player_control, &data);
     mlx_loop(data.mlx);
     

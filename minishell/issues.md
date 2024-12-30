@@ -7,3 +7,8 @@ alhamdu lillah lmochkil katin illa gh S_Height S_width ikhsa adskrgh map->y * ti
 
 
 9199999999999999999
+_________________________________________________________________________________________________________
+PROBLEM : ILA GH DRAW_RAYS  IGHGIS CAST_RAYS
+{
+    
+} 
