@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:00:36 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/27 09:56:02 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/29 11:55:57 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,13 @@ int	ft_isspace(char *str)
 	return (1);
 }
 
+char	*free_get(char *line, int fd)
+{
+	free(line);
+	line = get_next_line(fd);
+	return (line);
+}
+
 char	*skip_texture_colors(int fd, char *line)
 {
 	char	*trimmed_line;
@@ -55,23 +62,17 @@ char	*skip_texture_colors(int fd, char *line)
 		if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0
 			|| ft_strncmp(line, "WE ", 3) == 0 || ft_strncmp(line, "EA ",
 				3) == 0)
-		{
-			free(line);
-			line = get_next_line(fd);
-		}
+			line = free_get(line, fd);
 		else if (ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "C ",
 				2) == 0)
-		{
-			free(line);
-			line = get_next_line(fd);
-		}
+			line = free_get(line, fd);
 		else
 			break ;
 	}
 	return (line);
 }
 
-char	*parse_texture(char *line, char **texture, t_game *game)
+void	parse_texture(char *line, t_game *game, int n)
 {
 	char	*trimmed_line;
 	char	**split_line;
@@ -80,14 +81,20 @@ char	*parse_texture(char *line, char **texture, t_game *game)
 	split_line = ft_split(trimmed_line, ' ');
 	if (split_line && ft_arraylen(split_line) >= 2)
 	{
-		*texture = ft_strdup(split_line[1]);
+		if (n == 0 && game->config_count < 4)
+			game->no_texture = ft_strdup(split_line[1]);
+		else if (n == 1 && game->config_count < 4)
+			game->so_texture = ft_strdup(split_line[1]);
+		else if (n == 2 && game->config_count < 4)
+			game->we_texture = ft_strdup(split_line[1]);
+		else if (n == 3 && game->config_count < 4)
+			game->ea_texture = ft_strdup(split_line[1]);
 		game->config_count++;
 	}
 	else
 		error_msg("Error\nInvalid texture line format.");
 	ft_free_split(split_line);
 	free(trimmed_line);
-	return (*texture);
 }
 
 void	validate_color_format(char *str)

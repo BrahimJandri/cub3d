@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_base1.c                                    :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:41:24 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/25 15:05:40 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/29 13:15:28 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	read_map(t_game *game, char *file)
 	fill_map(game, file);
 	count_params(game);
 	check_config(game);
+	check_texture_validtion(game);
 	check_map_params(game);
 	check_map_columns(game);
 	check_map_boundaries(game);

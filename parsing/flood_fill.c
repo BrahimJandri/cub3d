@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:52:43 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/27 09:06:10 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/29 11:27:14 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,9 @@ bool	ft_flood_fill(int x, int y, t_game *game)
 
 	if (x < 0 || y < 0 || x >= game->map_height || y >= game->map_width)
 		return (false);
-	if (game->map_dup[x][y] == 'V' || game->map_dup[x][y] == '1')
+	if (game->map_dup[x][y] == 'V' || game->map[x][y] == '1')
 		return (true);
-	if ((game->map[x][y] == '0' && (x > 0 && game->map[x - 1][y] == ' '))
-		|| (game->map[x][y] == '0' && (x < game->map_height - 1 && game->map[x
-				+ 1][y] == ' ')) || (game->map[x][y] == '0' && (y > 0
-				&& game->map[x][y - 1] == ' ')) || (game->map[x][y] == '0'
-			&& (y < game->map_width - 1 && game->map[x][y + 1] == ' ')))
+	if (game->map[x][y] == ' ')
 		return (false);
 	game->map_dup[x][y] = 'V';
 	up = ft_flood_fill(x - 1, y, game);

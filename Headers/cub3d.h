@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:46:48 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/27 09:56:10 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/29 13:15:43 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ bool ft_flood_fill(int x, int y, t_game *game);
 char *skip_empty_lines(int fd);
 char *parse_textures_and_colors(t_game *game, char *line, int fd);
 char *skip_texture_colors(int fd, char *line);
-char *parse_texture(char *line, char **texture, t_game *game);
+void parse_texture(char *line, t_game *game, int n);
 int parse_color(char *str, t_game *game);
 int count_sep(char *str);
 int open_file(const char *file);
@@ -74,4 +74,5 @@ int ft_isspace(char *str);
 void validate_color_parts_count(char **parts);
 void validate_and_parse_color_values(char **parts, int *colors);
 void validate_color_format(char *str);
+void check_texture_validtion(t_game *game);
 #endif

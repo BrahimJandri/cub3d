@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 08:57:15 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/27 09:04:14 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/12/29 11:28:29 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	check_left_boundary(t_game *game, int j)
 		i++;
 	if (game->map[i] && j < (int)ft_strlen(game->map[i])
 		&& game->map[i][j] != '1')
-		error_msg("Error\nMap Not Surrounded by Walls at Left Boundary");
+		error_msg("Error\nMap Not Surrounded by Walls");
 }
 
 void	check_right_boundary(t_game *game, int j)
@@ -41,7 +41,7 @@ void	check_right_boundary(t_game *game, int j)
 		i--;
 	if (i > 0 && j < (int)ft_strlen(game->map[i - 1]) && game->map[i
 		- 1][j] != '1')
-		error_msg("Error\nMap Not Surrounded by Walls at Right Boundary");
+		error_msg("Error\nMap Not Surrounded by Walls");
 }
 
 void	check_map_columns(t_game *game)
