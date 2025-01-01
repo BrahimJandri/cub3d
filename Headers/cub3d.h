@@ -75,4 +75,6 @@ void validate_color_parts_count(char **parts);
 void validate_and_parse_color_values(char **parts, int *colors);
 void validate_color_format(char *str);
 void check_texture_validtion(t_game *game);
+bool	ft_flood_fill_recursive(int x, int y, t_game *game);
+
 #endif
