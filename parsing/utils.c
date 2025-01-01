@@ -72,31 +72,6 @@ char	*skip_texture_colors(int fd, char *line)
 	return (line);
 }
 
-void	parse_texture(char *line, t_game *game, int n)
-{
-	char	*trimmed_line;
-	char	**split_line;
-
-	trimmed_line = ft_strtrim(line, " \t\n");
-	split_line = ft_split(trimmed_line, ' ');
-	if (split_line && ft_arraylen(split_line) >= 2)
-	{
-		if (n == 0 && game->config_count < 4)
-			game->no_texture = ft_strdup(split_line[1]);
-		else if (n == 1 && game->config_count < 4)
-			game->so_texture = ft_strdup(split_line[1]);
-		else if (n == 2 && game->config_count < 4)
-			game->we_texture = ft_strdup(split_line[1]);
-		else if (n == 3 && game->config_count < 4)
-			game->ea_texture = ft_strdup(split_line[1]);
-		game->config_count++;
-	}
-	else
-		error_msg("Error\nInvalid texture line format.");
-	ft_free_split(split_line);
-	free(trimmed_line);
-}
-
 void	validate_color_format(char *str)
 {
 	char	*trimmed_str;

@@ -41,7 +41,7 @@ void	check_middle_lines(t_game *game, int i)
 	while (game->map[i][j] && game->map[i][j] != '\n')
 	{
 		if ((i + 1 < game->map_height && game->map[i][j] == '0'
-				&& j < (int)ft_strlen(game->map[i + 1]) && game->map[i
+			&& j < (int)ft_strlen(game->map[i + 1]) && game->map[i
 				+ 1][j] == ' ') || (game->map[i][j] == ' ' && i
 				+ 1 < game->map_height && j < (int)ft_strlen(game->map[i + 1])
 				&& game->map[i + 1][j] == '0'))
