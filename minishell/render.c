@@ -6,7 +6,7 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2024/12/30 17:24:27 by reddamss         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:49:34 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -374,7 +374,7 @@ void    draw_rays(t_player *player, t_game *data)
     while(i < data->num_rays)//this while fill the array of rays while changing the rayAngle
     {//
             cast_rays(player, data, rayAngle);
-            sleep(1);
+            // sleep(1);
             // j = 0;
 
             draw_line(player, data, data->ray->x_hit, data->ray->y_hit);
