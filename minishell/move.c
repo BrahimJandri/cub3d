@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:27:31 by reddamss          #+#    #+#             */
-/*   Updated: 2024/12/30 17:04:48 by reddamss         ###   ########.fr       */
+/*   Updated: 2025/01/02 11:39:42 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,41 @@ int     player_control(int key, t_game *data)
     {
         player->turnDir = -0.02;    
         // printf("left\n");
+        update_rotation(data, data->player);
+    }
+    else if(key == ESC)
+    {
+        exit(1);
+    }
+    return 1;
+}
+
+
+int     key_release(int key, t_game *data)
+{
+        t_player *player;
+
+    player = data->player;
+    if (key == UP)
+    {
+        // printf("up\n");
+        player->walkDir = 0;// it adds 1 to walkdir to move forward
+        update_player(data, data->player);// it will update the player forward only if the player
+    }
+    else if (key == DOWN)
+    {
+        // printf("down\n");
+        player->walkDir= 0;
+        update_player(data, data->player);
+    }
+    else if (key == RIGHT)
+    {
+        player->turnDir = 0;
+        update_rotation(data, data->player);
+    }
+    else if (key == LEFT)
+    {
+        player->turnDir = 0;
         update_rotation(data, data->player);
     }
     else if(key == ESC)

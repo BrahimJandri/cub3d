@@ -2,7 +2,7 @@ NAME = cub3D
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 MLXFLGS = -lm -L../minilibx-linux -lmlx -lXext -lX11 
-SRCS = main.c read.c get_next_line.c get_next_line_utils.c render.c move.c
+SRCS = main.c read.c get_next_line.c get_next_line_utils.c render.c move.c generate_walls.c
 OBJS = $(SRCS:.c=.o)
 LIBFT = ../libft/libft.a
 

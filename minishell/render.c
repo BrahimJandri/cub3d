@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/02 10:45:23 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/02 17:07:11 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,29 +76,32 @@ void    draw_line(t_player *player, t_game *data, double x_hit, double  y_hit )
 
 void	draw_map(t_game *data)
 {
-	int	x;
-	int	y;
-	int color;
-    // double ray_angle;
+	// int	x;
+	// int	y;
+	// int color;
+    // // double ray_angle;
 
-	y = 0;
-	while (y < data->map_y)//is small than the height
-	{
-		x = 0;
-		while (x < data->map_x - 1)//is small than the width
-		{
-			color = check_number(data->map[y][x]);
-			build_square(data, x * TILE, y * TILE ,color);
-			x++;
-		}
-		y++;
-	}
+	// y = 0;
+	// while (y < data->map_y)//is small than the height
+	// {
+	// 	x = 0;
+	// 	while (x < data->map_x - 1)//is small than the width
+	// 	{
+	// 		color = check_number(data->map[y][x]);
+	// 		build_square(data, x * TILE, y * TILE ,color);
+	// 		x++;
+	// 	}
+	// 	y++;
+	// }
     
-    draw_circle(data->player, data);
+    
+    
+    // draw_circle(data->player, data);
     // draw_line(data->player, data);
     // line(data->player, data);
     
     draw_rays(data->player, data);
+    // render_walls(data, data->player);
     // cast_rays(data->player, data, data->player->rotationAngle);
     
 }
@@ -380,15 +383,22 @@ void    draw_rays(t_player *player, t_game *data)
 
             // draw_line(player, data, data->ray->x_hit, data->ray->y_hit);
             
+            double      distance_projectplan = (S_WIDTH / 2) / tan(FOV / 2);
+            double      wall_projected_height = (TILE / data->ray->distance) * distance_projectplan;
             while(j < data->ray->distance)
             {
                 x = player->x + cos(rayAngle) * j;
                 y = player->y + sin(rayAngle) * j;
     
                 mlx_pixel_put(data->mlx, data->win, x, y, RED);
+                /*WHERE WE WILL RENDER THE WALL AFTER*/
+                printf("distance project = %f\n",distance_projectplan);
+                printf("wall porject height = %f\n",distance_projectplan);
+                draw_rectangle(data, i * WALL_WIDTH, (S_HEIGHT / 2) - (wall_projected_height / 2) ,WALL_WIDTH, wall_projected_height);
+
                 j++;
             }
-
+            // mlx_destroy_image(data->mlx);
             // draw_line(player, data, x, y);
         rayAngle += FOV / data->num_rays;
         i++;

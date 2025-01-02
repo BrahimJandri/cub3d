@@ -40,16 +40,24 @@
 #define GOLDEN 0xFFDF00
 #define CREAM 0xFFFDD0
 
-#define S_WIDTH 600
-#define S_HEIGHT 600
+#define S_WIDTH 1350
+#define S_HEIGHT 700
+#define WALL_WIDTH 1
+#define MINIMAP 0.2
 
-#define TILE 40
+
+#define TILE 32
 #define PI 3.14159265358979323846
 #define TWO_PI 6.28318530718 
 #define FOV 60 * (PI / 180)
 
 
+/*_______________IMAGES_STRUCT_________________*/
+typedef struct s_image
+{
+    void    *img;
 
+}t_image;
 
 
 /*_______________PLAYER_STRCUT_________________*/
@@ -90,7 +98,13 @@ typedef struct s_game
 {
     void    *mlx;
     void    *win;
+
+    int     *bitppixel;
+    int     *size_line;
+    int     *endian;
+    char    *addrs;
     void    *img;
+
     char    **map;
     int     map_y;
     int     map_x;//|||||||||||||||||||||||||||||||||||||||||
@@ -132,6 +146,8 @@ void    update_rotation(t_game *data, t_player *player);
 void    draw_rays(t_player *player, t_game *data);
 double      normalize_angle(double angle);
 void    cast_rays(t_player *player, t_game *data, double angle);
+int     key_release(int key, t_game *data);
 
+void    draw_rectangle(t_game *data, int x, int y, int height, int width);
 
 #endif
