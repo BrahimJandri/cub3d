@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "../minilibx-linux/mlx.h"
+#include "../minilibx-linux/mlx_int.h"
 #include "../libft/libft.h"
 #include <math.h>
 #include <limits.h>

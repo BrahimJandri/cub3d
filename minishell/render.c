@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2024/12/30 17:49:34 by reddamss         ###   ########.fr       */
+/*   Updated: 2025/01/02 10:45:23 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -331,9 +331,11 @@ void    cast_rays(t_player *player, t_game *data, double angle)
         ray->y_hit = vert_hit_wally;
         ray->distance = ver_hits_distance;
     }
-    player->rotationAngle = angle;
+    // player->rotationAngle = angle;
     
+    // cast_rays(player, data, rayAngle);
         
+        // draw_line(player, data, data->ray->x_hit, data->ray->y_hit);
     
 
     
@@ -362,32 +364,32 @@ double      normalize_angle(double angle)
 void    draw_rays(t_player *player, t_game *data)
 {
     double i;
-    // double x;
-    // double y;
-    // double j;
+    double x;
+    double y;
+    double j;
     
     i = 0;
 
     double rayAngle = player->rotationAngle - (FOV / 2);
-    
     // cast_rays(player,data,rayAngle);
     while(i < data->num_rays)//this while fill the array of rays while changing the rayAngle
     {//
             cast_rays(player, data, rayAngle);
             // sleep(1);
-            // j = 0;
+            j = 0;
 
-            draw_line(player, data, data->ray->x_hit, data->ray->y_hit);
+            // draw_line(player, data, data->ray->x_hit, data->ray->y_hit);
             
-            // while(j < data->ray->distance)
-            // {
-            //     x = player->x + cos(rayAngle) * j;
-            //     y = player->y + sin(rayAngle) * j;
+            while(j < data->ray->distance)
+            {
+                x = player->x + cos(rayAngle) * j;
+                y = player->y + sin(rayAngle) * j;
     
-            //     mlx_pixel_put(data->mlx, data->win, x, y, RED);
-            //     j++;
-            // }
+                mlx_pixel_put(data->mlx, data->win, x, y, RED);
+                j++;
+            }
 
+            // draw_line(player, data, x, y);
         rayAngle += FOV / data->num_rays;
         i++;
     }
