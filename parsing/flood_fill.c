@@ -53,3 +53,4 @@ bool	ft_flood_fill_recursive(int x, int y, t_game *game)
 	return (up && down && left && right);
 }
 
+
