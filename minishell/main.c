@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/02 18:00:23 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/04 12:41:53 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,10 @@ void    init_player(t_game *data)
     dot->line_lenght = 50 ;
 
     data->player = dot;
-    data->num_rays = 300;
+    data->num_rays = S_WIDTH / WALL_WIDTH ;
 
+    
+    
 }
 
 
@@ -133,9 +135,12 @@ int main(int ac, char **av)
     init_player(&data);//init dakchi d lplayer kamlo hna
     init_ray(&data);
 
-    data.img = mlx_new_image(data.mlx, S_WIDTH, S_HEIGHT);
+    // data.img = mlx_new_image(data.mlx, S_WIDTH, S_HEIGHT);  
+    // if(!data.img)
+        // return(1);
+    // data.addrs = mlx_get_data_addr(data.img, &data.bitppixel, &data.size_line, &data.endian);
+    
     draw_map(&data);//rsm lmap o zid lplayer o fov flkher d lfunction
-    data.addrs = mlx_get_data_addr(data.img, data.bitppixel, data.size_line, data.endian);
     // draw_rectangle(&data, 100, 200);
     // mlx_loop_hook()
     mlx_hook(data.win, 03, 1L<<1, key_release, &data);

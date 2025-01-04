@@ -46,7 +46,7 @@
 #define MINIMAP 0.2
 
 
-#define TILE 32
+#define TILE 20
 #define PI 3.14159265358979323846
 #define TWO_PI 6.28318530718 
 #define FOV 60 * (PI / 180)
@@ -99,9 +99,9 @@ typedef struct s_game
     void    *mlx;
     void    *win;
 
-    int     *bitppixel;
-    int     *size_line;
-    int     *endian;
+    int     bitppixel;
+    int     size_line;
+    int     endian;
     char    *addrs;
     void    *img;
 

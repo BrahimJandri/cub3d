@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:50:53 by rachid            #+#    #+#             */
-/*   Updated: 2025/01/02 15:17:45 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/04 11:05:26 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void    draw_rectangle(t_game *data, int x, int y, int width, int height)
 
 
     i = 0;
-    printf("x = %d, y = %d, height = %d, width = %d\n",x,y,height, width);
+    printf("x = %d, y = %d, height = %d, width = %d\n", x, y, height, width);
     while(i < height)
     {
         j = 0;

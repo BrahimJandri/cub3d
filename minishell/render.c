@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/02 17:07:11 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/04 16:16:26 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,27 +76,27 @@ void    draw_line(t_player *player, t_game *data, double x_hit, double  y_hit )
 
 void	draw_map(t_game *data)
 {
-	// int	x;
-	// int	y;
-	// int color;
-    // // double ray_angle;
+	int	x;
+	int	y;
+	int color;
+    // double ray_angle;
 
-	// y = 0;
-	// while (y < data->map_y)//is small than the height
-	// {
-	// 	x = 0;
-	// 	while (x < data->map_x - 1)//is small than the width
-	// 	{
-	// 		color = check_number(data->map[y][x]);
-	// 		build_square(data, x * TILE, y * TILE ,color);
-	// 		x++;
-	// 	}
-	// 	y++;
-	// }
+	y = 0;
+	while (y < data->map_y)//is small than the height
+	{
+		x = 0;
+		while (x < data->map_x - 1)//is small than the width
+		{
+			color = check_number(data->map[y][x]);
+			build_square(data, x * TILE, y * TILE ,color);
+			x++;
+		}
+		y++;
+	}
     
     
     
-    // draw_circle(data->player, data);
+    draw_circle(data->player, data);
     // draw_line(data->player, data);
     // line(data->player, data);
     
@@ -392,12 +392,16 @@ void    draw_rays(t_player *player, t_game *data)
     
                 mlx_pixel_put(data->mlx, data->win, x, y, RED);
                 /*WHERE WE WILL RENDER THE WALL AFTER*/
+    
                 printf("distance project = %f\n",distance_projectplan);
-                printf("wall porject height = %f\n",distance_projectplan);
-                draw_rectangle(data, i * WALL_WIDTH, (S_HEIGHT / 2) - (wall_projected_height / 2) ,WALL_WIDTH, wall_projected_height);
+                printf("wall porject height = %f\n",wall_projected_height);
+                printf("ray distance = %f\n", data->ray->distance);
+                // exit(1);
 
                 j++;
             }
+            // reset_window(data,0, 0);
+            draw_rectangle(data, i * WALL_WIDTH, (S_HEIGHT / 2) - (wall_projected_height / 2) ,WALL_WIDTH, wall_projected_height);
             // mlx_destroy_image(data->mlx);
             // draw_line(player, data, x, y);
         rayAngle += FOV / data->num_rays;
@@ -406,6 +410,14 @@ void    draw_rays(t_player *player, t_game *data)
     printf("player positions are[%f][%f]\n", player->y, player->x);
 }
 
+
+// void    reset_window(t_game *data, int x, int y)
+// {
+//     data->img = mlx_new_image(data->mlx, S_WIDTH, S_HEIGHT);
+//     data->addrs = mlx_get_data_addr(data->img, data->bitppixel,data->size_line, data->endian);
+//     mlx_put_image_to_window(data->mlx, data->win, data-> img, x, y)
+    
+// }
 
 /*__DRAWING_RAYS_WITH_FIXED_LENGTH__*/
 // void    draw_rays(t_player *player, t_game *data)
