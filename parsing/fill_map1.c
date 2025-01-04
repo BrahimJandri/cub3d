@@ -36,6 +36,35 @@ void	calculate_map_dimensions(t_game *game, const char *file)
 	close(fd);
 }
 
+char	*skip_empty_lines(int fd)
+{
+	char	*line;
+	char	*trimmed_line;
+
+	line = get_next_line(fd);
+	if (line == NULL)
+	{
+		error_msg("Error\nEmpty file.\n");
+	}
+	while (true)
+	{
+		if (line == NULL)
+			return (NULL);
+		trimmed_line = ft_strtrim(line, " \t");
+		if (*trimmed_line == '\0')
+		{
+			free(trimmed_line);
+			free(line);
+			line = get_next_line(fd);
+		}
+		else
+		{
+			free(line);
+			return (trimmed_line);
+		}
+	}
+}
+
 char	*read_and_process_line(int fd)
 {
 	char	*line;

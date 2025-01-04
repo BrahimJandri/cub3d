@@ -12,30 +12,30 @@
 
 #include "../Headers/cub3d.h"
 
-void check_texture_validtion(t_game *game)
+void	check_texture_validtion(t_game *game)
 {
-	int fd;
+	int	fd;
 
 	fd = open(game->no_texture, O_RDONLY);
-	if(fd == -1)
+	if (fd == -1)
 	{
 		error_msg("Error: Cannot open Texture\n");
 	}
 	fd = 0;
 	fd = open(game->so_texture, O_RDONLY);
-	if(fd == -1)
+	if (fd == -1)
 	{
 		error_msg("Error: Cannot open Texture\n");
 	}
 	fd = 0;
 	fd = open(game->ea_texture, O_RDONLY);
-	if(fd == -1)
+	if (fd == -1)
 	{
 		error_msg("Error: Cannot open Texture\n");
 	}
 	fd = 0;
 	fd = open(game->we_texture, O_RDONLY);
-	if(fd == -1)
+	if (fd == -1)
 	{
 		error_msg("Error: Cannot open Texture\n");
 	}
@@ -93,31 +93,27 @@ char	*parse_textures_and_colors(t_game *game, char *line, int fd)
 	return (line);
 }
 
-char	*skip_empty_lines(int fd)
+void	parse_texture(char *line, t_game *game, int n)
 {
-	char	*line;
 	char	*trimmed_line;
+	char	**split_line;
 
-	line = get_next_line(fd);
-	if (line == NULL)
+	trimmed_line = ft_strtrim(line, " \t\n");
+	split_line = ft_split(trimmed_line, ' ');
+	if (split_line && ft_arraylen(split_line) >= 2)
 	{
-		error_msg("Error\nEmpty file.\n");
+		if (n == 0 && game->config_count < 4)
+			game->no_texture = ft_strdup(split_line[1]);
+		else if (n == 1 && game->config_count < 4)
+			game->so_texture = ft_strdup(split_line[1]);
+		else if (n == 2 && game->config_count < 4)
+			game->we_texture = ft_strdup(split_line[1]);
+		else if (n == 3 && game->config_count < 4)
+			game->ea_texture = ft_strdup(split_line[1]);
+		game->config_count++;
 	}
-	while (true)
-	{
-		if (line == NULL)
-			return (NULL);
-		trimmed_line = ft_strtrim(line, " \t");
-		if (*trimmed_line == '\0')
-		{
-			free(trimmed_line);
-			free(line);
-			line = get_next_line(fd);
-		}
-		else
-		{
-			free(line);
-			return (trimmed_line);
-		}
-	}
+	else
+		error_msg("Error\nInvalid texture line format.");
+	ft_free_split(split_line);
+	free(trimmed_line);
 }

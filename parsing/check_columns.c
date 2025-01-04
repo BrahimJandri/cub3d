@@ -36,11 +36,11 @@ void	check_right_boundary(t_game *game, int j)
 			|| game->map[i][j] == '\n' || game->map[i][j] == '\0'))
 		i++;
 	while (i > 0 && (j >= (int)ft_strlen(game->map[i - 1]) || game->map[i
-			- 1][j] == ' ' || game->map[i - 1][j] == '\t' || game->map[i
+				- 1][j] == ' ' || game->map[i - 1][j] == '\t' || game->map[i
 			- 1][j] == '\n' || game->map[i - 1][j] == '\0'))
 		i--;
 	if (i > 0 && j < (int)ft_strlen(game->map[i - 1]) && game->map[i
-		- 1][j] != '1')
+			- 1][j] != '1')
 		error_msg("Error\nMap Not Surrounded by Walls");
 }
 

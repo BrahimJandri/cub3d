@@ -70,9 +70,9 @@ static int	convert_to_color(int *colors)
 
 int	parse_color(char *str, t_game *game)
 {
-	int colors[3];
-	int color;
-	char **parts;
+	char	**parts;
+	int		colors[3];
+	int		color;
 
 	validate_color_format(str);
 	parts = split_and_trim_color_parts(str);
