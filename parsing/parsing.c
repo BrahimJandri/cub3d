@@ -12,10 +12,23 @@
 
 #include "../Headers/cub3d.h"
 
+void draw_map2(t_game *game)
+{
+	int i;
+
+	while (i < game->map_height)
+	{
+		printf("%s", game->map[i]);
+		i++;
+	}
+}
+
+
 void	read_map(t_game *game, char *file)
 {
 	calculate_map_dimensions(game, file);
 	fill_map(game, file);
+	draw_map2(game);
 	count_params(game);
 	check_config(game);
 	check_texture_validtion(game);

@@ -29,27 +29,21 @@ void	map_dup(t_game *game)
 
 bool	ft_flood_fill(int x, int y, t_game *game)
 {
-	if (x < 0 || y < 0 || x >= game->map_height || y >= game->map_width)
-		return (false);
-	return (ft_flood_fill_recursive(x, y, game));
-}
-
-bool	ft_flood_fill_recursive(int x, int y, t_game *game)
-{
 	bool	up;
 	bool	down;
 	bool	left;
 	bool	right;
-
+	if (x < 0 || y < 0 || x >= game->map_height || y >= game->map_width)
+		return (false);
 	if (game->map_dup[x][y] == 'V' || game->map[x][y] == '1')
 		return (true);
 	if (game->map[x][y] == ' ')
 		return (false);
 	game->map_dup[x][y] = 'V';
-	up = ft_flood_fill_recursive(x - 1, y, game);
-	down = ft_flood_fill_recursive(x + 1, y, game);
-	left = ft_flood_fill_recursive(x, y - 1, game);
-	right = ft_flood_fill_recursive(x, y + 1, game);
+	up = ft_flood_fill(x - 1, y, game);
+	down = ft_flood_fill(x + 1, y, game);
+	left = ft_flood_fill(x, y - 1, game);
+	right = ft_flood_fill(x, y + 1, game);
 	return (up && down && left && right);
 }
 
