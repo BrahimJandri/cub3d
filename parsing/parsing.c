@@ -16,6 +16,7 @@ void draw_map2(t_game *game)
 {
 	int i;
 
+	i = 0;
 	while (i < game->map_height)
 	{
 		printf("%s", game->map[i]);
