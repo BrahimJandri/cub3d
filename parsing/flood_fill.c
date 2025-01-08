@@ -26,13 +26,13 @@ void	map_dup(t_game *game)
 	game->map_dup[i] = NULL;
 }
 
-
 bool	ft_flood_fill(int x, int y, t_game *game)
 {
 	bool	up;
 	bool	down;
 	bool	left;
 	bool	right;
+
 	if (x < 0 || y < 0 || x >= game->map_height || y >= game->map_width)
 		return (false);
 	if (game->map_dup[x][y] == 'V' || game->map[x][y] == '1')
@@ -46,5 +46,3 @@ bool	ft_flood_fill(int x, int y, t_game *game)
 	right = ft_flood_fill(x, y + 1, game);
 	return (up && down && left && right);
 }
-
-

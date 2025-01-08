@@ -81,7 +81,6 @@ char	*pad_line(const char *line, int map_width)
 	line_length = ft_strlen(line);
 	if (line_length < map_width)
 	{
-
 		padded_line = malloc(map_width + 1);
 		if (!padded_line)
 			error_msg("Error\nMemory allocation error");

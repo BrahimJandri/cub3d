@@ -12,9 +12,9 @@
 
 #include "../Headers/cub3d.h"
 
-void check_first_line(t_game *game, int *j)
+void	check_first_line(t_game *game, int *j)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (game->map[i][*j] && game->map[i][*j] != '\n')
@@ -25,7 +25,7 @@ void check_first_line(t_game *game, int *j)
 	}
 }
 
-void check_last_line(t_game *game, int *j, int *i)
+void	check_last_line(t_game *game, int *j, int *i)
 {
 	while (game->map[*i][*j] && game->map[*i][*j] != '\n')
 	{
@@ -35,7 +35,7 @@ void check_last_line(t_game *game, int *j, int *i)
 	}
 }
 
-void check_middle_line(t_game *game, int *i, int *j)
+void	check_middle_line(t_game *game, int *i, int *j)
 {
 	if (game->map[*i][*j] != '1' && game->map[*i][*j] != ' ')
 		error_msg("Error\nMap Not Surrounded by Walls in Middle Line");
@@ -45,21 +45,22 @@ void check_middle_line(t_game *game, int *i, int *j)
 		error_msg("Error\nMap Not Surrounded by Walls in Middle Line");
 }
 
-void check_map_boundaries(t_game *game)
+void	check_map_boundaries(t_game *game)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (game->map[i])
 	{
 		j = 0;
-		while (game->map[i][j] && (game->map[i][j] == ' ' || game->map[i][j] == '\t'))
+		while (game->map[i][j] && (game->map[i][j] == ' '
+				|| game->map[i][j] == '\t'))
 			j++;
 		if (game->map[i][j] == '\0' || game->map[i][j] == '\n')
 		{
 			i++;
-			continue;
+			continue ;
 		}
 		if (i == 0)
 			check_first_line(game, &j);
