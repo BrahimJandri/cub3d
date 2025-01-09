@@ -19,7 +19,7 @@ void	check_first_line(t_game *game, int *j)
 	i = 0;
 	while (game->map[i][*j] && game->map[i][*j] != '\n')
 	{
-		if (game->map[i][*j] != '1')
+		if (game->map[i][*j] != '1' && game->map[i][*j] != ' ' && game->map[i][*j] != '\t') 
 			error_msg("Error\nMap Not Surrounded by Walls");
 		(*j)++;
 	}
@@ -38,11 +38,11 @@ void	check_last_line(t_game *game, int *j, int *i)
 void	check_middle_line(t_game *game, int *i, int *j)
 {
 	if (game->map[*i][*j] != '1' && game->map[*i][*j] != ' ')
-		error_msg("Error\nMap Not Surrounded by Walls in Middle Line");
+		error_msg("Error\nMap Not Surrounded by Walls");
 	while (game->map[*i][*j] && game->map[*i][*j] != '\n')
 		(*j)++;
 	if (game->map[*i][*j - 1] != '1' && game->map[*i][*j - 1] != ' ')
-		error_msg("Error\nMap Not Surrounded by Walls in Middle Line");
+		error_msg("Error\nMap Not Surrounded by Walls");
 }
 
 void	check_map_boundaries(t_game *game)

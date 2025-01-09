@@ -42,7 +42,7 @@ void	check_column_boundaries(t_game *game, int j)
 		i++;
 	if (game->map[i] && j < (int)ft_strlen(game->map[i])
 		&& game->map[i][j] != '1')
-		error_msg("Error\nMap Not Surrounded by Walls at Left Boundary");
+		error_msg("Error\nMap Not Surrounded by Walls");
 	while (game->map[i] && j < (int)ft_strlen(game->map[i])
 		&& game->map[i][j] != '\n')
 		i++;
@@ -52,7 +52,7 @@ void	check_column_boundaries(t_game *game, int j)
 		i--;
 	if (i > 0 && j < (int)ft_strlen(game->map[i - 1]) && game->map[i
 			- 1][j] != '1')
-		error_msg("Error\nMap Not Surrounded by Walls at Right Boundary");
+		error_msg("Error\nMap Not Surrounded by Walls");
 }
 
 void	check_column_zeros(t_game *game, int j, int i)
@@ -66,7 +66,7 @@ void	check_column_zeros(t_game *game, int j, int i)
 					|| j >= (int)ft_strlen(game->map[i]) - 1) || game->map[i
 					- 1][j] == ' ' || game->map[i + 1][j] == ' ' ||
 					game->map[i][j - 1] == ' ' || game->map[i][j + 1] == ' ')
-				error_msg("Error\nMap Contains a '0' Surrounded by Spaces");
+				error_msg("Error\nMap Not Surrounded by Walls");
 		}
 		i++;
 	}

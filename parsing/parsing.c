@@ -36,7 +36,7 @@ void	read_map(t_game *game, char *file)
 	check_map_boundaries(game);
 	map_dup(game);
 	if (!ft_flood_fill(game->player_x, game->player_y, game))
-		error_msg("Error\nInvalid Map");
+		error_msg("Error\nMap Not Surrounded by Walls");
 }
 
 void	init_game(t_game *game)
