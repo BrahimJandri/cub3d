@@ -4,7 +4,7 @@ SO ./Textures/so_texture.xpm
 WE ./Textures/we_texture.xpm
 EA ./Textures/ea_texture.xpm
 
-F 220,100,0++
+F 220,100,0
 C 225,30,55
 
 
