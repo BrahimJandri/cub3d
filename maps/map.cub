@@ -4,15 +4,10 @@ SO ./Textures/so_texture.xpm
 WE ./Textures/we_texture.xpm
 EA ./Textures/ea_texture.xpm
 
-F 220,100,0
+F 220,100,0++
 C 225,30,55
 
-    111111    
-   10000001   
-  1000000001111  
- 1000111001 E 1  
-  1000000011111  
-   1111111
-   1 11111
-   1 1  1
-   1111111
+
+111111
+1E0001
+111111
