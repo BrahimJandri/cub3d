@@ -99,7 +99,7 @@ typedef struct s_game
     void    *mlx;
     void    *win;
 
-    int     bitppixel;
+    int     bpp;
     int     size_line;
     int     endian;
     char    *addrs;
@@ -149,5 +149,5 @@ void    cast_rays(t_player *player, t_game *data, double angle);
 int     key_release(int key, t_game *data);
 
 void    draw_rectangle(t_game *data, int x, int y, int height, int width);
-
+void	my_mlx_pixel_put(t_game *data, int x, int y, int color);
 #endif

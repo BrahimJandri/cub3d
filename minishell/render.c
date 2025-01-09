@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/04 16:16:26 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/09 11:51:58 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,29 @@ double      calcul_line_length(double   x1, double y1, double x2, double y2)
     return(sqrt(pow(x1 - x2,2) + pow(y1 - y2, 2)));
 }
 
-void    line(t_player *player, t_game *data)
-{
-    int i;
-    double x;
-    double y;
+// void    line(t_player *player, t_game *data)
+// {
+//     int i;
+//     double x;
+//     double y;
 
-    i = 0;
+//     i = 0;
     
-    while(i < (int)player->line_lenght)
-    {
+//     while(i < (int)player->line_lenght)
+//     {
         
-        // printf("%2.f\n", player->rotationAngle);
-        x = player->x + cos(player->rotationAngle) * i;
-        y = player->y + sin(player->rotationAngle) * i;
-        // printf("x= %d\ny= %d\n", x, y);
+//         // printf("%2.f\n", player->rotationAngle);
+//         x = player->x + cos(player->rotationAngle) * i;
+//         y = player->y + sin(player->rotationAngle) * i;
+//         // printf("x= %d\ny= %d\n", x, y);
         
-        mlx_pixel_put(data->mlx, data->win, x, y, RED);
-        // printf("x = %d y = %d\n",x,y);
+//         mlx_pixel_put(data->mlx, data->win, x, y, RED);
+//         // printf("x = %d y = %d\n",x,y);
             
-        // sleep(5);
-        i++;
-    }
-}
+//         // sleep(5);
+//         i++;
+//     }
+// }
 
 
 
@@ -63,7 +63,7 @@ void    draw_line(t_player *player, t_game *data, double x_hit, double  y_hit )
         y = player->y + sin(player->rotationAngle) * i;
         // printf("x= %d\ny= %d\n", x, y);
         
-        mlx_pixel_put(data->mlx, data->win, x, y, RED);
+        my_mlx_pixel_put(data->mlx, x, y, RED);
         // printf("x = %d y = %d\n",x,y);
             
         // sleep(5);
@@ -80,7 +80,14 @@ void	draw_map(t_game *data)
 	int	y;
 	int color;
     // double ray_angle;
+    // mlx_clear_window(data->mlx, data->win);
 
+    data->img = mlx_new_image(data->mlx, S_WIDTH, S_HEIGHT);  
+    if(!data->img)
+        return ;
+    data->addrs = mlx_get_data_addr(data->img, &data->bpp, &data->size_line, &data->endian);
+    // printf("bpp = %d, size = %d, endian = %d\n", data->bpp, data->size_line, data->endian);
+    // exit(1);
 	y = 0;
 	while (y < data->map_y)//is small than the height
 	{
@@ -101,6 +108,10 @@ void	draw_map(t_game *data)
     // line(data->player, data);
     
     draw_rays(data->player, data);
+    mlx_put_image_to_window(data->mlx, data->win, data->img, 0,0);
+    mlx_destroy_image(data->mlx, data->img);
+    // sleep(5);
+    // exit(1);
     // render_walls(data, data->player);
     // cast_rays(data->player, data, data->player->rotationAngle);
     
@@ -110,12 +121,20 @@ void	draw_map(t_game *data)
 
 void    build_square(t_game *data, int x, int y, int color)
 {
+    // if (!data || !data->addrs) {
+    //     fprintf(stderr, "Error: data or data->addrs is NULL\n");
+    //     exit(22);
+    // }    
+    // if (x < 0 || x >= S_WIDTH || y < 0 || y >= S_HEIGHT) {
+    //     fprintf(stderr, "Error: x or y is out of bounds\n");
+    //     exit(22);
+    // }
 
     for(int i = 0;i < TILE; i++)
     {
         for(int j = 0; j < TILE; j++)
         {
-            mlx_pixel_put(data->mlx, data->win, x + i, y + j, color);
+            my_mlx_pixel_put(data, x + i, y + j, color);
             // usleep(10);
         }
     }
@@ -375,6 +394,7 @@ void    draw_rays(t_player *player, t_game *data)
 
     double rayAngle = player->rotationAngle - (FOV / 2);
     // cast_rays(player,data,rayAngle);
+
     while(i < data->num_rays)//this while fill the array of rays while changing the rayAngle
     {//
             cast_rays(player, data, rayAngle);
@@ -390,12 +410,12 @@ void    draw_rays(t_player *player, t_game *data)
                 x = player->x + cos(rayAngle) * j;
                 y = player->y + sin(rayAngle) * j;
     
-                mlx_pixel_put(data->mlx, data->win, x, y, RED);
+                my_mlx_pixel_put(data, x, y, RED);
                 /*WHERE WE WILL RENDER THE WALL AFTER*/
     
-                printf("distance project = %f\n",distance_projectplan);
-                printf("wall porject height = %f\n",wall_projected_height);
-                printf("ray distance = %f\n", data->ray->distance);
+                // printf("distance project = %f\n",distance_projectplan);
+                // printf("wall porject height = %f\n",wall_projected_height);
+                // printf("ray distance = %f\n", data->ray->distance);
                 // exit(1);
 
                 j++;
@@ -407,7 +427,8 @@ void    draw_rays(t_player *player, t_game *data)
         rayAngle += FOV / data->num_rays;
         i++;
     }
-    printf("player positions are[%f][%f]\n", player->y, player->x);
+
+    // printf("player positions are[%f][%f]\n", player->y, player->x);
 }
 
 

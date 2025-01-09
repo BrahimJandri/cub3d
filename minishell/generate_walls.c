@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   generate_walls.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:50:53 by rachid            #+#    #+#             */
-/*   Updated: 2025/01/04 11:05:26 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/09 11:53:09 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,16 @@
         
 //     }
 // }
+//here where i draw the rectange that represents walls.
+//before i draw this i should reset the window to black without touching the mini-map
+
+// void    reset_window(t_game *data)
+// {
+//     data->img = mlx_new_image(data->mlx, S_WIDTH, S_HEIGHT - data->map_y);
+//     data->addrs = mlx_get_data_addr(data->img, data->bitppixel, data->size_line, data->endian);
+    
+// }
+
 
 void    draw_rectangle(t_game *data, int x, int y, int width, int height)
 {
@@ -40,15 +50,32 @@ void    draw_rectangle(t_game *data, int x, int y, int width, int height)
 
 
     i = 0;
-    printf("x = %d, y = %d, height = %d, width = %d\n", x, y, height, width);
+    // printf("x = %d, y = %d, height = %d, width = %d\n", x, y, height, width);
     while(i < height)
     {
         j = 0;
         while(j < width)
         {
-            mlx_pixel_put(data->mlx, data->win, j + x, i + y, WHITE);
+            my_mlx_pixel_put(data, j + x, i + y, WHITE);
             j++;
         }
         i++;
     }
+}
+
+void	my_mlx_pixel_put(t_game *data, int x, int y, int color)
+{
+	char	*dst;
+    
+    if (x < 0 || x >= S_WIDTH || y < 0 || y >= S_HEIGHT) {
+        fprintf(stderr, "Error: x or y is out of bounds\n");
+        return;
+    }
+
+    // printf("x=%d ,y=%d\n",x, y);
+	dst = data->addrs + (y * data->size_line + x * (data->bpp / 8));
+    // printf("size_line = %d, bpp = %d\n", data->size_line, data->bpp);
+    // exit(1);
+    // printf("this is the dest%s\n", dst);
+	*(unsigned int*)dst = color;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/04 12:41:53 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/09 11:57:31 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void draw_circle(t_player *player, t_game *data) {
             // Check if the point (x, y) satisfies the circle equation
             if ((x * x + y * y) <= player->radius * player->radius)
             {
-                mlx_pixel_put(data->mlx, data->win, player->x + x, player->y + y, RED);
+                my_mlx_pixel_put(data, player->x + x, player->y + y, RED);
             }
         }
     }
@@ -135,12 +135,8 @@ int main(int ac, char **av)
     init_player(&data);//init dakchi d lplayer kamlo hna
     init_ray(&data);
 
-    // data.img = mlx_new_image(data.mlx, S_WIDTH, S_HEIGHT);  
-    // if(!data.img)
-        // return(1);
-    // data.addrs = mlx_get_data_addr(data.img, &data.bitppixel, &data.size_line, &data.endian);
-    
-    draw_map(&data);//rsm lmap o zid lplayer o fov flkher d lfunction
+ 
+    mlx_loop_hook(data.mlx, (void *)draw_map, &data);//rsm lmap o zid lplayer o fov flkher d lfunction
     // draw_rectangle(&data, 100, 200);
     // mlx_loop_hook()
     mlx_hook(data.win, 03, 1L<<1, key_release, &data);
