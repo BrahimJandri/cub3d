@@ -24,7 +24,7 @@ void	calculate_map_dimensions(t_game *game, const char *file)
 	line = parse_textures_and_colors(game, line, fd);
 	while (line)
 	{
-		trimed_line = ft_strtrim(line, " \t\n");
+		trimed_line = ft_strtrim(line, "\n");
 		game->map_height++;
 		line_length = ft_strlen(trimed_line);
 		if (line_length > game->map_width)

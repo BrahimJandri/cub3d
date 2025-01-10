@@ -12,6 +12,18 @@
 
 #include "../Headers/cub3d.h"
 
+void	draw_map2(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	while (i < game->map_height)
+	{
+		printf("%s", game->map[i]);
+		i++;
+	}
+}
+
 void	read_map(t_game *game, char *file)
 {
 	calculate_map_dimensions(game, file);
@@ -24,7 +36,7 @@ void	read_map(t_game *game, char *file)
 	check_map_boundaries(game);
 	map_dup(game);
 	if (!ft_flood_fill(game->player_x, game->player_y, game))
-		error_msg("Error\nInvalid Map");
+		error_msg("Error\nMap Not Surrounded by Walls");
 }
 
 void	init_game(t_game *game)

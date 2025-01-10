@@ -12,58 +12,62 @@
 
 #include "../Headers/cub3d.h"
 
-void	check_initial_final_lines(t_game *game, int i)
+void	check_first_line(t_game *game, int *j)
 {
-	int	j;
+	int	i;
 
-	j = 0;
-	while (game->map[i][j] && game->map[i][j] != '\n')
+	i = 0;
+	while (game->map[i][*j] && game->map[i][*j] != '\n')
 	{
-		if (game->map[i][j] != '1' && game->map[i][j] != ' '
-			&& game->map[i][j] != '\t')
-		{
+		if (game->map[i][*j] != '1' && game->map[i][*j] != ' ' && game->map[i][*j] != '\t') 
 			error_msg("Error\nMap Not Surrounded by Walls");
-		}
-		j++;
+		(*j)++;
 	}
 }
 
-void	check_middle_lines(t_game *game, int i)
+void	check_last_line(t_game *game, int *j, int *i)
 {
-	int	j;
-
-	j = 0;
-	while (game->map[i][j] && (game->map[i][j] == ' '
-			|| game->map[i][j] == '\t'))
-		j++;
-	if (game->map[i][j] != '1')
-		error_msg("Error\nMap Not Surrounded by Walls");
-	while (game->map[i][j] && game->map[i][j] != '\n')
+	while (game->map[*i][*j] && game->map[*i][*j] != '\n')
 	{
-		if ((i + 1 < game->map_height && game->map[i][j] == '0'
-			&& j < (int)ft_strlen(game->map[i + 1]) && game->map[i
-				+ 1][j] == ' ') || (game->map[i][j] == ' ' && i
-				+ 1 < game->map_height && j < (int)ft_strlen(game->map[i + 1])
-				&& game->map[i + 1][j] == '0'))
-			error_msg("Error\nInvalid Map Border Detected");
-		j++;
+		if (game->map[*i][*j] != '1' && game->map[*i][*j] != ' ')
+			error_msg("Error\nMap Not Surrounded by Walls");
+		(*j)++;
 	}
-	if (game->map[i][j - 1] != '1' && game->map[i][j - 1] != ' '
-		&& game->map[i][j - 1] != '\t')
+}
+
+void	check_middle_line(t_game *game, int *i, int *j)
+{
+	if (game->map[*i][*j] != '1' && game->map[*i][*j] != ' ')
+		error_msg("Error\nMap Not Surrounded by Walls");
+	while (game->map[*i][*j] && game->map[*i][*j] != '\n')
+		(*j)++;
+	if (game->map[*i][*j - 1] != '1' && game->map[*i][*j - 1] != ' ')
 		error_msg("Error\nMap Not Surrounded by Walls");
 }
 
 void	check_map_boundaries(t_game *game)
 {
 	int	i;
+	int	j;
 
 	i = 0;
 	while (game->map[i])
 	{
-		if (i == 0 || game->map[i + 1] == NULL)
-			check_initial_final_lines(game, i);
+		j = 0;
+		while (game->map[i][j] && (game->map[i][j] == ' '
+				|| game->map[i][j] == '\t'))
+			j++;
+		if (game->map[i][j] == '\0' || game->map[i][j] == '\n')
+		{
+			i++;
+			continue ;
+		}
+		if (i == 0)
+			check_first_line(game, &j);
+		else if (game->map[i + 1] == NULL)
+			check_last_line(game, &j, &i);
 		else
-			check_middle_lines(game, i);
+			check_middle_line(game, &i, &j);
 		i++;
 	}
 }

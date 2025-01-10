@@ -54,7 +54,12 @@ void count_params(t_game *game);
 void check_config(t_game *game);
 void check_map_params(t_game *game);
 void check_map_boundaries(t_game *game);
+void check_first_line(t_game *game, int *j);
+void check_last_line(t_game *game, int *j, int *i);
+void check_middle_line(t_game *game, int *i, int *j);
 void check_map_columns(t_game *game);
+void check_column_boundaries(t_game *game, int j);
+void check_column_zeros(t_game *game, int j, int i);
 void map_dup(t_game *game);
 void free_all(t_game *game);
 void calculate_map_dimensions(t_game *game, const char *file);
@@ -75,6 +80,6 @@ void validate_color_parts_count(char **parts);
 void validate_and_parse_color_values(char **parts, int *colors);
 void validate_color_format(char *str);
 void check_texture_validtion(t_game *game);
-bool	ft_flood_fill_recursive(int x, int y, t_game *game);
+// char *trim_leading_whitespace(const char *line);
 
 #endif

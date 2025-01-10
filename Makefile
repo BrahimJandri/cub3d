@@ -14,7 +14,7 @@ BOLD = \033[1m
 RESET = \033[0m
 
 # Default target
-all: $(NAME)
+all: $(NAME) clean
 	@echo "$(BOLD)compiling success ✅$(RESET)"
 
 $(NAME): $(OBJ) $(LIBFT)
