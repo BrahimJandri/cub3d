@@ -6,7 +6,7 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/09 11:51:58 by reddamss         ###   ########.fr       */
+/*   Updated: 2025/01/09 13:05:47 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -402,9 +402,9 @@ void    draw_rays(t_player *player, t_game *data)
             j = 0;
 
             // draw_line(player, data, data->ray->x_hit, data->ray->y_hit);
-            
+            double      corrected_wall = data->ray->distance * cos(rayAngle - player->rotationAngle);
             double      distance_projectplan = (S_WIDTH / 2) / tan(FOV / 2);
-            double      wall_projected_height = (TILE / data->ray->distance) * distance_projectplan;
+            double      wall_projected_height = (TILE / corrected_wall) * distance_projectplan;
             while(j < data->ray->distance)
             {
                 x = player->x + cos(rayAngle) * j;

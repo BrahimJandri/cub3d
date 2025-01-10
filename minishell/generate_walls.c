@@ -6,7 +6,7 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:50:53 by rachid            #+#    #+#             */
-/*   Updated: 2025/01/09 11:53:09 by reddamss         ###   ########.fr       */
+/*   Updated: 2025/01/09 15:27:00 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,7 @@ void	my_mlx_pixel_put(t_game *data, int x, int y, int color)
 
     // printf("x=%d ,y=%d\n",x, y);
 	dst = data->addrs + (y * data->size_line + x * (data->bpp / 8));
-    // printf("size_line = %d, bpp = %d\n", data->size_line, data->bpp);
-    // exit(1);
+
     // printf("this is the dest%s\n", dst);
 	*(unsigned int*)dst = color;
 }

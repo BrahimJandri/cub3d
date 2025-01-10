@@ -6,7 +6,7 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/09 11:57:31 by reddamss         ###   ########.fr       */
+/*   Updated: 2025/01/09 12:55:49 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void    init_player(t_game *data)
     dot->radius = TILE / 5;
     dot->turnDir = 0;
     dot->walkDir = 0;
-    dot->rotationAngle = PI/ 2;
+    dot->rotationAngle = PI / 2;
     dot->moveSpeed = 4.0;
     dot->rotationSpeed = 2 * (PI / 2);
     dot->line_lenght = 50 ;
