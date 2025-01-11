@@ -25,6 +25,10 @@
 
 #define TILE_SIZE 32
 
+#define TEXWIDTH 64
+#define TEXHEIGHT 64
+
+
 typedef struct s_game
 {
     void *win;
