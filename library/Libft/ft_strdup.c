@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: reddamss <damssi.art@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/18 00:58:00 by reddamss          #+#    #+#             */
-/*   Updated: 2024/12/22 09:04:10 by bjandri          ###   ########.fr       */
+/*   Created: 2023/11/10 23:25:27 by reddamss          #+#    #+#             */
+/*   Updated: 2023/11/17 03:39:09 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strcpy(char *s1, char *s2)
+char	*ft_strdup(const char *s1)
 {
-	int	i;
+	int		len;
+	char	*p;
 
-	i = 0;
-	while (s2[i])
+	len = ft_strlen((char *)s1);
+	p = malloc((len * sizeof(char)) + 1);
+	if (!p)
+		return (0);
+	len = 0;
+	while (s1[len])
 	{
-		s1[i] = s2[i];
-		i++;
+		p[len] = s1[len];
+		len++;
 	}
-	s1[i] = s2[i];
-	return (s1);
+	p[len] = '\0';
+	return (p);
 }
