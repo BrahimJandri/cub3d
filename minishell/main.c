@@ -6,7 +6,7 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/12 11:38:43 by reddamss         ###   ########.fr       */
+/*   Updated: 2025/01/12 12:36:12 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ int main(int ac, char **av)
     parse_config(game, av);
 
     game->mlx = mlx_init();
-    game->win = mlx_new_window(game->mlx, S_WIDTH, S_HEIGHT, "gta");
+    game->win = mlx_new_window(game->mlx, game->map_width * 32 , game->map_height * 32, "gta");
     init_ray(game);
 
  
