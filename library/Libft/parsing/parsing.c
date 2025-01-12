@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:41:24 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/29 13:15:28 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/01/12 11:38:58 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	read_map(t_game *game, char *file)
 	check_map_columns(game);
 	check_map_boundaries(game);
 	map_dup(game);
-	if (!ft_flood_fill(game->player_x, game->player_y, game))
+	if (!ft_flood_fill(game->player->y, game->player->x, game))
 		error_msg("Error\nMap Not Surrounded by Walls");
 }
 
@@ -51,7 +51,6 @@ void	init_game(t_game *game)
 	game->ceiling_color = -1;
 	game->map_width = 0;
 	game->map_height = 0;
-	game->player_found = 0;
 	game->config_count = 0;
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_map1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:43:31 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/27 08:55:13 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/01/12 11:57:20 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	calculate_map_dimensions(t_game *game, const char *file)
 		line = get_next_line(fd);
 	}
 	close(fd);
+	printf("MAP HIGH %d\n", game->map_height);
 }
 
 char	*skip_empty_lines(int fd)
