@@ -101,13 +101,7 @@ void	draw_map(t_game *data)
 		}
 		y++;
 	}
-    
-    write(1, "HERE", 4);
-    sleep(10);
-    sleep(10);
-    sleep(10);
-    
-    
+       
     draw_circle(data->player, data);
     // draw_line(data->player, data);
     // line(data->player, data);

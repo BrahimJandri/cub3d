@@ -67,7 +67,8 @@ void	my_mlx_pixel_put(t_game *data, int x, int y, int color)
 {
 	char	*dst;
     
-    if (x < 0 || x >= S_WIDTH || y < 0 || y >= S_HEIGHT) {
+    
+    if (x < 0 || x >= data->map_height || y < 0 || y >= data->map_width) {
         fprintf(stderr, "Error: x or y is out of bounds\n");
         return;
     }
