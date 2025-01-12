@@ -6,12 +6,12 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/09 13:05:47 by reddamss         ###   ########.fr       */
+/*   Updated: 2025/01/12 11:52:30 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "minishell.h"
+#include "./Headers/cub3d.h"
 
 
 double      calcul_line_length(double   x1, double y1, double x2, double y2)
@@ -89,10 +89,11 @@ void	draw_map(t_game *data)
     // printf("bpp = %d, size = %d, endian = %d\n", data->bpp, data->size_line, data->endian);
     // exit(1);
 	y = 0;
-	while (y < data->map_y)//is small than the height
+    printf("map->height = %d, map_width = %d\n",data->map_height, data->map_width);
+	while (y < data->map_height)//is small than the height
 	{
 		x = 0;
-		while (x < data->map_x - 1)//is small than the width
+		while (x < data->map_width - 1)//is small than the width
 		{
 			color = check_number(data->map[y][x]);
 			build_square(data, x * TILE, y * TILE ,color);
@@ -101,6 +102,10 @@ void	draw_map(t_game *data)
 		y++;
 	}
     
+    write(1, "HERE", 4);
+    sleep(10);
+    sleep(10);
+    sleep(10);
     
     
     draw_circle(data->player, data);
@@ -145,7 +150,7 @@ int    check_number(char c)
 {
     if(c == '1')
         return GREY;
-    if(c == '0' || c == 'P')
+    if(c == '0' || c == 'N')
         return WHITE;
     return GOLDEN;
 }
@@ -154,7 +159,7 @@ int    check_number(char c)
 
 int    is_it_wall(t_game *data, double   x, double   y)
 {
-    if((x < 0 || x > data->map_x * TILE) || (y < 0 || y > data->map_y * TILE))
+    if((x < 0 || x > data->map_width * TILE) || (y < 0 || y > data->map_height * TILE))
     {
         // printf("Happend and x = %2.f, y = %2.f\n", x, y);
         return 1;

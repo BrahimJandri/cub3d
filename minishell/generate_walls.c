@@ -6,11 +6,11 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:50:53 by rachid            #+#    #+#             */
-/*   Updated: 2025/01/09 15:27:00 by reddamss         ###   ########.fr       */
+/*   Updated: 2025/01/12 11:33:00 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "./Headers/cub3d.h"
 
 // void    render_walls(t_game *data, t_player *player)
 // {
