@@ -6,7 +6,7 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:50:53 by rachid            #+#    #+#             */
-/*   Updated: 2025/01/12 11:33:00 by reddamss         ###   ########.fr       */
+/*   Updated: 2025/01/14 11:39:07 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	my_mlx_pixel_put(t_game *data, int x, int y, int color)
 	char	*dst;
     
     if (x < 0 || x >= S_WIDTH || y < 0 || y >= S_HEIGHT) {
-        fprintf(stderr, "Error: x or y is out of bounds\n");
+        // fprintf(stderr, "Error: x or y is out of bounds\n");
         return;
     }
 

@@ -6,7 +6,7 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/12 11:52:30 by reddamss         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:14:48 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,6 @@ void	draw_map(t_game *data)
 	int	x;
 	int	y;
 	int color;
-    // double ray_angle;
-    // mlx_clear_window(data->mlx, data->win);
 
     data->img = mlx_new_image(data->mlx, S_WIDTH, S_HEIGHT);  
     if(!data->img)
@@ -89,30 +87,31 @@ void	draw_map(t_game *data)
     // printf("bpp = %d, size = %d, endian = %d\n", data->bpp, data->size_line, data->endian);
     // exit(1);
 	y = 0;
-    printf("map->height = %d, map_width = %d\n",data->map_height, data->map_width);
+    // printf("map->height = %d, map_width = %d\n",data->map_height, data->map_width);
+    // printf("playerx = %f player y = %f\n", data->player->x , data->player->y);
+    // exit(1);
 	while (y < data->map_height)//is small than the height
 	{
 		x = 0;
-		while (x < data->map_width - 1)//is small than the width
+		while (x < data->map_width)//is small than the width
 		{
 			color = check_number(data->map[y][x]);
 			build_square(data, x * TILE, y * TILE ,color);
+            // sleep(1);
 			x++;
 		}
 		y++;
 	}
-    
-    write(1, "HERE", 4);
-    sleep(10);
-    sleep(10);
-    sleep(10);
-    
+
+    // sleep(100);
     
     draw_circle(data->player, data);
+    
     // draw_line(data->player, data);
     // line(data->player, data);
     
     draw_rays(data->player, data);
+    
     mlx_put_image_to_window(data->mlx, data->win, data->img, 0,0);
     mlx_destroy_image(data->mlx, data->img);
     // sleep(5);
@@ -135,14 +134,22 @@ void    build_square(t_game *data, int x, int y, int color)
     //     exit(22);
     // }
 
-    for(int i = 0;i < TILE; i++)
+    // int b = 0;
+    
+    for(int i = 0;i < TILE -1; i++)
     {
-        for(int j = 0; j < TILE; j++)
+        for(int j = 0; j < TILE -1; j++)
         {
+            // printf("inside\n");
             my_mlx_pixel_put(data, x + i, y + j, color);
-            // usleep(10);
+            // mlx_pixel_put(data->mlx, data->win, x + i, y + j, color);
+            // usleep(100);
+            // printf("hello %d\n", b++);
         }
     }
+    // exit(1);    
+    // sleep(2);
+    
 }
 
 
@@ -209,6 +216,10 @@ void    cast_rays(t_player *player, t_game *data, double angle)
     // printf("the player->x = %lf\n",player->x);
     ray->x_intercept = player->x + (ray->y_intercept - player->y) / tan(angle);
     //calculating the xstep and ystep
+    printf("_________________________________________________\n");
+    printf("player y = %2.f, player x = %2.f\n", player->y, player->x);
+    printf("H intercept y = %2.f intercept x = %2.f\n", ray->y_intercept, ray->x_intercept);
+    printf("_________________________________________________\n");
     ray->y_steps = TILE;
     if(ray->ray_up)
         ray->y_steps *= -1;
@@ -236,10 +247,12 @@ void    cast_rays(t_player *player, t_game *data, double angle)
 
     while(next_ytouch > 0 && next_ytouch < S_HEIGHT && next_xtouch > 0 && next_xtouch < S_WIDTH)
     {
+        // printf("H checking\n");
         if(is_it_wall(data, next_xtouch, next_ytouch))
         {
             // printf("touched it\n");
             found_wall = true;
+            // printf("H found Wall\n");
             hit_wally = next_ytouch;
             hit_wallx = next_xtouch;
             break ;
@@ -318,6 +331,7 @@ void    cast_rays(t_player *player, t_game *data, double angle)
         {
             // printf("VER touched it\n");
             found_vert_wall = true;
+            // printf("V found Wall\n");
             vert_hit_wally = vert_next_ytouch;
             vert_hit_wallx = vert_next_xtouch;
             break ;
@@ -346,18 +360,25 @@ void    cast_rays(t_player *player, t_game *data, double angle)
     else
         horz_hits_distance = 9199999999999999999;
 
+    // printf("H_distance = %2.f V_distance = %2.f\n", horz_hits_distance, ver_hits_distance);
     if(horz_hits_distance < ver_hits_distance)
     {
         ray->x_hit = hit_wallx;
         ray->y_hit = hit_wally;
         ray->distance = horz_hits_distance;
+    // printf("here is horz\n");
+        
     }
     else
     {
         ray->x_hit = vert_hit_wallx;
         ray->y_hit = vert_hit_wally;
         ray->distance = ver_hits_distance;
+    // printf("here is vertical \n");
+
     }
+
+    // printf("distance = %2.f\n",ray->distance);
     // player->rotationAngle = angle;
     
     // cast_rays(player, data, rayAngle);
@@ -410,14 +431,16 @@ void    draw_rays(t_player *player, t_game *data)
             double      corrected_wall = data->ray->distance * cos(rayAngle - player->rotationAngle);
             double      distance_projectplan = (S_WIDTH / 2) / tan(FOV / 2);
             double      wall_projected_height = (TILE / corrected_wall) * distance_projectplan;
+            // printf("distance = %2.f\n", data->ray->distance);
             while(j < data->ray->distance)
             {
                 x = player->x + cos(rayAngle) * j;
                 y = player->y + sin(rayAngle) * j;
     
+                // printf("x = %2.f, y = %2.f\n", x, y);
                 my_mlx_pixel_put(data, x, y, RED);
                 /*WHERE WE WILL RENDER THE WALL AFTER*/
-    
+                // printf("j = %2.f\n",j);
                 // printf("distance project = %f\n",distance_projectplan);
                 // printf("wall porject height = %f\n",wall_projected_height);
                 // printf("ray distance = %f\n", data->ray->distance);

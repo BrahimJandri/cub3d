@@ -6,7 +6,7 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/12 12:36:12 by reddamss         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:13:36 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void draw_circle(t_player *player, t_game *data) {
     int x, y;
     
 
+    // printf("playerx = %f, player_y = %f\n", player->x, player->y);
+    // exit(1);
     
     for (x = -player->radius; x <= player->radius; x++) 
     {
@@ -26,6 +28,9 @@ void draw_circle(t_player *player, t_game *data) {
             if ((x * x + y * y) <= player->radius * player->radius)
             {
                 my_mlx_pixel_put(data, player->x + x, player->y + y, RED);
+                // printf("playerx = %f, player_y = %f\n", player->x + x, player->y + y);
+                // sleep(11);
+                // mlx_pixel_put(data->mlx, data->win, player->x + x, player->y + y, RED);
             }
         }
     }
@@ -66,28 +71,29 @@ void draw_circle(t_player *player, t_game *data) {
 // 	}
 //     return(-1);
 // }
-// int get_plyr_x(t_game *data)
-// {
-//     int	x;
-// 	int	y;
+int get_plyr_pos(t_game *data)
+{
+    int	x;
+	int	y;
 
-// 	y = 0;
-// 	while (y < data->map_y)//is small than the height
-// 	{
-// 		x = 0;
-// 		while (x < data->map_x - 1)//is small than the width
-// 		{
-//             if(data->map[y][x] == 'P')
-//             {
-//                 data->map[y][x] = '0';
-//                 return(x * TILE + (TILE/2));
-//             }
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-//     return(-1);
-// }
+	y = 0;
+	while (y < data->map_height)//is small than the height
+	{
+		x = 0;
+		while (x < data->map_width)//is small than the width
+		{
+            if(data->map[y][x] == 'N')
+            {
+                data->map[y][x] = '0';
+                data->player->x = x * TILE + (TILE/2);
+                data->player->y = y * TILE + (TILE/2);
+            }
+			x++;
+		}
+		y++;
+	}
+    return(-1);
+}
 
 
 void    init_player(t_game *data)
@@ -119,6 +125,7 @@ void    init_ray(t_game *data)
     if(!raay)
         return ;
     data->ray = raay;
+
 }
 
 void	error_msg(char *str)
@@ -126,6 +133,8 @@ void	error_msg(char *str)
 	ft_putstr_fd(str, 2);
 	exit(1);
 }
+
+
 
 int main(int ac, char **av)
 {
@@ -143,16 +152,17 @@ int main(int ac, char **av)
     // allocate_map(av[1], &data);
     init_player(game);//init dakchi d lplayer kamlo hna
     parse_config(game, av);
-
-    game->mlx = mlx_init();
-    game->win = mlx_new_window(game->mlx, game->map_width * 32 , game->map_height * 32, "gta");
+    printf("PARSING");
     init_ray(game);
 
+    game->mlx = mlx_init();
+    game->win = mlx_new_window(game->mlx, S_WIDTH, S_WIDTH, "gta");
+    get_plyr_pos(game);
+    draw_map(game);
  
-    mlx_loop_hook(game->mlx, (void *)draw_map, game);//rsm lmap o zid lplayer o fov flkher d lfunction
-    // draw_rectangle(&data, 100, 200);
+    // mlx_loop_hook(game->mlx, (void *)draw_map, game);//rsm lmap o zid lplayer o fov flkher d lfunction
     // mlx_loop_hook()
-    mlx_hook(game->win, 03, 1L<<1, key_release, game);
+    // mlx_hook(game->win, 03, 1L<<1, key_release, game);
     mlx_hook(game->win, 02, 1L<<0, player_control, game);
     mlx_loop(game->mlx);
     free_all(game);

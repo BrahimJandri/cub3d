@@ -41,7 +41,7 @@
 #define WALL_WIDTH 1
 #define MINIMAP 0.2
 
-#define TILE 20
+#define TILE 40
 #define PI 3.14159265358979323846
 #define TWO_PI 6.28318530718
 #define FOV 60 * (PI / 180)

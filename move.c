@@ -6,7 +6,7 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:27:31 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/12 11:32:41 by reddamss         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:04:31 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,14 @@ void    update_player(t_game *data, t_player *player)
     
     
     printf("move game player position[%f][%f]\n", player->y, player->x);
+    printf("posx = %2.f posy = %2.f\n", new_posx, new_posx);
     if(data->map[(int)new_posy / TILE][(int)new_posx / TILE] != '1')
     {
         printf("enterd\n");
         player->x = new_posx;
         player->y = new_posy;
     }
+    printf("IN MOVE (player y = %2.f, player x = %2.f)\n", player->y, player->x);
     draw_map(data);
 }
 
