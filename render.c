@@ -6,7 +6,7 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/14 15:14:48 by reddamss         ###   ########.fr       */
+/*   Updated: 2025/01/15 11:33:16 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,6 @@ void	draw_map(t_game *data)
     // printf("bpp = %d, size = %d, endian = %d\n", data->bpp, data->size_line, data->endian);
     // exit(1);
 	y = 0;
-    // printf("map->height = %d, map_width = %d\n",data->map_height, data->map_width);
-    // printf("playerx = %f player y = %f\n", data->player->x , data->player->y);
-    // exit(1);
 	while (y < data->map_height)//is small than the height
 	{
 		x = 0;
@@ -102,13 +99,16 @@ void	draw_map(t_game *data)
 		}
 		y++;
 	}
+    // printf("map->height = %d, map_width = %d\n",data->map_height, data->map_width);
+    // printf("playerx = %f player y = %f\n", data->player->x , data->player->y);
+    // exit(1);
 
     // sleep(100);
     
-    draw_circle(data->player, data);
     
     // draw_line(data->player, data);
     // line(data->player, data);
+    draw_circle(data->player, data);
     
     draw_rays(data->player, data);
     
@@ -216,10 +216,6 @@ void    cast_rays(t_player *player, t_game *data, double angle)
     // printf("the player->x = %lf\n",player->x);
     ray->x_intercept = player->x + (ray->y_intercept - player->y) / tan(angle);
     //calculating the xstep and ystep
-    printf("_________________________________________________\n");
-    printf("player y = %2.f, player x = %2.f\n", player->y, player->x);
-    printf("H intercept y = %2.f intercept x = %2.f\n", ray->y_intercept, ray->x_intercept);
-    printf("_________________________________________________\n");
     ray->y_steps = TILE;
     if(ray->ray_up)
         ray->y_steps *= -1;
@@ -396,7 +392,27 @@ void    cast_rays(t_player *player, t_game *data, double angle)
 }
 
 
+// void    clearColorbuffer(t_game *data, unsigned int color)
+// {
+//     for(int x = 0; x < S_WIDTH; x++)
+//     {
+//         for(int y = 0; y < S_HEIGHT; y++)
+//         {
+//             data->colorbuffer[(S_WIDTH * y) + x] = color;
+//         }
+//     }
+// }
 
+int get_texture_color(unsigned int *texture_data, int tex_width, int tex_height, int x, int y)
+{
+    // Make sure the x and y are within bounds
+    if (x < 0 || x >= tex_width || y < 0 || y >= tex_height) {
+        return 0; // Return black if out of bounds (or any other default color)
+    }
+
+    // Get the pixel color as an unsigned int (RGBA format)
+    return texture_data[y * tex_width + x];
+}
 
 
 double      normalize_angle(double angle)
@@ -431,6 +447,34 @@ void    draw_rays(t_player *player, t_game *data)
             double      corrected_wall = data->ray->distance * cos(rayAngle - player->rotationAngle);
             double      distance_projectplan = (S_WIDTH / 2) / tan(FOV / 2);
             double      wall_projected_height = (TILE / corrected_wall) * distance_projectplan;
+            
+            int     WallTopPixel = (S_HEIGHT / 2) - (wall_projected_height / 2);
+            if(WallTopPixel < 0)
+                WallTopPixel = 0;
+            int     WallBottomPixel = (S_HEIGHT / 2) + (wall_projected_height / 2);
+            if(WallBottomPixel > S_HEIGHT)
+                WallBottomPixel = S_HEIGHT;
+    //---------------------------------------------------------------------------------
+        int texture_x = (int)(rayAngle * data->tex_width / (2 * PI)) % data->tex_width;
+
+        // Draw the textured wall slice
+        for (int y = WallTopPixel; y < WallBottomPixel; y++)
+        {
+            // Calculate the texture Y-coordinate based on the y-position of the wall slice
+            double texture_pos = (y - (S_HEIGHT / 2 - wall_projected_height / 2)) * data->tex_height / wall_projected_height;
+            if (texture_pos < 0) texture_pos = 0;
+            if (texture_pos >= data->tex_height) texture_pos = data->tex_height - 1;
+
+            // Sample the color from the texture (texture data is a 1D array of pixels)
+            int color = get_texture_color(data->tex_data, data->tex_width, data->tex_height, texture_x, (int)texture_pos);
+
+            // Draw the pixel at the correct position in the window using the color from the texture
+            my_mlx_pixel_put(data, i * WALL_WIDTH, y, color);
+        }
+    //---------------------------------------------------------------------------------
+
+            // draw_rectangle(data, i * WALL_WIDTH, (S_HEIGHT / 2) - (wall_projected_height / 2) ,WALL_WIDTH, wall_projected_height);
+            
             // printf("distance = %2.f\n", data->ray->distance);
             while(j < data->ray->distance)
             {
@@ -440,16 +484,11 @@ void    draw_rays(t_player *player, t_game *data)
                 // printf("x = %2.f, y = %2.f\n", x, y);
                 my_mlx_pixel_put(data, x, y, RED);
                 /*WHERE WE WILL RENDER THE WALL AFTER*/
-                // printf("j = %2.f\n",j);
-                // printf("distance project = %f\n",distance_projectplan);
-                // printf("wall porject height = %f\n",wall_projected_height);
-                // printf("ray distance = %f\n", data->ray->distance);
                 // exit(1);
 
                 j++;
             }
             // reset_window(data,0, 0);
-            draw_rectangle(data, i * WALL_WIDTH, (S_HEIGHT / 2) - (wall_projected_height / 2) ,WALL_WIDTH, wall_projected_height);
             // mlx_destroy_image(data->mlx);
             // draw_line(player, data, x, y);
         rayAngle += FOV / data->num_rays;

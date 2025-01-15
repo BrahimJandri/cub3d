@@ -6,7 +6,7 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:43:31 by bjandri           #+#    #+#             */
-/*   Updated: 2025/01/12 11:57:20 by reddamss         ###   ########.fr       */
+/*   Updated: 2025/01/15 09:39:02 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	calculate_map_dimensions(t_game *game, const char *file)
 		line = get_next_line(fd);
 	}
 	close(fd);
-	printf("MAP HIGH %d\n", game->map_height);
+	// printf("MAP HIGH %d\n", game->map_height);
 }
 
 char	*skip_empty_lines(int fd)

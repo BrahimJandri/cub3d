@@ -6,7 +6,7 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:50:53 by rachid            #+#    #+#             */
-/*   Updated: 2025/01/14 11:39:07 by reddamss         ###   ########.fr       */
+/*   Updated: 2025/01/15 09:34:51 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void    draw_rectangle(t_game *data, int x, int y, int width, int height)
 
 
     i = 0;
-    // printf("x = %d, y = %d, height = %d, width = %d\n", x, y, height, width);
     while(i < height)
     {
         j = 0;
@@ -68,13 +67,10 @@ void	my_mlx_pixel_put(t_game *data, int x, int y, int color)
 	char	*dst;
     
     if (x < 0 || x >= S_WIDTH || y < 0 || y >= S_HEIGHT) {
-        // fprintf(stderr, "Error: x or y is out of bounds\n");
         return;
     }
 
-    // printf("x=%d ,y=%d\n",x, y);
 	dst = data->addrs + (y * data->size_line + x * (data->bpp / 8));
 
-    // printf("this is the dest%s\n", dst);
 	*(unsigned int*)dst = color;
 }

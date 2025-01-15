@@ -6,7 +6,7 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/14 15:13:36 by reddamss         ###   ########.fr       */
+/*   Updated: 2025/01/15 11:15:28 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,9 @@ void	error_msg(char *str)
 int main(int ac, char **av)
 {
   	t_game	*game;
+    
+
+
 
 	game = (t_game *)malloc(sizeof(t_game));
 	if (ac != 2)
@@ -152,12 +155,22 @@ int main(int ac, char **av)
     // allocate_map(av[1], &data);
     init_player(game);//init dakchi d lplayer kamlo hna
     parse_config(game, av);
-    printf("PARSING");
     init_ray(game);
 
+    // game->colorbuffer = malloc(sizeof(unsigned int) * S_WIDTH * S_HEIGHT);
+    // if(!game->colorbuffer)
+    //     return(3);
+
+    
     game->mlx = mlx_init();
     game->win = mlx_new_window(game->mlx, S_WIDTH, S_WIDTH, "gta");
     get_plyr_pos(game);
+
+    game->wall_tex = mlx_xpm_file_to_image(game->mlx,"./Textures/cube_wall.xpm",&game->tex_width, &game->tex_height);
+    if(!game->wall_tex)
+        return(2);
+    game->tex_data = (unsigned int *)mlx_get_data_addr(game->wall_tex, &game->bpp, &game->size_line, &game->endian);
+    
     draw_map(game);
  
     // mlx_loop_hook(game->mlx, (void *)draw_map, game);//rsm lmap o zid lplayer o fov flkher d lfunction
