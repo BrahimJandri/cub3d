@@ -41,7 +41,7 @@
 #define WALL_WIDTH 1
 #define MINIMAP 0.2
 
-#define TILE 20
+#define TILE 32
 #define PI 3.14159265358979323846
 #define TWO_PI 6.28318530718
 #define FOV 60 * (PI / 180)
@@ -111,6 +111,11 @@ typedef struct s_game
     int floor_color;
     int ceiling_color;
     int config_count;
+
+    void    *wall_tex;
+    int     tex_width;
+    int     tex_height;
+    unsigned int *tex_data;
 
     // you were going to add the number of rays the player will have
     t_player *player;

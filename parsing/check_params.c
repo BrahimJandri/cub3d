@@ -6,7 +6,7 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:45:08 by bjandri           #+#    #+#             */
-/*   Updated: 2025/01/12 11:36:55 by reddamss         ###   ########.fr       */
+/*   Updated: 2025/01/14 11:20:01 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	count_params(t_game *game)
 			if (game->map[i][j] == 'N' || game->map[i][j] == 'S'
 				|| game->map[i][j] == 'E' || game->map[i][j] == 'W')
 			{
-				game->player->y = i;
-				game->player->x = j;
-				game->map[i][j] = '0';
+				game->player->y = i ;
+				game->player->x = j ;
+				// game->map[i][j] = '0';
 				count++;
 			}
 			j++;

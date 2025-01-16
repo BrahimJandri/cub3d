@@ -26,3 +26,14 @@ PROBLEM : rendering is too slow
 
     4 Render the Image: Use mlx_put_image_to_window to render the prepared image onto the window.
 }
+PROBLEM AFTER MERGE : 
+{
+    X AND Y are too big see why:
+    map_height = 6, map_width = 14
+    ----> distance is so big that's why it stucks in the while loop. figure out whit it has a big number !!!
+    ----> found_horz_wall and found_vertical_wall are not set to true when i press a key. WHY !!!
+    ----> vert_next_touches are getting bigger after moving. WHY!!!
+    ----> because player->x and player->y get a big number after moving then the reason in in move function. HOW!!!
+    THE PROBLEM CAME FROM THE DRAW CIRCLE WHERE I SET THE CIRCLE TO BE IN THE MIDDLE OF THE SQUARE (0 w 0)
+    ALHAMDU LILLAH
+}
