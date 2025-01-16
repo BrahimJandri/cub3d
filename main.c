@@ -166,7 +166,7 @@ int main(int ac, char **av)
     game->win = mlx_new_window(game->mlx, S_WIDTH, S_WIDTH, "gta");
     get_plyr_pos(game);
 
-    game->wall_tex = mlx_xpm_file_to_image(game->mlx,"./Textures/cube_wall.xpm",&game->tex_width, &game->tex_height);
+    game->wall_tex = mlx_xpm_file_to_image(game->mlx,"./Textures/Cub3d.xpm",&game->tex_width, &game->tex_height);
     if(!game->wall_tex)
         return(2);
     game->tex_data = (unsigned int *)mlx_get_data_addr(game->wall_tex, &game->bpp, &game->size_line, &game->endian);

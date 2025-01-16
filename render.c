@@ -73,53 +73,183 @@ void    draw_line(t_player *player, t_game *data, double x_hit, double  y_hit )
     
 }
 
-
-void	draw_map(t_game *data)
+int shade_walls(int color, double distance)
 {
-	int	x;
-	int	y;
-	int color;
+    int r, g, b;
+    int shaded_color;
 
-    data->img = mlx_new_image(data->mlx, S_WIDTH, S_HEIGHT);  
-    if(!data->img)
-        return ;
-    data->addrs = mlx_get_data_addr(data->img, &data->bpp, &data->size_line, &data->endian);
-    // printf("bpp = %d, size = %d, endian = %d\n", data->bpp, data->size_line, data->endian);
-    // exit(1);
-	y = 0;
-	while (y < data->map_height)//is small than the height
-	{
-		x = 0;
-		while (x < data->map_width)//is small than the width
-		{
-			color = check_number(data->map[y][x]);
-			build_square(data, x * TILE, y * TILE ,color);
-            // sleep(1);
-			x++;
-		}
-		y++;
-	}
-    // printf("map->height = %d, map_width = %d\n",data->map_height, data->map_width);
-    // printf("playerx = %f player y = %f\n", data->player->x , data->player->y);
-    // exit(1);
+    // Ensure distance is not zero to avoid division by zero errors
+    if (distance < 0.1)
+        distance = 0.1;
 
-    // sleep(100);
-    
-    
-    // draw_line(data->player, data);
-    // line(data->player, data);
-    draw_circle(data->player, data);
-    
-    draw_rays(data->player, data);
-    
-    mlx_put_image_to_window(data->mlx, data->win, data->img, 0,0);
-    mlx_destroy_image(data->mlx, data->img);
-    // sleep(5);
-    // exit(1);
-    // render_walls(data, data->player);
-    // cast_rays(data->player, data, data->player->rotationAngle);
-    
+    // Extract RGB components from the color
+    r = (color >> 16) & 0xFF; // Extract the red component
+    g = (color >> 8) & 0xFF;  // Extract the green component
+    b = color & 0xFF;         // Extract the blue component
+
+    // Apply shading based on the distance (the farther away, the darker the color)
+    r = (int)(r / distance);
+    g = (int)(g / distance);
+    b = (int)(b / distance);
+
+    // Ensure the RGB values are within the valid range [0, 255]
+    if (r > 255) r = 255;
+    if (g > 255) g = 255;
+    if (b > 255) b = 255;
+    if (r < 0) r = 0;
+    if (g < 0) g = 0;
+    if (b < 0) b = 0;
+
+    // Combine the RGB components back into a single color value
+    shaded_color = (r << 16) | (g << 8) | b;
+
+    return shaded_color;
 }
+
+
+void ft_write_floor(t_game *data, int i, int color)
+{
+    int j;
+    double distance;
+    int shaded_color;
+
+    // Start from the bottom of the screen and go downwards
+    j = data->num_rays; // Assuming `num_rays` represents the start line of the floor (adjust accordingly)
+    while (j < S_HEIGHT)
+    {
+        // Calculate the distance based on the vertical screen position (j)
+        distance = (j - S_HEIGHT / 2) / (double)(S_HEIGHT / 2);
+        distance = 1 / distance;  // Perspective effect: farther = smaller and darker
+        
+        // Apply shading to the color based on the distance
+        shaded_color = shade_walls(color, distance);
+
+        // Draw the pixel on the floor
+        my_mlx_pixel_put(data, i, j, shaded_color);
+        j++; // Move downwards to the next row
+    }
+}
+
+void ft_write_ceiling(t_game *data, int i, int color)
+{
+    int j;
+    double distance;
+    int shaded_color;
+
+    // Start from the top of the screen and go upwards until the start of the walls
+    j = 0;  // Start from the very top of the screen
+    while (j < data->num_rays)  // Draw only above the wall start line
+    {
+        // Calculate the distance based on the vertical screen position (j)
+        distance = (S_HEIGHT / 2 - j) / (double)(S_HEIGHT / 2);
+        distance = 1 / distance;  // Perspective effect: farther = smaller and darker
+        
+        // Apply shading to the color based on the distance
+        shaded_color = shade_walls(color, distance);
+
+        // Draw the pixel on the ceiling
+        my_mlx_pixel_put(data, i, j, shaded_color);
+        j++; // Move upwards to the next row
+    }
+}
+
+
+
+
+void draw_map(t_game *data)
+{
+    int i;
+    int floor_color = data->floor_color;  // Use the floor color from the config
+    int ceiling_color = data->ceiling_color;  // Use the ceiling color from the config
+
+    // Create a new image to render to
+    data->img = mlx_new_image(data->mlx, S_WIDTH, S_HEIGHT);
+    if (!data->img)
+        return;
+    data->addrs = mlx_get_data_addr(data->img, &data->bpp, &data->size_line, &data->endian);
+
+    // Draw the 2D grid of the map (optional based on your use case)
+    // For example, you can render walls and objects here.
+    // This will depend on the game logic and how the world map is structured.
+    int x = 0;
+    int y = 0;
+    while (y < data->map_height)
+    {
+        x = 0;
+        while (x < data->map_width)
+        {
+            int color = check_number(data->map[y][x]);  // Assume this gives a color based on the tile type
+            build_square(data, x * TILE, y * TILE, color);
+            x++;
+        }
+        y++;
+    }
+
+    // Draw floor and ceiling for each vertical column of the screen
+    for (i = 0; i < S_WIDTH; i++)
+    {
+        // Render floor and ceiling with their respective colors
+        ft_write_floor(data, i, floor_color);  // Render floor
+        ft_write_ceiling(data, i, ceiling_color);  // Render ceiling
+    }
+
+    // Optionally, draw other elements like player, rays, etc.
+    draw_circle(data->player, data);
+    draw_rays(data->player, data);
+
+    // Display the final image in the window
+    mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
+    mlx_destroy_image(data->mlx, data->img);
+}
+
+
+
+// void	draw_map(t_game *data)
+// {
+// 	int	x;
+// 	int	y;
+// 	int color;
+
+//     data->img = mlx_new_image(data->mlx, S_WIDTH, S_HEIGHT);  
+//     if(!data->img)
+//         return ;
+//     data->addrs = mlx_get_data_addr(data->img, &data->bpp, &data->size_line, &data->endian);
+//     // printf("bpp = %d, size = %d, endian = %d\n", data->bpp, data->size_line, data->endian);
+//     // exit(1);
+// 	y = 0;
+// 	while (y < data->map_height)//is small than the height
+// 	{
+// 		x = 0;
+// 		while (x < data->map_width)//is small than the width
+// 		{
+// 			color = check_number(data->map[y][x]);
+// 			build_square(data, x * TILE, y * TILE ,color);
+//             // sleep(1);
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+//     // printf("map->height = %d, map_width = %d\n",data->map_height, data->map_width);
+//     // printf("playerx = %f player y = %f\n", data->player->x , data->player->y);
+//     // exit(1);
+
+//     // sleep(100);
+    
+    
+//     // draw_line(data->player, data);
+//     // line(data->player, data);
+//     draw_circle(data->player, data);
+    
+//     draw_rays(data->player, data);
+    
+//     mlx_put_image_to_window(data->mlx, data->win, data->img, 0,0);
+//     mlx_destroy_image(data->mlx, data->img);
+//     // sleep(5);
+//     // exit(1);
+//     // render_walls(data, data->player);
+//     // cast_rays(data->player, data, data->player->rotationAngle);
+    
+// }
 
 
 
