@@ -194,7 +194,7 @@ void draw_map(t_game *data)
     }
 
     // Optionally, draw other elements like player, rays, etc.
-    draw_circle(data->player, data);
+    // draw_circle(data->player, data);
     draw_rays(data->player, data);
 
     // Display the final image in the window
@@ -555,77 +555,61 @@ double      normalize_angle(double angle)
     return angle;
 }  
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void    draw_rays(t_player *player, t_game *data)
+void draw_rays(t_player *player, t_game *data)
 {
     double i;
-    double x;
-    double y;
-    double j;
-    
     i = 0;
 
     double rayAngle = player->rotationAngle - (FOV / 2);
-    // cast_rays(player,data,rayAngle);
 
-    while(i < data->num_rays)//this while fill the array of rays while changing the rayAngle
-    {//
-            cast_rays(player, data, rayAngle);
-            // sleep(1);
-            j = 0;
+    while (i < data->num_rays) // Iterate through each ray
+    {
+        cast_rays(player, data, rayAngle); // Cast a ray to detect the wall
 
-            // draw_line(player, data, data->ray->x_hit, data->ray->y_hit);
-            double      corrected_wall = data->ray->distance * cos(rayAngle - player->rotationAngle);
-            double      distance_projectplan = (S_WIDTH / 2) / tan(FOV / 2);
-            double      wall_projected_height = (TILE / corrected_wall) * distance_projectplan;
-            
-            int     WallTopPixel = (S_HEIGHT / 2) - (wall_projected_height / 2);
-            if(WallTopPixel < 0)
-                WallTopPixel = 0;
-            int     WallBottomPixel = (S_HEIGHT / 2) + (wall_projected_height / 2);
-            if(WallBottomPixel > S_HEIGHT)
-                WallBottomPixel = S_HEIGHT;
-    //---------------------------------------------------------------------------------
+        // Correct the distance for perspective
+        double corrected_wall = data->ray->distance * cos(rayAngle - player->rotationAngle);
+        double distance_projectplan = (S_WIDTH / 2) / tan(FOV / 2);
+        double wall_projected_height = (TILE / corrected_wall) * distance_projectplan;
+
+        int WallTopPixel = (S_HEIGHT / 2) - (wall_projected_height / 2);
+        if (WallTopPixel < 0)
+            WallTopPixel = 0;
+        int WallBottomPixel = (S_HEIGHT / 2) + (wall_projected_height / 2);
+        if (WallBottomPixel > S_HEIGHT)
+            WallBottomPixel = S_HEIGHT;
+
+        // Calculate the texture x-coordinate
         int texture_x = (int)(rayAngle * data->tex_width / (2 * PI)) % data->tex_width;
 
-        // Draw the textured wall slice
+        // First, apply the shadows to the wall slice
         for (int y = WallTopPixel; y < WallBottomPixel; y++)
         {
-            // Calculate the texture Y-coordinate based on the y-position of the wall slice
-            double texture_pos = (y - (S_HEIGHT / 2 - wall_projected_height / 2)) * data->tex_height / wall_projected_height;
-            if (texture_pos < 0) texture_pos = 0;
-            if (texture_pos >= data->tex_height) texture_pos = data->tex_height - 1;
+            // Calculate the distance-based shading
+            int shaded_color = shade_walls(0x777777, data->ray->distance);
 
-            // Sample the color from the texture (texture data is a 1D array of pixels)
-            int color = get_texture_color(data->tex_data, data->tex_width, data->tex_height, texture_x, (int)texture_pos);
-
-            // Draw the pixel at the correct position in the window using the color from the texture
-            my_mlx_pixel_put(data, i * WALL_WIDTH, y, color);
+            // Draw the shaded pixel on the screen before the texture
+            my_mlx_pixel_put(data, i, y, shaded_color);
         }
-    //---------------------------------------------------------------------------------
 
-            // draw_rectangle(data, i * WALL_WIDTH, (S_HEIGHT / 2) - (wall_projected_height / 2) ,WALL_WIDTH, wall_projected_height);
-            
-            // printf("distance = %2.f\n", data->ray->distance);
-            while(j < data->ray->distance)
-            {
-                x = player->x + cos(rayAngle) * j;
-                y = player->y + sin(rayAngle) * j;
-    
-                // printf("x = %2.f, y = %2.f\n", x, y);
-                my_mlx_pixel_put(data, x, y, RED);
-                /*WHERE WE WILL RENDER THE WALL AFTER*/
-                // exit(1);
+        // Now, draw the texture on top of the shadowed area
+        for (int y = WallTopPixel; y < WallBottomPixel; y++)
+        {
+            // Calculate the texture y-coordinate based on the wall height
+            int texture_y = (int)((y - WallTopPixel) * (double)data->tex_height / wall_projected_height);
 
-                j++;
-            }
-            // reset_window(data,0, 0);
-            // mlx_destroy_image(data->mlx);
-            // draw_line(player, data, x, y);
-        rayAngle += FOV / data->num_rays;
-        i++;
+            // Get the color of the texture at the current coordinates
+            int texture_color = get_texture_color(data->tex_data, data->tex_width, data->tex_height, texture_x, texture_y);
+
+            // Apply the shading to the texture color
+            int final_color = shade_walls(texture_color, data->ray->distance);
+
+            // Draw the textured pixel with shading on the screen
+            my_mlx_pixel_put(data, i, y, final_color);
+        }
+
+        rayAngle += FOV / data->num_rays; // Increment the ray angle
+        i++; // Move to the next column of the screen
     }
-
-    // printf("player positions are[%f][%f]\n", player->y, player->x);
 }
 
 
