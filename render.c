@@ -600,11 +600,8 @@ void draw_rays(t_player *player, t_game *data)
             // Get the color of the texture at the current coordinates
             int texture_color = get_texture_color(data->tex_data, data->tex_width, data->tex_height, texture_x, texture_y);
 
-            // Apply the shading to the texture color
-            int final_color = shade_walls(texture_color, data->ray->distance);
-
             // Draw the textured pixel with shading on the screen
-            my_mlx_pixel_put(data, i, y, final_color);
+            my_mlx_pixel_put(data, i, y, texture_color);
         }
 
         rayAngle += FOV / data->num_rays; // Increment the ray angle
