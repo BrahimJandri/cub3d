@@ -37,3 +37,8 @@ PROBLEM AFTER MERGE :
     THE PROBLEM CAME FROM THE DRAW CIRCLE WHERE I SET THE CIRCLE TO BE IN THE MIDDLE OF THE SQUARE (0 w 0)
     ALHAMDU LILLAH
 }
+STEPS to the BREAK DOWN THE CODE
+{
+    clear the code from every useless comment. ✅
+    convert every for loop to while loop.
+}

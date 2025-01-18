@@ -36,8 +36,8 @@
 #define GOLDEN 0xFFDF00
 #define CREAM 0xFFFDD0
 
-#define S_WIDTH 1900
-#define S_HEIGHT 1000
+#define S_WIDTH 650
+#define S_HEIGHT 700
 #define WALL_WIDTH 1
 #define MINIMAP 0.2
 
@@ -73,17 +73,19 @@ typedef struct s_player
 typedef struct s_ray
 {
     // used double data type for NOW, u can change it later;
-    double x_hit;
-    double y_hit;
+    double h_hitx;
+    double h_hity;
+    double v_hitx;
+    double v_hity;
     double distance;
     bool ray_down;
     bool ray_up;
     bool ray_right;
     bool ray_left;
-    double x_steps;
-    double y_steps;
-    double x_intercept;
-    double y_intercept;
+    bool    found_h_wall;
+    bool    found_v_wall;
+    double  x_wall;
+    double  y_wall;
 } t_ray;
 
 /*________________GAME_STRUCT________________*/
@@ -155,6 +157,22 @@ int key_release(int key, t_game *data);
 void draw_rectangle(t_game *data, int x, int y, int height, int width);
 void my_mlx_pixel_put(t_game *data, int x, int y, int color);
 
+int    is_it_wall(t_game *data, double   x, double   y);
+void    define_angle(t_ray *ray, double angle);
+
+
+void    draw_minimap(t_game *data);
+
+
+/*__________RAYCASTING_________*/
+void    horizontal_intercepts(t_game *data, t_player *player, t_ray *ray, double angle);
+void    horizontal_steps(double x_next_touch, double y_next_touch, t_game *data, double angle);
+void    vertical_intercepts(t_game *data, t_player *player, t_ray *ray, double angle);
+void    vertical_steps(double x_next_touch, double y_next_touch, t_game *data, double angle);
+void    get_vertical_hit(t_game   *data, double array[4], t_ray *ray);
+void    get_horizontal_hit(t_game   *data, double array[4], t_ray *ray);
+void    closer_intersection(t_player *player, t_ray *ray);
+double      calcul_line_length(double   x1, double y1, double x2, double y2);
 
 
 /*______BRAHIM___________*/
