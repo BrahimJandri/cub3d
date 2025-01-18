@@ -553,8 +553,9 @@ double      normalize_angle(double angle)
         angle = angle + TWO_PI;
     }
     return angle;
-}  
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+}
+
+
 void draw_rays(t_player *player, t_game *data)
 {
     double i;
