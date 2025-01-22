@@ -33,18 +33,19 @@
 #define BLUE_SKY 0x019CE0
 #define EARTH_COLOR 0xB07C57
 #define RED 0xFF0000
+#define LIGHT_RED 0xFF4F4B
 #define WHITE 0xFFFFFF
 #define BLACK 0x000000
 #define GOLDEN 0xFFDF00
 #define CREAM 0xFFFDD0
 
-#define S_WIDTH 800
-#define S_HEIGHT 600
+#define S_WIDTH 880
+#define S_HEIGHT 640
 #define WALL_WIDTH 1
 #define MINIMAP 0.2
 
-#define TEX 61
-#define TILE 6
+// #define TEX 
+#define TILE 64
 // #define TEX_WIDTH 
 // #define TEX_HEIGHT 400
 #define PI 3.14159265358979323846
@@ -194,6 +195,8 @@ void    draw_minimap(t_game *data);
 
 int	shade_walls(int color, double distance);
 int	apply_shadow(int color, double shadow_factor);
+
+void    put_rays(t_game *data, t_player *player);
 
 /*__________RAYCASTING_________*/
 void    horizontal_intercepts(t_game *data, t_player *player, t_ray *ray, double angle);

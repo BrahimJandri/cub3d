@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/22 10:41:21 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/22 17:27:42 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,16 @@ void	draw_map(t_game *data)
         return ;
     data->img->addrs = mlx_get_data_addr(data->img->img, &data->img->bpp, &data->img->size_line, &data->img->endian);
 
-    // draw_minimap(data);
     // draw_line(data->player, data);
     // line(data->player, data);
-    // draw_circle(data->player, data);
     
     draw_rays(data->player, data);
     
+    draw_minimap(data);
+    draw_circle(data->player, data);
+    put_rays(data, data->player);
     mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0,0);
+
     mlx_destroy_image(data->mlx, data->img->img);
     // render_walls(data, data->player);
     // cast_rays(data->player, data, data->player->rotationAngle);
@@ -58,7 +60,7 @@ int    get_color(t_game *data, int x, int y)
 		* (data->texture->bpp / 8));
     
     return color;
-}
+} 
 
 
 
@@ -66,7 +68,7 @@ void    get_the_right_color(t_game *data, int offset_x, int offset_y)
 {
     data->color = get_color(data, offset_x, offset_y);
 }
-
+  
 
 void    get_texture(t_game *data, int j)
 {
@@ -75,14 +77,14 @@ void    get_texture(t_game *data, int j)
     int     distance_from_top;
 
     if(data->ray->is_vert)
-        offset_x = (int)data->ray->y_wall % TEX;
+        offset_x = (int)data->ray->y_wall % TILE;
     else
-        offset_x = (int)data->ray->x_wall % TEX;
+        offset_x = (int)data->ray->x_wall % TILE;
     
     distance_from_top = j + (data->wall_projected_height / 2) - (S_HEIGHT / 2);
-    offset_y = distance_from_top * (TEX / data->wall_projected_height);
+    offset_y = distance_from_top * ((double)TILE / data->wall_projected_height);
 
-    if((offset_x >= 0 && offset_x < TEX - 1) && (offset_y >= 0 && offset_y < TEX - 1))
+    if((offset_x >= 0 && offset_x < TILE - 1) && (offset_y >= 0 && offset_y < TILE - 1))
     {
         get_the_right_color(data, offset_x, offset_y);
     }
@@ -190,21 +192,50 @@ void    draw_rays(t_player *player, t_game *data)
 
             // draw_rectangle(data, i * WALL_WIDTH, (S_HEIGHT / 2) - (wall_projected_height / 2) ,WALL_WIDTH, wall_projected_height);
             
-            // while(j < data->ray->distance)
-            // {
-            //     x = player->x + cos(rayAngle) * j;
-            //     y = player->y + sin(rayAngle) * j;
+        //     while(j < 10)
+        //     {
+        //         x = (player->x * MINIMAP) + cos(rayAngle) * j;
+        //         y = (player->y * MINIMAP) + sin(rayAngle) * j;
     
-            //     my_mlx_pixel_put(data, x, y, RED);
-            //     /*WHERE WE WILL RENDER THE WALL AFTER*/
+        //         my_mlx_pixel_put(data, x, y, RED);
+        //         /*WHERE WE WILL RENDER THE WALL AFTER*/
 
-            //     j++;
-            // }
-            // reset_window(data,0, 0);
-            // mlx_destroy_image(data->mlx);
-            // draw_line(player, data, x, y);
+        //         j++;
+        //     }
+        //     // reset_window(data,0, 0);
+        //     // mlx_destroy_image(data->mlx);
+        //     // draw_line(player, data, x, y);
         rayAngle += FOV / data->num_rays;
         i++;
     }
 
+}
+
+
+void    put_rays(t_game *data, t_player *player)
+{
+    double i;
+    double x;
+    double y;
+    double j;
+    
+    i = 0;  
+    double rayAngle = player->rotationAngle - (FOV / 2);
+
+    while(i < data->num_rays)
+    {
+        j = 0;
+            while(j < 20)
+            {
+                x = (player->x * MINIMAP) + cos(rayAngle) * j;
+                y = (player->y * MINIMAP) + sin(rayAngle) * j;
+    
+                my_mlx_pixel_put(data, x, y, LIGHT_RED);
+                /*WHERE WE WILL RENDER THE WALL AFTER*/
+
+                j++;
+            }
+        rayAngle += FOV / data->num_rays;
+        i++;    
+    }
 }
