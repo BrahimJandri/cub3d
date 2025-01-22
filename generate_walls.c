@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   generate_walls.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:50:53 by rachid            #+#    #+#             */
-/*   Updated: 2025/01/15 09:34:51 by reddamss         ###   ########.fr       */
+/*   Updated: 2025/01/22 09:33:35 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	my_mlx_pixel_put(t_game *data, int x, int y, int color)
         return;
     }
 
-	dst = data->addrs + (y * data->size_line + x * (data->bpp / 8));
+	dst = data->img->addrs + (y * data->img->size_line + x * (data->img->bpp / 8));
 
 	*(unsigned int*)dst = color;
 }

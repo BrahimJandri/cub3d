@@ -42,3 +42,8 @@ STEPS to the BREAK DOWN THE CODE
     clear the code from every useless comment. ✅
     convert every for loop to while loop.
 }
+
+ISSUES:
+1 - It goes through the walls.
+2 - when I use textures, after turning left the walls become black
+3 - one picture is taken to represent the whole wall. 

@@ -36,12 +36,15 @@
 #define GOLDEN 0xFFDF00
 #define CREAM 0xFFFDD0
 
-#define S_WIDTH 650
-#define S_HEIGHT 700
+#define S_WIDTH 800
+#define S_HEIGHT 600
 #define WALL_WIDTH 1
 #define MINIMAP 0.2
 
-#define TILE 32
+#define TEX 256
+#define TILE 10
+// #define TEX_WIDTH 
+// #define TEX_HEIGHT 400
 #define PI 3.14159265358979323846
 #define TWO_PI 6.28318530718
 #define FOV 60 * (PI / 180)
@@ -49,9 +52,26 @@
 /*_______________IMAGES_STRUCT_________________*/
 typedef struct s_image
 {
+    int bpp;
+    int size_line;
+    int endian;
+    char *addrs;
     void *img;
 
 } t_image;
+
+typedef struct s_texture
+{
+    int bpp;
+    int size_line;
+    int endian;
+    char *addrs;
+    void *img;
+    int tex_width;
+    int tex_height;
+    void    *tex_data;
+}t_texture;
+
 
 /*_______________PLAYER_STRCUT_________________*/
 typedef struct s_player
@@ -84,21 +104,19 @@ typedef struct s_ray
     bool ray_left;
     bool    found_h_wall;
     bool    found_v_wall;
+    bool is_vert;
     double  x_wall;
     double  y_wall;
 } t_ray;
 
-/*________________GAME_STRUCT________________*/
+/*_______________
+_GAME_STRUCT________________*/
 typedef struct s_game
 {
     void *mlx;
     void *win;
 
-    int bpp;
-    int size_line;
-    int endian;
-    char *addrs;
-    void *img;
+
 
     char **map;
     char **map_dup;
@@ -119,9 +137,17 @@ typedef struct s_game
     int     tex_height;
     unsigned int *tex_data;
 
+    double  corrected_wall;
+    double  distance_projectplan;
+    double  wall_projected_height;
+
+    unsigned int color; 
+
     // you were going to add the number of rays the player will have
     t_player *player;
     t_ray *ray;
+    t_image *img;
+    t_texture *texture;
 } t_game;
 
 /*______________get_next_line________________*/

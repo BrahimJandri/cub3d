@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/19 00:07:26 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/22 09:42:32 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,17 @@ int main(int ac, char **av)
   	t_game	*game;
 
 	game = (t_game *)malloc(sizeof(t_game));
-	if (ac != 2)
-		return (ft_putstr_fd("Error\nUsage : Cub3d map.cub\n", 2), free(game),
-			1);
+    if(!game)
+        return 1;
+    game->texture = malloc(sizeof(t_texture));
+    if(!game->texture)
+    {
+        return 1;   
+    }
+	if(ac != 2)
+    {
+		return (ft_putstr_fd("Error\nUsage : Cub3d map.cub\n", 2), free(game),1);
+    }
     // t_image image;
     (void)ac;
     
@@ -92,20 +100,24 @@ int main(int ac, char **av)
     init_ray(game);
     
     game->mlx = mlx_init();
-    game->win = mlx_new_window(game->mlx, S_WIDTH, S_WIDTH, "gta");
+    game->win = mlx_new_window(game->mlx, S_WIDTH, S_HEIGHT, "gta");
     get_plyr_pos(game);
 
-    game->wall_tex = mlx_xpm_file_to_image(game->mlx,"./Textures/cube_wall.xpm",&game->tex_width, &game->tex_height);
-    if(!game->wall_tex)
+    game->texture->img = mlx_xpm_file_to_image(game->mlx,"./Textures/4.xpm",&game->texture->tex_width, &game->texture->tex_height);
+    if(!game->texture->img)
         return(2);
-    game->tex_data = (unsigned int *)mlx_get_data_addr(game->wall_tex, &game->bpp, &game->size_line, &game->endian);
-    
+    game->texture->tex_data = (unsigned int *)mlx_get_data_addr(game->texture->img, &game->texture->bpp, &game->texture->size_line, &game->texture->endian);
+    // printf("bpp =  %d, size_line = %d, endian = %d\n", game->bpp, game->size_line, game->endian);
     // draw_map(game);
  
+    game->img = malloc(sizeof(t_image));
+    if(!game->img)
+        return 1;
+        
     mlx_loop_hook(game->mlx, (void *)draw_map, game);//rsm lmap o zid lplayer o fov flkher d lfunction
     // mlx_loop_hook()
-    // mlx_hook(game->win, 03, 1L<<1, key_release, game);
-    mlx_hook(game->win, 02, 1L<<0, player_control, game);
+    mlx_hook(game->win, 2, (1L << 0), player_control, game);
+    mlx_hook(game->win, 3, (1L << 1), key_release, game);
     mlx_loop(game->mlx);
     free_all(game);
 }

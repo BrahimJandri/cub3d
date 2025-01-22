@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 23:40:13 by rachid            #+#    #+#             */
-/*   Updated: 2025/01/19 00:03:08 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/21 12:50:02 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,19 @@ void    closer_intersection(t_player *player, t_ray *ray)
         h_hit_distance = calcul_line_length(player->x, player->y, ray->h_hitx, ray->h_hity);
     else
         h_hit_distance = 9199999999999999999;
-
     if(h_hit_distance < v_hit_distance)
     {
         ray->x_wall = ray->h_hitx;
         ray->y_wall = ray->h_hity;
-        ray->distance = h_hit_distance;        
+        ray->distance = h_hit_distance;
+        ray->is_vert = 0;      
     }
     else
     {
         ray->x_wall = ray->v_hitx;
         ray->y_wall = ray->v_hity;
         ray->distance = v_hit_distance;
+        ray->is_vert = 1;      
     }       
 }
 
