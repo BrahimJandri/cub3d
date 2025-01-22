@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/22 09:42:32 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/22 13:23:43 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int main(int ac, char **av)
     game->win = mlx_new_window(game->mlx, S_WIDTH, S_HEIGHT, "gta");
     get_plyr_pos(game);
 
-    game->texture->img = mlx_xpm_file_to_image(game->mlx,"./Textures/4.xpm",&game->texture->tex_width, &game->texture->tex_height);
+    game->texture->img = mlx_xpm_file_to_image(game->mlx,"./Textures/flag.xpm",&game->texture->tex_width, &game->texture->tex_height);
     if(!game->texture->img)
         return(2);
     game->texture->tex_data = (unsigned int *)mlx_get_data_addr(game->texture->img, &game->texture->bpp, &game->texture->size_line, &game->texture->endian);

@@ -5,6 +5,7 @@
 #define BUFFER_SIZE 1
 #endif
 
+#include <stdlib.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -13,7 +14,6 @@
 #include "../library/get_next_line/get_next_line.h"
 #include <math.h>
 #include <limits.h>
-#include <stdlib.h>
 #include <fcntl.h>
 
 /*----------- CONTROL KEYS ----------*/
@@ -30,6 +30,8 @@
 
 /*----------- COLORS ----------*/
 #define GREY 0x808080
+#define BLUE_SKY 0x019CE0
+#define EARTH_COLOR 0xB07C57
 #define RED 0xFF0000
 #define WHITE 0xFFFFFF
 #define BLACK 0x000000
@@ -41,8 +43,8 @@
 #define WALL_WIDTH 1
 #define MINIMAP 0.2
 
-#define TEX 256
-#define TILE 10
+#define TEX 61
+#define TILE 61
 // #define TEX_WIDTH 
 // #define TEX_HEIGHT 400
 #define PI 3.14159265358979323846
@@ -189,6 +191,9 @@ void    define_angle(t_ray *ray, double angle);
 
 void    draw_minimap(t_game *data);
 
+
+int	shade_walls(int color, double distance);
+int	apply_shadow(int color, double shadow_factor);
 
 /*__________RAYCASTING_________*/
 void    horizontal_intercepts(t_game *data, t_player *player, t_ray *ray, double angle);

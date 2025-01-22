@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/22 09:50:32 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/22 10:41:21 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,24 +104,32 @@ void    put_wall(t_game *data, int  wall_top, int wall_bottom,int i)
 void    put_ceiling(t_game *data, int walltop,int i)
 {
     int j;
-    // double  distance;
+    double  distance;
+    int shaded;
     
     j = 0;
     while(j < walltop)
-    // distance = (S_HEIGHT / 2 - j) / (S_HEIGHT /2);
-    // distance = 1 / S_HEIGHT;
-
-    my_mlx_pixel_put(data, i * WALL_WIDTH, j++, GREY);
+    {
+        distance = (S_HEIGHT / 2 - j) / (double)(S_HEIGHT / 2);
+        distance = 1 / (distance);
+        shaded = shade_walls(BLUE_SKY, distance);
+        my_mlx_pixel_put(data, i * WALL_WIDTH, j++, shaded);
+    }
 }
 
 void    put_floor(t_game *data, int wall_bottom, int i)
 {
     int j;
+    double  distance;
+    int shaded;
 
     j = wall_bottom;
     while(j < S_HEIGHT)
     {
-        my_mlx_pixel_put(data, i * WALL_WIDTH, j++, RED);
+        distance = (j - S_HEIGHT / 2) / (double)(S_HEIGHT / 2);
+        distance = 1 / (distance);
+        shaded = shade_walls(EARTH_COLOR, distance);
+        my_mlx_pixel_put(data, i * WALL_WIDTH, j++, shaded);
     }
 }
 //)000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
