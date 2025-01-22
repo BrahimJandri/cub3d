@@ -44,7 +44,7 @@
 #define MINIMAP 0.2
 
 #define TEX 61
-#define TILE 61
+#define TILE 6
 // #define TEX_WIDTH 
 // #define TEX_HEIGHT 400
 #define PI 3.14159265358979323846
