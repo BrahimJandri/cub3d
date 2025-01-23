@@ -5,6 +5,7 @@
 #define BUFFER_SIZE 1
 #endif
 
+#include <stdlib.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -13,7 +14,6 @@
 #include "../library/get_next_line/get_next_line.h"
 #include <math.h>
 #include <limits.h>
-#include <stdlib.h>
 #include <fcntl.h>
 
 /*----------- CONTROL KEYS ----------*/
@@ -30,18 +30,23 @@
 
 /*----------- COLORS ----------*/
 #define GREY 0x808080
+#define BLUE_SKY 0x019CE0
+#define EARTH_COLOR 0xB07C57
 #define RED 0xFF0000
 #define WHITE 0xFFFFFF
 #define BLACK 0x000000
 #define GOLDEN 0xFFDF00
 #define CREAM 0xFFFDD0
 
-#define S_WIDTH 960
-#define S_HEIGHT 960
+#define S_WIDTH 800
+#define S_HEIGHT 600
 #define WALL_WIDTH 1
 #define MINIMAP 0.2
 
-#define TILE 32
+#define TEX 61
+#define TILE 6
+// #define TEX_WIDTH 
+// #define TEX_HEIGHT 400
 #define PI 3.14159265358979323846
 #define TWO_PI 6.28318530718
 #define FOV 60 * (PI / 180)
@@ -49,9 +54,26 @@
 /*_______________IMAGES_STRUCT_________________*/
 typedef struct s_image
 {
+    int bpp;
+    int size_line;
+    int endian;
+    char *addrs;
     void *img;
 
 } t_image;
+
+typedef struct s_texture
+{
+    int bpp;
+    int size_line;
+    int endian;
+    char *addrs;
+    void *img;
+    int tex_width;
+    int tex_height;
+    void    *tex_data;
+}t_texture;
+
 
 /*_______________PLAYER_STRCUT_________________*/
 typedef struct s_player
@@ -73,30 +95,30 @@ typedef struct s_player
 typedef struct s_ray
 {
     // used double data type for NOW, u can change it later;
-    double x_hit;
-    double y_hit;
+    double h_hitx;
+    double h_hity;
+    double v_hitx;
+    double v_hity;
     double distance;
     bool ray_down;
     bool ray_up;
     bool ray_right;
     bool ray_left;
-    double x_steps;
-    double y_steps;
-    double x_intercept;
-    double y_intercept;
+    bool    found_h_wall;
+    bool    found_v_wall;
+    bool is_vert;
+    double  x_wall;
+    double  y_wall;
 } t_ray;
 
-/*________________GAME_STRUCT________________*/
+/*_______________
+_GAME_STRUCT________________*/
 typedef struct s_game
 {
     void *mlx;
     void *win;
 
-    int bpp;
-    int size_line;
-    int endian;
-    char *addrs;
-    void *img;
+
 
     char **map;
     char **map_dup;
@@ -117,9 +139,17 @@ typedef struct s_game
     int     tex_height;
     unsigned int *tex_data;
 
+    double  corrected_wall;
+    double  distance_projectplan;
+    double  wall_projected_height;
+
+    unsigned int color; 
+
     // you were going to add the number of rays the player will have
     t_player *player;
     t_ray *ray;
+    t_image *img;
+    t_texture *texture;
 } t_game;
 
 /*______________get_next_line________________*/
@@ -155,6 +185,25 @@ int key_release(int key, t_game *data);
 void draw_rectangle(t_game *data, int x, int y, int height, int width);
 void my_mlx_pixel_put(t_game *data, int x, int y, int color);
 
+int    is_it_wall(t_game *data, double   x, double   y);
+void    define_angle(t_ray *ray, double angle);
+
+
+void    draw_minimap(t_game *data);
+
+
+int	shade_walls(int color, double distance);
+int	apply_shadow(int color, double shadow_factor);
+
+/*__________RAYCASTING_________*/
+void    horizontal_intercepts(t_game *data, t_player *player, t_ray *ray, double angle);
+void    horizontal_steps(double x_next_touch, double y_next_touch, t_game *data, double angle);
+void    vertical_intercepts(t_game *data, t_player *player, t_ray *ray, double angle);
+void    vertical_steps(double x_next_touch, double y_next_touch, t_game *data, double angle);
+void    get_vertical_hit(t_game   *data, double array[4], t_ray *ray);
+void    get_horizontal_hit(t_game   *data, double array[4], t_ray *ray);
+void    closer_intersection(t_player *player, t_ray *ray);
+double      calcul_line_length(double   x1, double y1, double x2, double y2);
 
 
 /*______BRAHIM___________*/

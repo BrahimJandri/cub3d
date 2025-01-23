@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:27:31 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/15 09:36:15 by reddamss         ###   ########.fr       */
+/*   Updated: 2025/01/21 13:25:37 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,30 +58,29 @@ int     key_release(int key, t_game *data)
     player = data->player;
     if (key == UP)
     {
-        // printf("up\n");
         player->walkDir = 0;// it adds 1 to walkdir to move forward
-        update_player(data, data->player);// it will update the player forward only if the player
+        // update_player(data, data->player);
     }
     else if (key == DOWN)
     {
-        // printf("down\n");
-        player->walkDir= 0;
-        update_player(data, data->player);
+        player->walkDir = 0;
+        // update_player(data, data->player);
     }
     else if (key == RIGHT)
     {
         player->turnDir = 0;
-        update_rotation(data, data->player);
+        // update_rotation(data, data->player);
     }
     else if (key == LEFT)
     {
         player->turnDir = 0;
-        update_rotation(data, data->player);
+        // update_rotation(data, data->player);
     }
     else if(key == ESC)
     {
         exit(1);
     }
+    draw_map(data);
     return 1;
 }
 
