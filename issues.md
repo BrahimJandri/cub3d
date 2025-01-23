@@ -1,13 +1,12 @@
 # L7WAYJ LI BA9I KHASIN:
 {
-    1 -  )))))A, D, W, S for moving in the map.((((((
-
-
+    1 - A, D, W, S for moving in the map.✅
     2 - use keypress release to use multiple key at the same time
     3 - fix the gaps between the walls✅
     4 - sprites (bonus)
     5 - mouse_hook (bonus)
     6 - circular map (bonus)
+    11 - Wall Collisions (bonus) ✅
     7 - fixing the problem of walls do not appear when it is a long map
     8 - setting the player depending on the N,S,W,E
     9 - getting the textures of the SO, NO ,EA, WE

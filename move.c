@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:27:31 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/23 11:35:11 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/23 11:44:46 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,19 @@ void    update_sides(t_game *data, t_player *player)
 {
     double  new_posx;
     double  new_posy;
+    int x;
+    int y;
     
     new_posx = player->x + cos(player->rotationAngle + (PI / 2)) * player->sideDir * player->moveSpeed;
     new_posy = player->y + sin(player->rotationAngle + (PI / 2)) * player->sideDir * player->moveSpeed;
-    if(data->map[(int)new_posy / TILE][(int)new_posx / TILE] != '1')
-    {
+    
+    x = (int)player->x / TILE;
+    y = (int)player->y / TILE;
+    
+    if(data->map[y][(int)new_posx / TILE] != '1')
         player->x = new_posx;
+    if(data->map[(int)new_posy / TILE][x] != '1')
         player->y = new_posy;
-    }
     draw_map(data);
 }
 
@@ -126,14 +131,6 @@ void    update_player(t_game *data, t_player *player)
         player->x = new_posx;
     if(data->map[(int)new_posy / TILE][x] != '1')
         player->y = new_posy;
-
-
-    
-    // if(data->map[(int)new_posy / TILE][(int)new_posx / TILE] != '1')
-    // {
-    //     player->x = new_posx;
-    //     player->y = new_posy;
-    // }
     draw_map(data);
 }
 
