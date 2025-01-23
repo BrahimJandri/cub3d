@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 16:01:18 by rachid            #+#    #+#             */
-/*   Updated: 2025/01/19 00:09:35 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/22 16:12:12 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void draw_circle(t_player *player, t_game *data) {
             // Check if the point (x, y) satisfies the circle equation
             if ((x * x + y * y) <= player->radius * player->radius)
             {
-                my_mlx_pixel_put(data, player->x + x, player->y + y, RED);
+                my_mlx_pixel_put(data, (player->x + x) * MINIMAP, (player->y + y) * MINIMAP, RED);
             }
         }
     }
@@ -62,7 +62,7 @@ void    draw_minimap(t_game *data)
 		while (x < data->map_width)//is small than the width
 		{
 			color = check_number(data->map[y][x]);
-			build_square(data, x * TILE, y * TILE ,color);
+			build_square(data, x * (TILE * MINIMAP) , y * (TILE * MINIMAP) ,color);
 			x++;
 		}
 		y++;
@@ -71,9 +71,9 @@ void    draw_minimap(t_game *data)
 
 void    build_square(t_game *data, int x, int y, int color)
 {   
-    for(int i = 0;i < TILE -1; i++)
+    for(int i = 0;i < TILE * MINIMAP; i++)
     {
-        for(int j = 0; j < TILE -1; j++)
+        for(int j = 0; j < TILE * MINIMAP ; j++)
         {
             my_mlx_pixel_put(data, x + i, y + j, color);
         }
