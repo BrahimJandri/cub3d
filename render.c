@@ -6,16 +6,22 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/22 17:27:42 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/23 13:06:35 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "./Headers/cub3d.h"
 
+void    game_loop(t_game *data)
+{
+    get_data(data);
+    draw_map(data);
+}
 
 void	draw_map(t_game *data)
 {
+
     data->img->img = mlx_new_image(data->mlx, S_WIDTH, S_HEIGHT);  
     if(!data->img)
         return ;
@@ -37,7 +43,22 @@ void	draw_map(t_game *data)
     
 }
 
-
+void    get_data(t_game *data)
+{   
+    if(data->player->walkDir)
+    {
+        update_player(data, data->player);
+    }
+    if(data->player->turnDir)
+    {
+        data->player->rotationAngle += data->player->turnDir * data->player->rotationSpeed;
+    }
+    if(data->player->sideDir)
+    {
+        update_sides(data, data->player);
+    }
+    return ;
+}
 
 int get_texture_color(unsigned int *texture_data, int tex_width, int tex_height, int x, int y)
 {

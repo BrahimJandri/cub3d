@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_texture.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 08:54:39 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/29 13:27:06 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/01/23 13:12:44 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,13 @@ void	parse_texture(char *line, t_game *game, int n)
 	split_line = ft_split(trimmed_line, ' ');
 	if (split_line && ft_arraylen(split_line) >= 2)
 	{
-		if (n == 0 && game->config_count < 4)
+		if (n == 0 && game->config_count <6)
 			game->no_texture = ft_strdup(split_line[1]);
-		else if (n == 1 && game->config_count < 4)
+		else if (n == 1 && game->config_count < 6)
 			game->so_texture = ft_strdup(split_line[1]);
-		else if (n == 2 && game->config_count < 4)
+		else if (n == 2 && game->config_count < 6)
 			game->we_texture = ft_strdup(split_line[1]);
-		else if (n == 3 && game->config_count < 4)
+		else if (n == 3 && game->config_count < 6)
 			game->ea_texture = ft_strdup(split_line[1]);
 		game->config_count++;
 	}

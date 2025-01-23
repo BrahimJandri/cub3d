@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/22 13:23:43 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/23 13:08:07 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,11 @@ void    init_player(t_game *data)
     dot->radius = TILE / 5;
     dot->turnDir = 0;
     dot->walkDir = 0;
+    dot->sideDir = 0;
     dot->rotationAngle = PI / 2;
     dot->moveSpeed = 4.0;
     dot->rotationSpeed = 2 * (PI / 2);
-    dot->line_lenght = 50 ;
+    dot->line_lenght = 50;
     dot->angle = 0;
 
 
@@ -114,7 +115,7 @@ int main(int ac, char **av)
     if(!game->img)
         return 1;
         
-    mlx_loop_hook(game->mlx, (void *)draw_map, game);//rsm lmap o zid lplayer o fov flkher d lfunction
+    mlx_loop_hook(game->mlx, (void *)game_loop, game);//rsm lmap o zid lplayer o fov flkher d lfunction
     // mlx_loop_hook()
     mlx_hook(game->win, 2, (1L << 0), player_control, game);
     mlx_hook(game->win, 3, (1L << 1), key_release, game);
