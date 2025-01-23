@@ -84,6 +84,7 @@ typedef struct s_player
     int radius;
     double turnDir;
     double walkDir;
+    double sideDir;
     double rotationAngle;
     double rotationSpeed;
     double moveSpeed;
@@ -197,6 +198,8 @@ int	shade_walls(int color, double distance);
 int	apply_shadow(int color, double shadow_factor);
 
 void    put_rays(t_game *data, t_player *player);
+
+void    update_sides(t_game *data, t_player *player);
 
 /*__________RAYCASTING_________*/
 void    horizontal_intercepts(t_game *data, t_player *player, t_ray *ray, double angle);
