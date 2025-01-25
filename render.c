@@ -32,9 +32,9 @@ void	draw_map(t_game *data)
     
     draw_rays(data->player, data);
     
-    draw_minimap(data);
-    draw_circle(data->player, data);
-    put_rays(data, data->player);
+    // draw_minimap(data);
+    // draw_circle(data->player, data);
+    // put_rays(data, data->player);
     mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0,0);
 
     mlx_destroy_image(data->mlx, data->img->img);
@@ -92,7 +92,7 @@ void    get_texture(t_game *data, int j)
     distance_from_top = j + (data->wall_projected_height / 2) - (S_HEIGHT / 2);
     offset_y = distance_from_top * ((double)TILE / data->wall_projected_height);
 
-    if((offset_x >= 0 && offset_x < TILE - 1) && (offset_y >= 0 && offset_y < TILE - 1))
+    if((offset_x >= 0 && offset_x < TILE) && (offset_y >= 0 && offset_y < TILE))
     {
         get_the_right_color(data, offset_x, offset_y);
     }
@@ -115,15 +115,13 @@ void    put_ceiling(t_game *data, int walltop,int i)
 {
     int j;
     double  distance;
-    int shaded;
     
     j = 0;
     while(j < walltop)
     {
         distance = (S_HEIGHT / 2 - j) / (double)(S_HEIGHT / 2);
         distance = 1 / (distance);
-        shaded = shade_walls(BLUE_SKY, distance);
-        my_mlx_pixel_put(data, i * WALL_WIDTH, j++, shaded);
+        my_mlx_pixel_put(data, i * WALL_WIDTH, j++, data->ceiling_color);
     }
 }
 
@@ -131,15 +129,13 @@ void    put_floor(t_game *data, int wall_bottom, int i)
 {
     int j;
     double  distance;
-    int shaded;
 
     j = wall_bottom;
     while(j < S_HEIGHT)
     {
         distance = (j - S_HEIGHT / 2) / (double)(S_HEIGHT / 2);
         distance = 1 / (distance);
-        shaded = shade_walls(EARTH_COLOR, distance);
-        my_mlx_pixel_put(data, i * WALL_WIDTH, j++, shaded);
+        my_mlx_pixel_put(data, i * WALL_WIDTH, j++, data->floor_color);
     }
 }
 //)000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000

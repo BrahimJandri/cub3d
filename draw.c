@@ -12,21 +12,21 @@
 
 #include "./Headers/cub3d.h"
 
-void draw_circle(t_player *player, t_game *data) {
-    int x, y;
+// void draw_circle(t_player *player, t_game *data) {
+//     int x, y;
     
-    for (x = -player->radius; x <= player->radius; x++) 
-    {
-        for (y = -player->radius; y <= player->radius; y++)
-        {
-            // Check if the point (x, y) satisfies the circle equation
-            if ((x * x + y * y) <= player->radius * player->radius)
-            {
-                my_mlx_pixel_put(data, (player->x + x) * MINIMAP, (player->y + y) * MINIMAP, RED);
-            }
-        }
-    }
-}
+//     for (x = -player->radius; x <= player->radius; x++) 
+//     {
+//         for (y = -player->radius; y <= player->radius; y++)
+//         {
+//             // Check if the point (x, y) satisfies the circle equation
+//             if ((x * x + y * y) <= player->radius * player->radius)
+//             {
+//                 my_mlx_pixel_put(data, (player->x + x) * MINIMAP, (player->y + y) * MINIMAP, RED);
+//             }
+//         }
+//     }
+// }
 
 void    draw_line(t_player *player, t_game *data, double x_hit, double  y_hit )
 {
@@ -49,25 +49,25 @@ void    draw_line(t_player *player, t_game *data, double x_hit, double  y_hit )
     
 }
 
-void    draw_minimap(t_game *data)
-{
-	int	x;
-	int	y;
-	int color;
+// void    draw_minimap(t_game *data)
+// {
+// 	int	x;
+// 	int	y;
+// 	int color;
     
-	y = 0;
-	while (y < data->map_height)//is small than the height
-	{
-		x = 0;
-		while (x < data->map_width)//is small than the width
-		{
-			color = check_number(data->map[y][x]);
-			build_square(data, x * (TILE * MINIMAP) , y * (TILE * MINIMAP) ,color);
-			x++;
-		}
-		y++;
-	}
-}
+// 	y = 0;
+// 	while (y < data->map_height)//is small than the height
+// 	{
+// 		x = 0;
+// 		while (x < data->map_width)//is small than the width
+// 		{
+// 			color = check_number(data->map[y][x]);
+// 			build_square(data, x * (TILE * MINIMAP) , y * (TILE * MINIMAP) ,color);
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// }
 
 void    build_square(t_game *data, int x, int y, int color)
 {   

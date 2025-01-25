@@ -39,13 +39,13 @@
 #define GOLDEN 0xFFDF00
 #define CREAM 0xFFFDD0
 
-#define S_WIDTH 700
-#define S_HEIGHT 640
+#define S_WIDTH 1080
+#define S_HEIGHT 920
 #define WALL_WIDTH 1
 #define MINIMAP 0.2
 
 // #define TEX 
-#define TILE 64
+#define TILE 256
 // #define TEX_WIDTH 
 // #define TEX_HEIGHT 400
 #define PI 3.14159265358979323846
