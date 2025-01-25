@@ -45,7 +45,7 @@
 #define MINIMAP 0.2
 
 // #define TEX 
-#define TILE 64
+#define TILE 256
 // #define TEX_WIDTH 
 // #define TEX_HEIGHT 400
 #define PI 3.14159265358979323846
@@ -90,6 +90,7 @@ typedef struct s_player
     double fov;
     double angle;
     double line_lenght;
+    char character;
 } t_player;
 
 /*________________RAY_STRUCT_________________*/

@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/25 09:21:49 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/25 11:52:34 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	draw_map(t_game *data)
     
     draw_rays(data->player, data);
     
-    draw_minimap(data);
-    draw_circle(data->player, data);
-    put_rays(data, data->player);
+    // draw_minimap(data);
+    // draw_circle(data->player, data);
+    // put_rays(data, data->player);
     mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0,0);
 
     mlx_destroy_image(data->mlx, data->img->img);
@@ -92,7 +92,7 @@ void    get_texture(t_game *data, int j)
     distance_from_top = j + (data->wall_projected_height / 2) - (S_HEIGHT / 2);
     offset_y = distance_from_top * ((double)TILE / data->wall_projected_height);
 
-    if((offset_x >= 0 && offset_x < TILE - 1) && (offset_y >= 0 && offset_y < TILE - 1))
+    if((offset_x >= 0 && offset_x < TILE) && (offset_y >= 0 && offset_y < TILE))
     {
         get_the_right_color(data, offset_x, offset_y);
     }

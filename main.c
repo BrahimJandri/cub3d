@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/25 10:19:56 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/25 11:44:20 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,18 @@ int get_plyr_pos(t_game *data)
 	int	y;
 
 	y = 0;
+    printf("height of map%d\n", data->map_height);
 	while (y < data->map_height)//is small than the height
 	{
 		x = 0;
 		while (x < data->map_width)//is small than the width
 		{
-            if(data->map[y][x] == 'N')
+            if(ft_strchr("NSEW", data->map[y][x]))
             {
-                data->map[y][x] = '0';
+                data->player->character = data->map[y][x];
                 data->player->x = x * TILE + (TILE/2);
                 data->player->y = y * TILE + (TILE/2);
+                data->map[y][x] = '0';
             }
 			x++;
 		}
@@ -38,18 +40,28 @@ int get_plyr_pos(t_game *data)
 }
 
 
+void    set_direction(t_game *data)
+{
+    if(data->player->character == 'N')
+        data->player->rotationAngle = (-PI / 2);
+    else if(data->player->character == 'S')
+        data->player->rotationAngle = (PI / 2);
+    else if(data->player->character == 'E')
+        data->player->rotationAngle = 0;
+    else if(data->player->character == 'W')
+        data->player->rotationAngle = PI;
+}
+
+
 void    init_player(t_game *data)
 {
     t_player *dot;
 
     dot = malloc(sizeof(t_player ));
-    dot->y = 0;
-    dot->x = 0;
     dot->radius = TILE / 5;
     dot->turnDir = 0;
     dot->walkDir = 0;
     dot->sideDir = 0;
-    dot->rotationAngle = PI / 2;
     dot->moveSpeed = 8.0;
     dot->rotationSpeed = 2 * (PI / 2);
     dot->line_lenght = 50;
@@ -70,6 +82,11 @@ void    init_ray(t_game *data)
     if(!raay)
         return ;
     data->ray = raay;
+
+    get_plyr_pos(data);
+    set_direction(data);
+
+
 
 }
 
@@ -102,9 +119,8 @@ int main(int ac, char **av)
     
     game->mlx = mlx_init();
     game->win = mlx_new_window(game->mlx, S_WIDTH, S_HEIGHT, "gta");
-    get_plyr_pos(game);
 
-    game->texture->img = mlx_xpm_file_to_image(game->mlx,"./Textures/flag.xpm",&game->texture->tex_width, &game->texture->tex_height);
+    game->texture->img = mlx_xpm_file_to_image(game->mlx,"./Textures/face.xpm",&game->texture->tex_width, &game->texture->tex_height);
     if(!game->texture->img)
         return(2);
     game->texture->tex_data = (unsigned int *)mlx_get_data_addr(game->texture->img, &game->texture->bpp, &game->texture->size_line, &game->texture->endian);
