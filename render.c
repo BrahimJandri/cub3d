@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/23 13:06:35 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/25 09:21:49 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,19 +59,6 @@ void    get_data(t_game *data)
     }
     return ;
 }
-
-int get_texture_color(unsigned int *texture_data, int tex_width, int tex_height, int x, int y)
-{
-    // Make sure the x and y are within bounds
-    if (x < 0 || x >= tex_width || y < 0 || y >= tex_height) {
-        return 0; // Return black if out of bounds (or any other default color)
-    }
-
-    // Get the pixel color as an unsigned int (RGBA format) 
-    return texture_data[y * tex_width + x];
-}
-
-//)000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 
 int    get_color(t_game *data, int x, int y)
 {
@@ -178,7 +165,7 @@ void    draw_rays(t_player *player, t_game *data)
             // draw_line(player, data, data->ray->x_hit, data->ray->y_hit);
             data->corrected_wall = data->ray->distance * cos(rayAngle - player->rotationAngle);
             data->distance_projectplan = (S_WIDTH / 2) / tan(FOV / 2);
-            data->wall_projected_height = (TILE / data->corrected_wall) * data->distance_projectplan;
+            data->wall_projected_height = ((double)TILE / data->corrected_wall) * (double)data->distance_projectplan;
             
             int     WallTopPixel = (S_HEIGHT / 2) - (data->wall_projected_height / 2);
             if(WallTopPixel < 0)
@@ -211,21 +198,7 @@ void    draw_rays(t_player *player, t_game *data)
         // }
     //---------------------------------------------------------------------------------
 
-            // draw_rectangle(data, i * WALL_WIDTH, (S_HEIGHT / 2) - (wall_projected_height / 2) ,WALL_WIDTH, wall_projected_height);
-            
-        //     while(j < 10)
-        //     {
-        //         x = (player->x * MINIMAP) + cos(rayAngle) * j;
-        //         y = (player->y * MINIMAP) + sin(rayAngle) * j;
-    
-        //         my_mlx_pixel_put(data, x, y, RED);
-        //         /*WHERE WE WILL RENDER THE WALL AFTER*/
-
-        //         j++;
-        //     }
-        //     // reset_window(data,0, 0);
-        //     // mlx_destroy_image(data->mlx);
-        //     // draw_line(player, data, x, y);
+            // draw_rectangle(data, i * WALL_WIDTH, (S_HEIGHT / 2) - (data->wall_projected_height / 2) ,WALL_WIDTH, data->wall_projected_height);
         rayAngle += FOV / data->num_rays;
         i++;
     }

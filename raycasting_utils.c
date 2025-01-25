@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 23:40:13 by rachid            #+#    #+#             */
-/*   Updated: 2025/01/21 12:50:02 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/25 10:16:46 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,14 @@ void    closer_intersection(t_player *player, t_ray *ray)
     }       
 }
 
+    // step_touch[0] = x_next_touch;
+    // step_touch[1] = y_next_touch;
+    // step_touch[2] = x_steps;
+    // step_touch[3] = y_steps;
+
 void    get_horizontal_hit(t_game   *data, double array[4], t_ray *ray)
 {
-    while(array[1] > 0 && array[1] < S_HEIGHT && array[0] > 0 && array[0] < S_WIDTH)
+    while(array[1] >= 0 && array[1] <= (data->map_height * TILE) && array[0] >= 0 && array[0] <= (data->map_width * TILE))
     {
         if(is_it_wall(data, array[0], array[1]))
         {
@@ -89,7 +94,7 @@ void    get_horizontal_hit(t_game   *data, double array[4], t_ray *ray)
 
 void    get_vertical_hit(t_game   *data, double array[4], t_ray *ray)
 {
-    while(array[1] >= 0 && array[1] <= S_HEIGHT && array[0] >= 0 && array[0] <= S_WIDTH)
+    while(array[1] >= 0 && array[1] <= (data->map_height * TILE) && array[0] >= 0 && array[0] <= (data->map_width * TILE))
     {
         if(is_it_wall(data, array[0], array[1]))
         {
