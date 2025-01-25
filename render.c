@@ -6,16 +6,22 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/22 17:27:42 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/25 09:21:49 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "./Headers/cub3d.h"
 
+void    game_loop(t_game *data)
+{
+    get_data(data);
+    draw_map(data);
+}
 
 void	draw_map(t_game *data)
 {
+
     data->img->img = mlx_new_image(data->mlx, S_WIDTH, S_HEIGHT);  
     if(!data->img)
         return ;
@@ -37,165 +43,22 @@ void	draw_map(t_game *data)
     
 }
 
-
-void ft_write_floor(t_game *data, int i, int color)
-{
-    int j;
-    double distance;
-    int shaded_color;
-
-    // Start from the bottom of the screen and go downwards
-    j = data->num_rays; // Assuming `num_rays` represents the start line of the floor (adjust accordingly)
-    while (j < S_HEIGHT)
+void    get_data(t_game *data)
+{   
+    if(data->player->walkDir)
     {
-        // Calculate the distance based on the vertical screen position (j)
-        distance = (j - S_HEIGHT / 2) / (double)(S_HEIGHT / 2);
-        distance = 1 / distance;  // Perspective effect: farther = smaller and darker
-        
-        // Apply shading to the color based on the distance
-        shaded_color = shade_walls(color, distance);
-
-        // Draw the pixel on the floor
-        my_mlx_pixel_put(data, i, j, shaded_color);
-        j++; // Move downwards to the next row
+        update_player(data, data->player);
     }
-}
-
-void ft_write_ceiling(t_game *data, int i, int color)
-{
-    int j;
-    double distance;
-    int shaded_color;
-
-    // Start from the top of the screen and go upwards until the start of the walls
-    j = 0;  // Start from the very top of the screen
-    while (j < data->num_rays)  // Draw only above the wall start line
+    if(data->player->turnDir)
     {
-        // Calculate the distance based on the vertical screen position (j)
-        distance = (S_HEIGHT / 2 - j) / (double)(S_HEIGHT / 2);
-        distance = 1 / distance;  // Perspective effect: farther = smaller and darker
-        
-        // Apply shading to the color based on the distance
-        shaded_color = shade_walls(color, distance);
-
-        // Draw the pixel on the ceiling
-        my_mlx_pixel_put(data, i, j, shaded_color);
-        j++; // Move upwards to the next row
+        data->player->rotationAngle += data->player->turnDir * data->player->rotationSpeed;
     }
-}
-
-
-
-
-void draw_map(t_game *data)
-{
-    int i;
-    int floor_color = data->floor_color;  // Use the floor color from the config
-    int ceiling_color = data->ceiling_color;  // Use the ceiling color from the config
-
-    // Create a new image to render to
-    data->img = mlx_new_image(data->mlx, S_WIDTH, S_HEIGHT);
-    if (!data->img)
-        return;
-    data->addrs = mlx_get_data_addr(data->img, &data->bpp, &data->size_line, &data->endian);
-
-    // Draw the 2D grid of the map (optional based on your use case)
-    // For example, you can render walls and objects here.
-    // This will depend on the game logic and how the world map is structured.
-    int x = 0;
-    int y = 0;
-    while (y < data->map_height)
+    if(data->player->sideDir)
     {
-        x = 0;
-        while (x < data->map_width)
-        {
-            int color = check_number(data->map[y][x]);  // Assume this gives a color based on the tile type
-            build_square(data, x * TILE, y * TILE, color);
-            x++;
-        }
-        y++;
+        update_sides(data, data->player);
     }
-
-    // Draw floor and ceiling for each vertical column of the screen
-    for (i = 0; i < S_WIDTH; i++)
-    {
-        // Render floor and ceiling with their respective colors
-        ft_write_floor(data, i, floor_color);  // Render floor
-        ft_write_ceiling(data, i, ceiling_color);  // Render ceiling
-    }
-
-    // Optionally, draw other elements like player, rays, etc.
-    // draw_circle(data->player, data);
-    draw_rays(data->player, data);
-
-    // Display the final image in the window
-    mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
-    mlx_destroy_image(data->mlx, data->img);
+    return ;
 }
-
-
-
-// void	draw_map(t_game *data)
-// {
-// 	int	x;
-// 	int	y;
-// 	int color;
-
-//     data->img = mlx_new_image(data->mlx, S_WIDTH, S_HEIGHT);  
-//     if(!data->img)
-//         return ;
-//     data->addrs = mlx_get_data_addr(data->img, &data->bpp, &data->size_line, &data->endian);
-//     // printf("bpp = %d, size = %d, endian = %d\n", data->bpp, data->size_line, data->endian);
-//     // exit(1);
-// 	y = 0;
-// 	while (y < data->map_height)//is small than the height
-// 	{
-// 		x = 0;
-// 		while (x < data->map_width)//is small than the width
-// 		{
-// 			color = check_number(data->map[y][x]);
-// 			build_square(data, x * TILE, y * TILE ,color);
-//             // sleep(1);
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-//     // printf("map->height = %d, map_width = %d\n",data->map_height, data->map_width);
-//     // printf("playerx = %f player y = %f\n", data->player->x , data->player->y);
-//     // exit(1);
-
-//     // sleep(100);
-    
-    
-//     // draw_line(data->player, data);
-//     // line(data->player, data);
-//     draw_circle(data->player, data);
-    
-//     draw_rays(data->player, data);
-    
-//     mlx_put_image_to_window(data->mlx, data->win, data->img, 0,0);
-//     mlx_destroy_image(data->mlx, data->img);
-//     // sleep(5);
-//     // exit(1);
-//     // render_walls(data, data->player);
-//     // cast_rays(data->player, data, data->player->rotationAngle);
-    
-// }
-
-
-
-int get_texture_color(unsigned int *texture_data, int tex_width, int tex_height, int x, int y)
-{
-    // Make sure the x and y are within bounds
-    if (x < 0 || x >= tex_width || y < 0 || y >= tex_height) {
-        return 0; // Return black if out of bounds (or any other default color)
-    }
-
-    // Get the pixel color as an unsigned int (RGBA format) 
-    return texture_data[y * tex_width + x];
-}
-
-//)000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 
 int    get_color(t_game *data, int x, int y)
 {
@@ -301,7 +164,7 @@ void    draw_rays(t_player *player, t_game *data)
             // draw_line(player, data, data->ray->x_hit, data->ray->y_hit);
             data->corrected_wall = data->ray->distance * cos(rayAngle - player->rotationAngle);
             data->distance_projectplan = (S_WIDTH / 2) / tan(FOV / 2);
-            data->wall_projected_height = (TILE / data->corrected_wall) * data->distance_projectplan;
+            data->wall_projected_height = ((double)TILE / data->corrected_wall) * (double)data->distance_projectplan;
             
             int     WallTopPixel = (S_HEIGHT / 2) - (data->wall_projected_height / 2);
             if(WallTopPixel < 0)
@@ -334,21 +197,7 @@ void    draw_rays(t_player *player, t_game *data)
         // }
     //---------------------------------------------------------------------------------
 
-            // draw_rectangle(data, i * WALL_WIDTH, (S_HEIGHT / 2) - (wall_projected_height / 2) ,WALL_WIDTH, wall_projected_height);
-            
-        //     while(j < 10)
-        //     {
-        //         x = (player->x * MINIMAP) + cos(rayAngle) * j;
-        //         y = (player->y * MINIMAP) + sin(rayAngle) * j;
-    
-        //         my_mlx_pixel_put(data, x, y, RED);
-        //         /*WHERE WE WILL RENDER THE WALL AFTER*/
-
-        //         j++;
-        //     }
-        //     // reset_window(data,0, 0);
-        //     // mlx_destroy_image(data->mlx);
-        //     // draw_line(player, data, x, y);
+            // draw_rectangle(data, i * WALL_WIDTH, (S_HEIGHT / 2) - (data->wall_projected_height / 2) ,WALL_WIDTH, data->wall_projected_height);
         rayAngle += FOV / data->num_rays;
         i++;
     }

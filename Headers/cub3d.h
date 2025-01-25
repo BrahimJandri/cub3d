@@ -39,7 +39,7 @@
 #define GOLDEN 0xFFDF00
 #define CREAM 0xFFFDD0
 
-#define S_WIDTH 880
+#define S_WIDTH 700
 #define S_HEIGHT 640
 #define WALL_WIDTH 1
 #define MINIMAP 0.2
@@ -60,7 +60,6 @@ typedef struct s_image
     int endian;
     char *addrs;
     void *img;
-
 } t_image;
 
 typedef struct s_texture
@@ -200,6 +199,8 @@ int	apply_shadow(int color, double shadow_factor);
 void    put_rays(t_game *data, t_player *player);
 
 void    update_sides(t_game *data, t_player *player);
+void    get_data(t_game *data);
+void    game_loop(t_game *data);
 
 /*__________RAYCASTING_________*/
 void    horizontal_intercepts(t_game *data, t_player *player, t_ray *ray, double angle);
