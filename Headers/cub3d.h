@@ -90,6 +90,7 @@ typedef struct s_player
     double fov;
     double angle;
     double line_lenght;
+    char character;
 } t_player;
 
 /*________________RAY_STRUCT_________________*/
