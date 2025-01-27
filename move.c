@@ -6,12 +6,29 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:27:31 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/27 13:07:58 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/27 18:26:36 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "./Headers/cub3d.h"
+
+
+void    destroy_xpm(t_game *data)
+{
+    int i;
+
+    i = 0;
+    while(i < 4)
+    {
+        mlx_destroy_image(data->mlx, data->texture[i]->img);
+        i++;
+    }
+    i = 0;
+    while(i < 4)
+        free(data->texture[i++]);
+    return ;
+}
 
 int     player_control(int key, t_game *data)
 {
@@ -31,7 +48,17 @@ int     player_control(int key, t_game *data)
     else if(key == D)
         player->sideDir = 1;
     else if(key == ESC)
+    { 
+        free(data->ray);
+        destroy_xpm(data);
+        mlx_destroy_window(data->mlx, data->win);
+        mlx_destroy_display(data->mlx);
+        free(data->mlx);
+        free(data->player);
+        free(data->img);
+        free_all(data);
         exit(1);
+    }
     return 1;
 }
 
@@ -42,24 +69,14 @@ int     key_release(int key, t_game *data)
 
     player = data->player;
     if (key == UP || key == W)
-    {
-        player->walkDir = 0;// it adds 1 to walkdir to move forward
-    }
-    else if (key == DOWN || key == S)
-    {
         player->walkDir = 0;
-        // update_player(data, data->player);
-    }
+    else if (key == DOWN || key == S)
+        player->walkDir = 0;
     else if (key == RIGHT)
-    {
         player->turnDir = 0;
-        // update_rotation(data, data->player);
-    }
     else if (key == LEFT)
-    {
         player->turnDir = 0;
-        // update_rotation(data, data->player);
-    }
+
     else if (key == A)
         player->sideDir = 0;
     else if(key == D)

@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/27 13:38:58 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/27 16:04:23 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ int main(int ac, char **av)
     mlx_hook(game->win, 2, (1L << 0), player_control, game);
     mlx_hook(game->win, 3, (1L << 1), key_release, game);
     mlx_loop(game->mlx);
-    free_all(game);
+    // free_all(game);
 }
     // (void)ac;
     // (void)av;o ft_memchr.o ft_itoa.o ft_isprint.o ft_isdigit.o ft_striteri.o ft_putL
