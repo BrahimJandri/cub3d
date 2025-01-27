@@ -1,7 +1,8 @@
-NO ./Textures/face.xpm
-SO ./Textures/flag.xpm
-WE ./Textures/we_texture.xpm
-EA ./Textures/cube_wall.xpm
+NO ./Textures/bricks/bricks-no.xpm
+SO ./Textures/bricks/bricks-so.xpm
+EA ./Textures/bricks/bricks-ea.xpm
+WE ./Textures/bricks/bricks-we.xpm
+
 
 F 220,100,0
 C 225,30,55
