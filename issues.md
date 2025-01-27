@@ -7,7 +7,7 @@
     11 - Wall Collisions (bonus) ✅
     8 - setting the player depending on the N,S,W,E ✅
 
-    9 - getting the textures of the SO, NO ,EA, WE
+    9 - getting the textures of the SO, NO ,EA, WE ✅
     
     6 - circular map (bonus)
     5 - mouse_hook (bonus)
