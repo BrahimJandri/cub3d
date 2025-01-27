@@ -1,7 +1,7 @@
-NO ./Textures/bricks/bricks-no.xpm
-SO ./Textures/bricks/bricks-so.xpm
-EA ./Textures/bricks/bricks-ea.xpm
-WE ./Textures/bricks/bricks-we.xpm
+NO ./Textures/minicraft/minicraft-no.xpm
+SO ./Textures/minicraft/minicraft-so.xpm
+EA ./Textures/minicraft/minicraft-ea.xpm
+WE ./Textures/minicraft/minicraft-we.xpm
 
 
 F 220,100,0

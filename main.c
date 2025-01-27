@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/27 12:57:19 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/27 13:28:24 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void    init_player(t_game *data)
     dot->turnDir = 0;
     dot->walkDir = 0;
     dot->sideDir = 0;
-    dot->moveSpeed = 8.0;
+    dot->moveSpeed = 20;
     dot->rotationSpeed = 2 * (PI / 2);
     dot->line_lenght = 50;
     dot->angle = 0;
@@ -110,8 +110,8 @@ t_texture *upload_texture(t_game *data, int i)
     if(!tex->img)
         error_msg("mlx_xpm_file_to_image Failed");
 
-    tex->tex_data = mlx_get_data_addr(tex->img, &tex->bpp, &tex->size_line, &tex->size_line);
-    if(!tex->tex_data)
+    tex->addrs = mlx_get_data_addr(tex->img, &tex->bpp, &tex->size_line, &tex->endian);
+    if(!tex->addrs)
         error_msg("Failed to get address of the image");
     return(tex);
 }
@@ -157,10 +157,7 @@ int main(int ac, char **av)
     game->win = mlx_new_window(game->mlx, S_WIDTH, S_HEIGHT, "gta");
 
     get_textures(game);
-    // game->texture->img = mlx_xpm_file_to_image(game->mlx,"./Textures/face.xpm",&game->texture->tex_width, &game->texture->tex_height);
-    // if(!game->texture->img)
-    //     return(2);
-    // game->text
+  
  
     game->img = malloc(sizeof(t_image));
     if(!game->img)

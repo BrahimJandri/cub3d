@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/27 13:18:58 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/27 13:27:37 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int    get_color(t_texture *texture, int x, int y)
 {
     int color;
 
-    color = *(int *)(texture->tex_data + (y * texture->size_line) + x
+    color = *(int *)(texture->addrs + (y * texture->size_line) + x
 		* (texture->bpp / 8));
     
     return color;
