@@ -120,21 +120,22 @@ typedef struct s_game
     void *mlx;
     void *win;
 
-
-
     char **map;
     char **map_dup;
-    int map_height;
-    int map_width; //|||||||||||||||||||||||||||||||||||||||||
-    double num_rays;
+    int floor_color;
+    int ceiling_color;
+    int config_count;
 
     char *no_texture;
     char *we_texture;
     char *so_texture;
     char *ea_texture;
-    int floor_color;
-    int ceiling_color;
-    int config_count;
+
+
+    int map_height;
+    int map_width;
+
+    double num_rays;
 
     void    *wall_tex;
     int     tex_width;
@@ -151,7 +152,7 @@ typedef struct s_game
     t_player *player;
     t_ray *ray;
     t_image *img;
-    t_texture *texture;
+    t_texture *texture[4];
 } t_game;
 
 /*______________get_next_line________________*/
@@ -213,6 +214,9 @@ void    get_horizontal_hit(t_game   *data, double array[4], t_ray *ray);
 void    closer_intersection(t_player *player, t_ray *ray);
 double      calcul_line_length(double   x1, double y1, double x2, double y2);
 
+
+
+t_texture *upload_texture(t_game *data, int i);
 
 /*______BRAHIM___________*/
 void error_msg(char *str);

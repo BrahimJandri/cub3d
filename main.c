@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/25 11:44:20 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/27 12:57:19 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,45 @@ void    init_ray(t_game *data)
 }
 
 
+//array: 0 = so, 1 = no, 2 = we, 3 = ea;
+t_texture *upload_texture(t_game *data, int i)
+{
+    t_texture *tex;
 
+    tex = malloc(sizeof(t_texture));
+    if(!tex)
+        return NULL;
+    if(i == 0)
+        tex->img = mlx_xpm_file_to_image(data->mlx, data->so_texture, &tex->tex_width, &tex->tex_height);
+    else if(i == 1)
+        tex->img = mlx_xpm_file_to_image(data->mlx, data->no_texture, &tex->tex_width, &tex->tex_height);
+    else if(i == 2)
+        tex->img = mlx_xpm_file_to_image(data->mlx, data->we_texture, &tex->tex_width, &tex->tex_height);
+    else if(i == 3)
+        tex->img = mlx_xpm_file_to_image(data->mlx, data->ea_texture, &tex->tex_width, &tex->tex_height);
+    if(!tex->img)
+        error_msg("mlx_xpm_file_to_image Failed");
+
+    tex->tex_data = mlx_get_data_addr(tex->img, &tex->bpp, &tex->size_line, &tex->size_line);
+    if(!tex->tex_data)
+        error_msg("Failed to get address of the image");
+    return(tex);
+}
+
+
+//array: 0 = so, 1 = no, 2 = we, 3 = ea;
+void    get_textures(t_game *data)
+{
+    int i;
+
+    i = 0;
+    while(i < 4)
+    {
+        data->texture[i] = upload_texture(data, i);
+        i++;
+    }
+    return ;
+}
 
 
 int main(int ac, char **av)
@@ -100,12 +138,10 @@ int main(int ac, char **av)
 
 	game = (t_game *)malloc(sizeof(t_game));
     if(!game)
-        return 1;
-    game->texture = malloc(sizeof(t_texture));
-    if(!game->texture)
     {
-        return 1;   
+        return 1;
     }
+        
 	if(ac != 2)
     {
 		return (ft_putstr_fd("Error\nUsage : Cub3d map.cub\n", 2), free(game),1);
@@ -120,12 +156,11 @@ int main(int ac, char **av)
     game->mlx = mlx_init();
     game->win = mlx_new_window(game->mlx, S_WIDTH, S_HEIGHT, "gta");
 
-    game->texture->img = mlx_xpm_file_to_image(game->mlx,"./Textures/face.xpm",&game->texture->tex_width, &game->texture->tex_height);
-    if(!game->texture->img)
-        return(2);
-    game->texture->tex_data = (unsigned int *)mlx_get_data_addr(game->texture->img, &game->texture->bpp, &game->texture->size_line, &game->texture->endian);
-    // printf("bpp =  %d, size_line = %d, endian = %d\n", game->bpp, game->size_line, game->endian);
-    // draw_map(game);
+    get_textures(game);
+    // game->texture->img = mlx_xpm_file_to_image(game->mlx,"./Textures/face.xpm",&game->texture->tex_width, &game->texture->tex_height);
+    // if(!game->texture->img)
+    //     return(2);
+    // game->text
  
     game->img = malloc(sizeof(t_image));
     if(!game->img)

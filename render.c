@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/25 11:52:34 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/27 13:04:58 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,21 +60,32 @@ void    get_data(t_game *data)
     return ;
 }
 
-int    get_color(t_game *data, int x, int y)
+int    get_color(t_texture *texture, int x, int y)
 {
     int color;
 
-    color = *(int *)(data->texture->tex_data + (y * data->texture->size_line) + x
-		* (data->texture->bpp / 8));
+    color = *(int *)(texture->tex_data + (y * texture->size_line) + x
+		* (texture->bpp / 8));
     
     return color;
 } 
 
-
+//array: 0 = so, 1 = no, 2 = we, 3 = ea;
 
 void    get_the_right_color(t_game *data, int offset_x, int offset_y)
 {
-    data->color = get_color(data, offset_x, offset_y);
+    if(!data->ray->is_vert && !data->ray->ray_down)
+        data->color = get_color(data->texture[1], offset_x, offset_y);
+        
+    if(!data->ray->is_vert && data->ray->ray_down)
+        data->color = get_color(data->texture[0], offset_x, offset_y);
+
+    if(data->ray->is_vert && !data->ray->ray_right)
+        data->color = get_color(data->texture[2], offset_x, offset_y);
+        
+    if(data->ray->is_vert && data->ray->ray_right)
+        data->color = get_color(data->texture[3], offset_x, offset_y);
+        
 }
   
 

@@ -1,7 +1,7 @@
-NO ./Textures/no_texture.xpm
-SO ./Textures/so_texture.xpm
+NO ./Textures/face.xpm
+SO ./Textures/flag.xpm
 WE ./Textures/we_texture.xpm
-EA ./Textures/ea_texture.xpm
+EA ./Textures/cube_wall.xpm
 
 F 220,100,0
 C 225,30,55

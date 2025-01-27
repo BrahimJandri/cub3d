@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 08:54:39 by bjandri           #+#    #+#             */
-/*   Updated: 2025/01/23 13:12:44 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/25 13:11:00 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	parse_texture(char *line, t_game *game, int n)
 	split_line = ft_split(trimmed_line, ' ');
 	if (split_line && ft_arraylen(split_line) >= 2)
 	{
-		if (n == 0 && game->config_count <6)
+		if (n == 0 && game->config_count < 6)
 			game->no_texture = ft_strdup(split_line[1]);
 		else if (n == 1 && game->config_count < 6)
 			game->so_texture = ft_strdup(split_line[1]);

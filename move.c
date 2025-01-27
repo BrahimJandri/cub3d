@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:27:31 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/23 13:10:34 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/27 13:07:58 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,11 @@ int     key_release(int key, t_game *data)
         t_player *player;
 
     player = data->player;
-    if (key == UP)
+    if (key == UP || key == W)
     {
         player->walkDir = 0;// it adds 1 to walkdir to move forward
-        // update_player(data, data->player);
     }
-    else if (key == DOWN)
+    else if (key == DOWN || key == S)
     {
         player->walkDir = 0;
         // update_player(data, data->player);
