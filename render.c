@@ -126,15 +126,13 @@ void    put_ceiling(t_game *data, int walltop,int i)
 {
     int j;
     double  distance;
-    int shaded;
     
     j = 0;
     while(j < walltop)
     {
         distance = (S_HEIGHT / 2 - j) / (double)(S_HEIGHT / 2);
         distance = 1 / (distance);
-        shaded = shade_walls(BLUE_SKY, distance);
-        my_mlx_pixel_put(data, i * WALL_WIDTH, j++, shaded);
+        my_mlx_pixel_put(data, i * WALL_WIDTH, j++, data->ceiling_color);
     }
 }
 
@@ -142,15 +140,13 @@ void    put_floor(t_game *data, int wall_bottom, int i)
 {
     int j;
     double  distance;
-    int shaded;
 
     j = wall_bottom;
     while(j < S_HEIGHT)
     {
         distance = (j - S_HEIGHT / 2) / (double)(S_HEIGHT / 2);
         distance = 1 / (distance);
-        shaded = shade_walls(EARTH_COLOR, distance);
-        my_mlx_pixel_put(data, i * WALL_WIDTH, j++, shaded);
+        my_mlx_pixel_put(data, i * WALL_WIDTH, j++, data->floor_color);
     }
 }
 //)000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000

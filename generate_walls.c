@@ -75,33 +75,3 @@ void	my_mlx_pixel_put(t_game *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-int	apply_shadow(int color, double shadow_factor)
-{
-	int	r;
-	int	g;
-	int	b;
-
-	r = color >> 16 & 0xFF;
-	g = color >> 8 & 0xFF;
-	b = color & 0xFF;
-	r = (int)(r * shadow_factor);
-	g = (int)(g * shadow_factor);
-	b = (int)(b * shadow_factor);
-	if (r > 255)
-		r = 255;
-	if (g > 255)
-		g = 255;
-	if (b > 255)
-		b = 255;
-	return (r << 16 | (g << 8) | b);
-}
-
-int	shade_walls(int color, double distance)
-{
-	double	ambient_light;
-	double	shadow_factor;
-
-	ambient_light = 0.5;
-	shadow_factor = fmax(ambient_light, 1.0 / (distance + 1.0));
-	return (apply_shadow(color, shadow_factor));
-}

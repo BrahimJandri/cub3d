@@ -43,7 +43,7 @@ int get_plyr_pos(t_game *data)
 void    set_direction(t_game *data)
 {
     if(data->player->character == 'N')
-        data->player->rotationAngle = (-PI / 2);
+        data->player->rotationAngle = ((PI * 3) / 2);
     else if(data->player->character == 'S')
         data->player->rotationAngle = (PI / 2);
     else if(data->player->character == 'E')
