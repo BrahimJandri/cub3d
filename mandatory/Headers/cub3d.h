@@ -9,9 +9,9 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <unistd.h>
-#include "../library/minilibx/mlx.h"
-#include "../library/Libft/libft.h"
-#include "../library/get_next_line/get_next_line.h"
+#include "../../library/minilibx/mlx.h"
+#include "../../library/Libft/libft.h"
+#include "../../library/get_next_line/get_next_line.h"
 #include <math.h>
 #include <limits.h>
 #include <fcntl.h>
