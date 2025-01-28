@@ -218,6 +218,9 @@ double      calcul_line_length(double   x1, double y1, double x2, double y2);
 
 t_texture *upload_texture(t_game *data, int i);
 
+void    destroy_xpm(t_game *data);
+
+
 /*______BRAHIM___________*/
 void error_msg(char *str);
 void parse_config(t_game *game, char **av);

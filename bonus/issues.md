@@ -8,14 +8,12 @@
     8 - setting the player depending on the N,S,W,E ✅
 
     9 - getting the textures of the SO, NO ,EA, WE ✅
+    11 - the X button to quit.✅
     
     6 - circular map (bonus)
     5 - mouse_hook (bonus)
     4 - sprites (bonus)
-    10 - leaks
-    11 - the X button to quit.
-
-
+    10 - leaks rgb
 }
 
 

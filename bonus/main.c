@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/27 16:04:23 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/28 12:59:07 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int get_plyr_pos(t_game *data)
 	int	y;
 
 	y = 0;
-    printf("height of map%d\n", data->map_height);
 	while (y < data->map_height)//is small than the height
 	{
 		x = 0;
@@ -62,8 +61,8 @@ void    init_player(t_game *data)
     dot->turnDir = 0;
     dot->walkDir = 0;
     dot->sideDir = 0;
-    dot->moveSpeed = 20;
-    dot->rotationSpeed = 2 * (PI / 2);
+    dot->moveSpeed = 8;
+    dot->rotationSpeed = 1 * (PI / 2);
     dot->line_lenght = 50;
     dot->angle = 0;
 
@@ -131,6 +130,18 @@ void    get_textures(t_game *data)
     return ;
 }
 
+int     close_window(t_game *data)
+{
+    free(data->ray);
+    destroy_xpm(data);
+    mlx_destroy_window(data->mlx, data->win);
+    mlx_destroy_display(data->mlx);
+    free(data->mlx);
+    free(data->player);
+    free(data->img);
+    free_all(data);
+    exit(0);
+}
 
 int main(int ac, char **av)
 {
@@ -167,6 +178,7 @@ int main(int ac, char **av)
     // mlx_loop_hook()
     mlx_hook(game->win, 2, (1L << 0), player_control, game);
     mlx_hook(game->win, 3, (1L << 1), key_release, game);
+    mlx_hook(game->win, 17, 0, close_window, game);
     mlx_loop(game->mlx);
     // free_all(game);
 }
