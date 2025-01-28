@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/28 12:59:07 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/28 16:35:30 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,70 @@ int     close_window(t_game *data)
     exit(0);
 }
 
+void circle(t_game *data, int x, int y, int radius)
+{
+    int i, j;
+
+    for (i = x - radius; i <= x + radius; i++)
+    {
+        for (j = y - radius; j <= y + radius; j++)
+        {
+            if ((i - x) * (i - x) + (j - y) * (j - y) <= radius * radius)
+                mlx_pixel_put(data->mlx, data->win, i, j, 0xFFFFFF); // White circle
+        }
+    }
+}
+//1 = right, 3 = left
+int     click_press(int key, int x, int y, t_game *data)
+{
+    t_player *player;
+
+    player = data->player;
+    (void)x;
+    (void)y;
+    if(key == 1)
+    {
+        player->turnDir = -0.02;
+    }
+    else if(key == 3)
+    {
+        player->turnDir = 0.02;
+    }
+    return 0;
+}
+
+int     click_release(int key, int x, int y, t_game *data)
+{
+    t_player *player;
+
+    player = data->player;
+    (void)x;
+    (void)y;
+    if(key == 1)
+    {
+        player->turnDir = 0;
+    }
+    else if(key == 3)
+    {
+        player->turnDir = 0;
+    }
+    return 0;
+}
+
+// int     click_release(int key, t_game *data)
+// {
+//     if(key == 1)
+//     {
+//         data->player->turnDir
+//     }
+//     else if(key == 3)
+//     {
+        
+//     }
+// }
+
+
+
 int main(int ac, char **av)
 {
   	t_game	*game;
@@ -176,9 +240,12 @@ int main(int ac, char **av)
         
     mlx_loop_hook(game->mlx, (void *)game_loop, game);//rsm lmap o zid lplayer o fov flkher d lfunction
     // mlx_loop_hook()
-    mlx_hook(game->win, 2, (1L << 0), player_control, game);
-    mlx_hook(game->win, 3, (1L << 1), key_release, game);
+    mlx_hook(game->win, 2, (1L<<0), player_control, game);
+    mlx_hook(game->win, 3, (1L<<1), key_release, game);
     mlx_hook(game->win, 17, 0, close_window, game);
+    
+    mlx_hook(game->win, 4, (1L<<2), click_press, game);
+    mlx_hook(game->win, 5, (1L<<3), click_release, game);
     mlx_loop(game->mlx);
     // free_all(game);
 }
