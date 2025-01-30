@@ -1,7 +1,7 @@
 NAME = cub3d
 NAME_BONUS = cub3d_bonus
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3
 MLXFLAGS = -lm -L./library/minilibx -lmlx -lX11 -lXext
 LIBFT = ./library/Libft/libft.a
 SRC = ./library/get_next_line/get_next_line.c ./library/get_next_line/get_next_line_utils.c \
