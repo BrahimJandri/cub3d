@@ -44,9 +44,9 @@
 #define WALL_WIDTH 1
 #define MINIMAP 0.2
 
-// #define TEX 
+// #define TEX
 #define TILE 256
-// #define TEX_WIDTH 
+// #define TEX_WIDTH
 // #define TEX_HEIGHT 400
 #define PI 3.14159265358979323846
 #define TWO_PI 6.28318530718
@@ -71,9 +71,8 @@ typedef struct s_texture
     void *img;
     int tex_width;
     int tex_height;
-    void    *tex_data;
-}t_texture;
-
+    void *tex_data;
+} t_texture;
 
 /*_______________PLAYER_STRCUT_________________*/
 typedef struct s_player
@@ -106,11 +105,11 @@ typedef struct s_ray
     bool ray_up;
     bool ray_right;
     bool ray_left;
-    bool    found_h_wall;
-    bool    found_v_wall;
+    bool found_h_wall;
+    bool found_v_wall;
     bool is_vert;
-    double  x_wall;
-    double  y_wall;
+    double x_wall;
+    double y_wall;
 } t_ray;
 
 /*_______________
@@ -131,22 +130,21 @@ typedef struct s_game
     char *so_texture;
     char *ea_texture;
 
-
     int map_height;
     int map_width;
 
     double num_rays;
 
-    void    *wall_tex;
-    int     tex_width;
-    int     tex_height;
+    void *wall_tex;
+    int tex_width;
+    int tex_height;
     unsigned int *tex_data;
 
-    double  corrected_wall;
-    double  distance_projectplan;
-    double  wall_projected_height;
+    double corrected_wall;
+    double distance_projectplan;
+    double wall_projected_height;
 
-    unsigned int color; 
+    unsigned int color;
 
     // you were going to add the number of rays the player will have
     t_player *player;
@@ -188,38 +186,33 @@ int key_release(int key, t_game *data);
 void draw_rectangle(t_game *data, int x, int y, int height, int width);
 void my_mlx_pixel_put(t_game *data, int x, int y, int color);
 
-int    is_it_wall(t_game *data, double   x, double   y);
-void    define_angle(t_ray *ray, double angle);
+int is_it_wall(t_game *data, double x, double y);
+void define_angle(t_ray *ray, double angle);
 
+void draw_minimap(t_game *data);
 
-void    draw_minimap(t_game *data);
+int shade_walls(int color, double distance);
+int apply_shadow(int color, double shadow_factor);
 
+void put_rays(t_game *data, t_player *player);
 
-int	shade_walls(int color, double distance);
-int	apply_shadow(int color, double shadow_factor);
-
-void    put_rays(t_game *data, t_player *player);
-
-void    update_sides(t_game *data, t_player *player);
-void    get_data(t_game *data);
-void    game_loop(t_game *data);
+void update_sides(t_game *data, t_player *player);
+void get_data(t_game *data);
+void game_loop(t_game *data);
 
 /*__________RAYCASTING_________*/
-void    horizontal_intercepts(t_game *data, t_player *player, t_ray *ray, double angle);
-void    horizontal_steps(double x_next_touch, double y_next_touch, t_game *data, double angle);
-void    vertical_intercepts(t_game *data, t_player *player, t_ray *ray, double angle);
-void    vertical_steps(double x_next_touch, double y_next_touch, t_game *data, double angle);
-void    get_vertical_hit(t_game   *data, double array[4], t_ray *ray);
-void    get_horizontal_hit(t_game   *data, double array[4], t_ray *ray);
-void    closer_intersection(t_player *player, t_ray *ray);
-double      calcul_line_length(double   x1, double y1, double x2, double y2);
-
-
+void horizontal_intercepts(t_game *data, t_player *player, t_ray *ray, double angle);
+void horizontal_steps(double x_next_touch, double y_next_touch, t_game *data, double angle);
+void vertical_intercepts(t_game *data, t_player *player, t_ray *ray, double angle);
+void vertical_steps(double x_next_touch, double y_next_touch, t_game *data, double angle);
+void get_vertical_hit(t_game *data, double array[4], t_ray *ray);
+void get_horizontal_hit(t_game *data, double array[4], t_ray *ray);
+void closer_intersection(t_player *player, t_ray *ray);
+double calcul_line_length(double x1, double y1, double x2, double y2);
 
 t_texture *upload_texture(t_game *data, int i);
 
-void    destroy_xpm(t_game *data);
-
+void destroy_xpm(t_game *data);
 
 /*______BRAHIM___________*/
 void error_msg(char *str);
@@ -257,5 +250,4 @@ void validate_color_parts_count(char **parts);
 void validate_and_parse_color_values(char **parts, int *colors, t_game *game);
 void validate_color_format(char *str);
 void check_texture_validtion(t_game *game);
-void free_error_texture(t_game *game);
 #endif

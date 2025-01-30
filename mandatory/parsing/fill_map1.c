@@ -34,6 +34,7 @@ void	calculate_map_dimensions(t_game *game, const char *file)
 		line = get_next_line(fd);
 	}
 	close(fd);
+	// printf("MAP HIGH %d\n", game->map_height);
 }
 
 char	*skip_empty_lines(int fd)

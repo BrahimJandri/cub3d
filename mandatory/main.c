@@ -70,8 +70,8 @@ void    init_player(t_game *data)
     data->player = dot;
     data->num_rays = S_WIDTH / WALL_WIDTH ;
 
-    
-    
+
+
 }
 
 
@@ -152,28 +152,28 @@ int main(int ac, char **av)
     {
         return 1;
     }
-        
+
 	if(ac != 2)
     {
 		return (ft_putstr_fd("Error\nUsage : Cub3d map.cub\n", 2), free(game),1);
     }
     // t_image image;
     (void)ac;
-    
-    parse_config(game, av);
+
     init_player(game);//init dakchi d lplayer kamlo hna
+    parse_config(game, av);
     init_ray(game);
-    
+
     game->mlx = mlx_init();
     game->win = mlx_new_window(game->mlx, S_WIDTH, S_HEIGHT, "gta");
 
     get_textures(game);
-  
- 
+
+
     game->img = malloc(sizeof(t_image));
     if(!game->img)
         return 1;
-        
+
     mlx_loop_hook(game->mlx, (void *)game_loop, game);//rsm lmap o zid lplayer o fov flkher d lfunction
     // mlx_loop_hook()
     mlx_hook(game->win, 2, (1L << 0), player_control, game);
@@ -182,5 +182,3 @@ int main(int ac, char **av)
     mlx_loop(game->mlx);
     // free_all(game);
 }
-    // (void)ac;
-    // (void)av;o ft_memchr.o ft_itoa.o ft_isprint.o ft_isdigit.o ft_striteri.o ft_putL
