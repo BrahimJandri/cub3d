@@ -11,10 +11,10 @@ SRC = ./library/get_next_line/get_next_line.c ./library/get_next_line/get_next_l
 	./mandatory/render.c ./mandatory/move.c ./mandatory/generate_walls.c ./mandatory/raycasting.c ./mandatory/raycasting_utils.c ./mandatory/utils.c ./mandatory/draw.c
 
 SRC_BNS = ./library/get_next_line/get_next_line.c ./library/get_next_line/get_next_line_utils.c \
-	./bonus/parsing/parsing.c ./bonus/parsing/check_boundaries.c ./bonus/parsing/check_columns.c ./bonus/parsing/check_params.c \
-	./bonus/parsing/fill_map1.c ./bonus/parsing/flood_fill.c ./bonus/main.c ./bonus/parsing/free_func.c \
-	./bonus/parsing/parse_color.c ./bonus/parsing/parse_texture.c ./bonus/parsing/utils.c \
-	./bonus/render.c ./bonus/move.c ./bonus/generate_walls.c ./bonus/raycasting.c ./bonus/raycasting_utils.c ./bonus/utils.c ./bonus/draw.c
+	./bonus/parsing/parsing_bonus.c ./bonus/parsing/check_boundaries_bonus.c ./bonus/parsing/check_columns_bonus.c ./bonus/parsing/check_params_bonus.c \
+	./bonus/parsing/fill_map1_bonus.c ./bonus/parsing/flood_fill_bonus.c ./bonus/main_bonus.c ./bonus/parsing/free_func_bonus.c \
+	./bonus/parsing/parse_color_bonus.c ./bonus/parsing/parse_texture_bonus.c ./bonus/parsing/utils_bonus.c \
+	./bonus/render_bonus.c ./bonus/move_bonus.c ./bonus/generate_walls_bonus.c ./bonus/raycasting_bonus.c ./bonus/raycasting_utils_bonus.c ./bonus/utils_bonus.c ./bonus/draw_bonus.c
 OBJ = $(SRC:.c=.o)
 OBJ_BNS = $(SRC_BNS:.c=.o)
 

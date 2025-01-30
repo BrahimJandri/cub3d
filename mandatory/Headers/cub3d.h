@@ -151,6 +151,8 @@ typedef struct s_game
     t_ray *ray;
     t_image *img;
     t_texture *texture[4];
+    char *line;
+
 } t_game;
 
 /*______________get_next_line________________*/

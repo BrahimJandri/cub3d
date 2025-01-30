@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Headers/cub3d.h"
+#include "../Headers/cub3d_bonus.h"
 
-static char **split_and_trim_color_parts(char *str)
+static char	**split_and_trim_color_parts(char *str)
 {
-	char *trimmed_str;
-	char **parts;
+	char	*trimmed_str;
+	char	**parts;
 
 	trimmed_str = ft_strtrim(str, " \t\n");
 	if (!trimmed_str)
@@ -27,9 +27,9 @@ static char **split_and_trim_color_parts(char *str)
 	return (parts);
 }
 
-void validate_color_parts_count(char **parts)
+void	validate_color_parts_count(char **parts)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	while (parts[count])
@@ -41,31 +41,16 @@ void validate_color_parts_count(char **parts)
 	}
 }
 
-int isAllDigits(const char *str)
+void	validate_and_parse_color_values(char **parts, int *colors)
 {
-	while (*str)
-	{
-		if (!ft_isdigit(*str))
-			return 0;
-		str++;
-	}
-	return 1;
-}
-
-void validate_and_parse_color_values(char **parts, int *colors, t_game *game)
-{
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < 3)
 	{
-		if (!ft_isspace(parts[i]) || !isAllDigits(parts[i]))
+		if (!ft_isspace(parts[i]))
 		{
 			ft_free_split(parts);
-			free_texture(game);
-			free(game->player);
-			free(game->line);
-			free(game);
 			error_msg("Error\nInvalid color format\n");
 		}
 		colors[i] = ft_atoi(parts[i]);
@@ -78,24 +63,23 @@ void validate_and_parse_color_values(char **parts, int *colors, t_game *game)
 	}
 }
 
-static int convert_to_color(int *colors)
+static int	convert_to_color(int *colors)
 {
 	return ((colors[0] << 16) | (colors[1] << 8) | colors[2]);
 }
 
-int parse_color(char *str, t_game *game)
+int	parse_color(char *str, t_game *game)
 {
-	char **parts;
-	int colors[3];
-	int color;
+	char	**parts;
+	int		colors[3];
+	int		color;
 
 	validate_color_format(str);
 	parts = split_and_trim_color_parts(str);
 	validate_color_parts_count(parts);
-	validate_and_parse_color_values(parts, colors, game);
+	validate_and_parse_color_values(parts, colors);
 	ft_free_split(parts);
 	color = convert_to_color(colors);
 	game->config_count++;
-
 	return (color);
 }
