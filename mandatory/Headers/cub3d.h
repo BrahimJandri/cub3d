@@ -235,7 +235,7 @@ void free_all(t_game *game);
 void calculate_map_dimensions(t_game *game, const char *file);
 void fill_map(t_game *game, const char *file);
 bool ft_flood_fill(int x, int y, t_game *game);
-char *skip_empty_lines(int fd);
+char *skip_empty_lines(int fd, t_game *game);
 char *parse_textures_and_colors(t_game *game, char *line, int fd);
 char *skip_texture_colors(int fd, char *line);
 void parse_texture(char *line, t_game *game, int n);
@@ -250,4 +250,6 @@ void validate_color_parts_count(char **parts);
 void validate_and_parse_color_values(char **parts, int *colors, t_game *game);
 void validate_color_format(char *str);
 void check_texture_validtion(t_game *game);
+void second_free(t_game *game, char *str);
+void first_free(t_game *game, char *str);
 #endif

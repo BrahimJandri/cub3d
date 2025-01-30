@@ -12,36 +12,36 @@
 
 #include "../Headers/cub3d.h"
 
-void	check_texture_validtion(t_game *game)
+void check_texture_validtion(t_game *game)
 {
-	int	fd;
+	int fd;
 
 	fd = open(game->no_texture, O_RDONLY);
 	if (fd == -1)
 	{
-		error_msg("Error: Cannot open Texture\n");
+		second_free(game, "Error: Cannot open Texture\n");
 	}
 	fd = 0;
 	fd = open(game->so_texture, O_RDONLY);
 	if (fd == -1)
 	{
-		error_msg("Error: Cannot open Texture\n");
+		second_free(game, "Error: Cannot open Texture\n");
 	}
 	fd = 0;
 	fd = open(game->ea_texture, O_RDONLY);
 	if (fd == -1)
 	{
-		error_msg("Error: Cannot open Texture\n");
+		second_free(game, "Error: Cannot open Texture\n");
 	}
 	fd = 0;
 	fd = open(game->we_texture, O_RDONLY);
 	if (fd == -1)
 	{
-		error_msg("Error: Cannot open Texture\n");
+		second_free(game, "Error: Cannot open Texture\n");
 	}
 }
 
-char	*parse_texture_line(t_game *game, char *line)
+char *parse_texture_line(t_game *game, char *line)
 {
 	if (ft_strncmp(line, "NO ", 3) == 0)
 		parse_texture(line, game, 0);
@@ -56,7 +56,7 @@ char	*parse_texture_line(t_game *game, char *line)
 	return (line);
 }
 
-char	*parse_color_line(t_game *game, char *line)
+char *parse_color_line(t_game *game, char *line)
 {
 	if (ft_strncmp(line, "F ", 2) == 0)
 		game->floor_color = parse_color(line + 2, game);
@@ -67,9 +67,9 @@ char	*parse_color_line(t_game *game, char *line)
 	return (line);
 }
 
-char	*parse_textures_and_colors(t_game *game, char *line, int fd)
+char *parse_textures_and_colors(t_game *game, char *line, int fd)
 {
-	char	*trimmed_line;
+	char *trimmed_line;
 
 	while (line)
 	{
@@ -79,13 +79,13 @@ char	*parse_textures_and_colors(t_game *game, char *line, int fd)
 			free(line);
 			free(trimmed_line);
 			line = get_next_line(fd);
-			continue ;
+			continue;
 		}
 		free(trimmed_line);
 		if (parse_texture_line(game, line) == NULL)
 		{
 			if (parse_color_line(game, line) == NULL)
-				break ;
+				break;
 		}
 		free(line);
 		line = get_next_line(fd);
@@ -93,10 +93,10 @@ char	*parse_textures_and_colors(t_game *game, char *line, int fd)
 	return (line);
 }
 
-void	parse_texture(char *line, t_game *game, int n)
+void parse_texture(char *line, t_game *game, int n)
 {
-	char	*trimmed_line;
-	char	**split_line;
+	char *trimmed_line;
+	char **split_line;
 
 	trimmed_line = ft_strtrim(line, " \t\n");
 	split_line = ft_split(trimmed_line, ' ');
