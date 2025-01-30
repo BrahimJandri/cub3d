@@ -66,7 +66,11 @@ void	check_extension(const char *file, t_game *game)
 		error_msg("Error\nFile deosn't exist or no permession\n");
 	}
 	if (ft_strncmp(file + ft_strlen(file) - 4, ".cub", 4) != 0)
+	{
+		free(game->player);
+		free(game);
 		error_msg("Error\nInvalid file extension\n");
+	}
 }
 
 void	parse_config(t_game *game, char **av)
