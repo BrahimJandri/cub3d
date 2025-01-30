@@ -219,7 +219,7 @@ void error_msg(char *str);
 void parse_config(t_game *game, char **av);
 void read_map(t_game *game, char *file);
 void draw_map(t_game *game);
-void check_extension(const char *file);
+void check_extension(const char *file, t_game *game);
 void count_params(t_game *game);
 void check_config(t_game *game);
 void check_map_params(t_game *game);

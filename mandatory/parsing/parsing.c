@@ -54,20 +54,24 @@ void	init_game(t_game *game)
 	game->config_count = 0;
 }
 
-void	check_extension(const char *file)
+void	check_extension(const char *file, t_game *game)
 {
 	int	fd;
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
+	{
+		free(game->player);
+		free(game);
 		error_msg("Error\nFile deosn't exist or no permession\n");
+	}
 	if (ft_strncmp(file + ft_strlen(file) - 4, ".cub", 4) != 0)
 		error_msg("Error\nInvalid file extension\n");
 }
 
 void	parse_config(t_game *game, char **av)
 {
-	check_extension(av[1]);
+	check_extension(av[1], game);
 	init_game(game);
 	read_map(game, av[1]);
 }
