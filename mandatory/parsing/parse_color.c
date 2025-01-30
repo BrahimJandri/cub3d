@@ -64,7 +64,7 @@ void validate_and_parse_color_values(char **parts, int *colors, t_game *game)
 			ft_free_split(parts);
 			free_texture(game);
 			free(game->player);
-			free(game->line);
+			// free(game->line);
 			free(game);
 			error_msg("Error\nInvalid color format\n");
 		}

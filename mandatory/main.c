@@ -61,8 +61,8 @@ void    init_player(t_game *data)
     dot->turnDir = 0;
     dot->walkDir = 0;
     dot->sideDir = 0;
-    dot->moveSpeed = 8;
-    dot->rotationSpeed = 1 * (PI / 2);
+    dot->moveSpeed = 80;
+    dot->rotationSpeed = 10 * (PI / 2);
     dot->line_lenght = 50;
     dot->angle = 0;
 
