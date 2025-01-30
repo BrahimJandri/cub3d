@@ -254,7 +254,8 @@ void ft_free_split(char **array);
 size_t ft_arraylen(char **array);
 int ft_isspace(char *str);
 void validate_color_parts_count(char **parts);
-void validate_and_parse_color_values(char **parts, int *colors);
+void validate_and_parse_color_values(char **parts, int *colors, t_game *game);
 void validate_color_format(char *str);
 void check_texture_validtion(t_game *game);
+void free_error_texture(t_game *game);
 #endif
