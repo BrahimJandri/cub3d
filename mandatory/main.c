@@ -160,8 +160,8 @@ int main(int ac, char **av)
     // t_image image;
     (void)ac;
 
-    parse_config(game, av);
     init_player(game);//init dakchi d lplayer kamlo hna
+    parse_config(game, av);
     init_ray(game);
 
     game->mlx = mlx_init();
