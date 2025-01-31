@@ -72,7 +72,7 @@ char	*skip_texture_colors(int fd, char *line)
 	return (line);
 }
 
-void	validate_color_format(char *str)
+void	validate_color_format(char *str, t_game *game)
 {
 	char	*trimmed_str;
 
@@ -82,6 +82,9 @@ void	validate_color_format(char *str)
 	if (count_sep(trimmed_str) != 2)
 	{
 		free(trimmed_str);
+		free_texture(game);
+		free(game->player);
+		free(game);
 		error_msg("Error\nInvalid color format\n");
 	}
 	free(trimmed_str);

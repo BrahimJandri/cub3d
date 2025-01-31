@@ -27,7 +27,7 @@ static char **split_and_trim_color_parts(char *str)
 	return (parts);
 }
 
-void validate_color_parts_count(char **parts)
+void validate_color_parts_count(char **parts, t_game *game)
 {
 	int count;
 
@@ -37,7 +37,10 @@ void validate_color_parts_count(char **parts)
 	if (count != 3)
 	{
 		ft_free_split(parts);
-		error_msg("Error\nInvalid color format\n");
+		free_texture(game);
+		free(game->player);
+		free(game);
+		error_msg("Error\nInvalid color formatrr\n");
 	}
 }
 
@@ -64,9 +67,8 @@ void validate_and_parse_color_values(char **parts, int *colors, t_game *game)
 			ft_free_split(parts);
 			free_texture(game);
 			free(game->player);
-			// free(game->line);
 			free(game);
-			error_msg("Error\nInvalid color format\n");
+			error_msg("Error\nInvalid color formats\n");
 		}
 		colors[i] = ft_atoi(parts[i]);
 		if (colors[i] < 0 || colors[i] > 255)
@@ -89,9 +91,9 @@ int parse_color(char *str, t_game *game)
 	int colors[3];
 	int color;
 
-	validate_color_format(str);
+	validate_color_format(str, game);
 	parts = split_and_trim_color_parts(str);
-	validate_color_parts_count(parts);
+	validate_color_parts_count(parts, game);
 	validate_and_parse_color_values(parts, colors, game);
 	ft_free_split(parts);
 	color = convert_to_color(colors);

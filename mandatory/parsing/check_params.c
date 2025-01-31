@@ -37,7 +37,7 @@ void	count_params(t_game *game)
 		i++;
 	}
 	if (count != 1)
-		error_msg("Error\nInvalid params of the map");
+		second_free(game, "Error\nInvalid params of the map");
 }
 
 void	check_map_params(t_game *game)
@@ -55,7 +55,7 @@ void	check_map_params(t_game *game)
 				&& (game->map[i][j] != 'N' && game->map[i][j] != 'S'
 					&& game->map[i][j] != 'E' && game->map[i][j] != 'W')
 				&& game->map[i][j] != 32 && game->map[i][j] != '\n')
-				error_msg("Error\nBad Params on map.");
+				second_free(game, "Error\nBad Params on map.");
 			j++;
 		}
 		i++;
