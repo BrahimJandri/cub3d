@@ -101,15 +101,7 @@ void    update_sides(t_game *data, t_player *player)
         player->x = new_posx;
     if(data->map[(int)new_posy / TILE][x] != '1')
         player->y = new_posy;
-    // draw_map(data);
 }
-
-// void    update_rotation(t_game *data, t_player *player)
-// {
-//     player->rotationAngle += player->turnDir * player->rotationSpeed;
-        
-//     draw_map(data);    
-// }
 
 void    update_player(t_game *data, t_player *player)
 {
@@ -128,7 +120,6 @@ void    update_player(t_game *data, t_player *player)
         player->x = new_posx;
     if(data->map[(int)new_posy / TILE][x] != '1')
         player->y = new_posy;
-    // draw_map(data);
 }
 
 

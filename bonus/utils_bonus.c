@@ -13,13 +13,13 @@
 #include "./Headers/cub3d_bonus.h"
 
 
-int    check_number(char c)
+int check_number(char c)
 {
-    if(c == '1')
-        return GREY;
-    if(c == '0' || c == 'N')
-        return WHITE;
-    return GOLDEN;
+    if (c == '1')
+        return GREY;    // Wall
+    if (c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W')
+        return WHITE;   // Floor
+    return GOLDEN;      // Default color
 }
 
 double      calcul_line_length(double   x1, double y1, double x2, double y2)

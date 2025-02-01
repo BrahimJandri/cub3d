@@ -84,9 +84,6 @@ void    init_ray(t_game *data)
 
     get_plyr_pos(data);
     set_direction(data);
-
-
-
 }
 
 
@@ -216,38 +213,25 @@ int main(int ac, char **av)
     {
         return 1;
     }
-        
 	if(ac != 2)
     {
 		return (ft_putstr_fd("Error\nUsage : Cub3d map.cub\n", 2), free(game),1);
     }
-    // t_image image;
     (void)ac;
-    
     init_player(game);//init dakchi d lplayer kamlo hna
     parse_config(game, av);
     init_ray(game);
-    
     game->mlx = mlx_init();
     game->win = mlx_new_window(game->mlx, S_WIDTH, S_HEIGHT, "gta");
-
     get_textures(game);
-  
- 
     game->img = malloc(sizeof(t_image));
     if(!game->img)
         return 1;
-        
     mlx_loop_hook(game->mlx, (void *)game_loop, game);//rsm lmap o zid lplayer o fov flkher d lfunction
-    // mlx_loop_hook()
     mlx_hook(game->win, 2, (1L<<0), player_control, game);
     mlx_hook(game->win, 3, (1L<<1), key_release, game);
     mlx_hook(game->win, 17, 0, close_window, game);
-    
     mlx_hook(game->win, 4, (1L<<2), click_press, game);
     mlx_hook(game->win, 5, (1L<<3), click_release, game);
     mlx_loop(game->mlx);
-    // free_all(game);
 }
-    // (void)ac;
-    // (void)av;o ft_memchr.o ft_itoa.o ft_isprint.o ft_isdigit.o ft_striteri.o ft_putL
