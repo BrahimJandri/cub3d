@@ -82,10 +82,7 @@ void	validate_color_format(char *str, t_game *game)
 	if (count_sep(trimmed_str) != 2)
 	{
 		free(trimmed_str);
-		free_texture(game);
-		free(game->player);
-		free(game);
-		error_msg("Error\nInvalid color format\n");
+		third_free(game, "Error\nInvalid color format\n");
 	}
 	free(trimmed_str);
 }

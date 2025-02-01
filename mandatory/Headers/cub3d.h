@@ -252,6 +252,7 @@ void validate_color_parts_count(char **parts, t_game *game);
 void validate_and_parse_color_values(char **parts, int *colors, t_game *game);
 void validate_color_format(char *str, t_game *game);
 void check_texture_validtion(t_game *game);
-void second_free(t_game *game, char *str);
 void first_free(t_game *game, char *str);
+void second_free(t_game *game, char *str);
+void third_free(t_game *game, char *str);
 #endif

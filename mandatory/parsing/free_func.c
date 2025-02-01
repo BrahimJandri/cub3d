@@ -92,3 +92,36 @@ void	ft_free_split(char **array)
 	}
 	free(array);
 }
+
+void first_free(t_game *game, char *str)
+{
+    free(game->player);
+    free(game);
+    error_msg(str);
+}
+
+void third_free(t_game *game, char *str)
+{
+	free_texture(game);
+	free(game->player);
+	free(game->line);
+	free(game);
+	error_msg(str);
+}
+
+void second_free(t_game *game, char *str)
+{
+    int i;
+
+    i = 0;
+    free(game->player);
+    while (game->map[i])
+    {
+        free(game->map[i]);
+        i++;
+    }
+    free(game->map);
+    free_texture(game);
+    free(game);
+    error_msg(str);
+}

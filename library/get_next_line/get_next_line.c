@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/13 09:08:43 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/19 10:28:01 by bjandri          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "get_next_line.h"
 
 char	*ft_first_line(int fd, char *str)
@@ -51,7 +39,10 @@ char	*ft_next_line(char *str)
 		i++;
 	next_line = malloc(sizeof(char) * (i + 2));
 	if (!next_line)
+	{
+		free(next_line);
 		return (NULL);
+	}
 	i = 0;
 	while (str[i] && str[i] != '\n')
 	{
@@ -71,7 +62,7 @@ char	*ft_new_str(char *str)
 	int		j;
 
 	i = 0;
-	while (str[i] && str[i] != '\n')
+	while (str[i])
 		i++;
 	if (!str[i])
 		return (ft_free(str));

@@ -38,26 +38,26 @@ void calculate_map_dimensions(t_game *game, const char *file)
 
 char *skip_empty_lines(int fd, t_game *game)
 {
-	char *line;
+	// char *line;
 	char *trimmed_line;
 
-	line = get_next_line(fd);
-	if (line == NULL)
+	game->line = get_next_line(fd);
+	if (game->line == NULL)
 		first_free(game, "Error\nEmpty file.\n");
 	while (true)
 	{
-		if (line == NULL)
+		if (game->line == NULL)
 			return (NULL);
-		trimmed_line = ft_strtrim(line, " \t");
+		trimmed_line = ft_strtrim(game->line, " \t");
 		if (*trimmed_line == '\0')
 		{
 			free(trimmed_line);
-			free(line);
-			line = get_next_line(fd);
+			free(game->line);
+			game->line = get_next_line(fd);
 		}
 		else
 		{
-			free(line);
+			free(game->line);
 			return (trimmed_line);
 		}
 	}

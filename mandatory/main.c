@@ -180,5 +180,4 @@ int main(int ac, char **av)
     mlx_hook(game->win, 3, (1L << 1), key_release, game);
     mlx_hook(game->win, 17, 0, close_window, game);
     mlx_loop(game->mlx);
-    // free_all(game);
 }

@@ -37,10 +37,7 @@ void validate_color_parts_count(char **parts, t_game *game)
 	if (count != 3)
 	{
 		ft_free_split(parts);
-		free_texture(game);
-		free(game->player);
-		free(game);
-		error_msg("Error\nInvalid color formatrr\n");
+		third_free(game, "Error\nInvalid color format\n");
 	}
 }
 
@@ -65,16 +62,13 @@ void validate_and_parse_color_values(char **parts, int *colors, t_game *game)
 		if (!ft_isspace(parts[i]) || !isAllDigits(parts[i]))
 		{
 			ft_free_split(parts);
-			free_texture(game);
-			free(game->player);
-			free(game);
-			error_msg("Error\nInvalid color formats\n");
+			third_free(game, "Error\nInvalid color format\n");
 		}
 		colors[i] = ft_atoi(parts[i]);
 		if (colors[i] < 0 || colors[i] > 255)
 		{
 			ft_free_split(parts);
-			error_msg("Error\nColor values must be in the range 0-255\n");
+			third_free(game, "Error\nColor values must be in the range 0-255\n");
 		}
 		i++;
 	}
