@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
+/*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/27 13:27:37 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/02 10:21:54 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ void    game_loop(t_game *data)
 {
     get_data(data);
     draw_map(data);
+    
 }
+
+
 
 void	draw_map(t_game *data)
 {
@@ -32,15 +35,16 @@ void	draw_map(t_game *data)
     
     draw_rays(data->player, data);
     
-    // draw_minimap(data);
+    // mini_map(data);
+    // mini_map(data);
     // draw_circle(data->player, data);
-    // put_rays(data, data->player);
-    mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0,0);
-
-    mlx_destroy_image(data->mlx, data->img->img);
-    // render_walls(data, data->player);
-    // cast_rays(data->player, data, data->player->rotationAngle);
     
+    render_gun(data);
+    put_gun(data, data->player->frames);
+    
+    
+    mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0,0);
+    mlx_destroy_image(data->mlx, data->img->img);    
 }
 
 void    get_data(t_game *data)
@@ -62,7 +66,7 @@ void    get_data(t_game *data)
 
 int    get_color(t_texture *texture, int x, int y)
 {
-    int color;
+    unsigned int color;
 
     color = *(int *)(texture->addrs + (y * texture->size_line) + x
 		* (texture->bpp / 8));
@@ -110,7 +114,7 @@ void    get_texture(t_game *data, int j)
     
 }
 
-void    put_wall(t_game *data, int  wall_top, int wall_bottom,int i)
+void    put_wall(t_game *data, int  wall_top, int wall_bottom, int i)
 {
     int j;
 

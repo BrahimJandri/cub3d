@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/28 16:35:30 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/02 10:57:22 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,9 @@ void    init_player(t_game *data)
     dot->rotationSpeed = 1 * (PI / 2);
     dot->line_lenght = 50;
     dot->angle = 0;
+    dot->frames = 0;
+    dot->bullets = 0;
+
 
 
     data->player = dot;
@@ -147,7 +150,8 @@ void circle(t_game *data, int x, int y, int radius)
 {
     int i, j;
 
-    for (i = x - radius; i <= x + radius; i++)
+    for (i = x - radius; i <= x + radius; i++)    // mini_map(data);
+    // draw_circle(data->player, data);
     {
         for (j = y - radius; j <= y + radius; j++)
         {
@@ -160,7 +164,8 @@ void circle(t_game *data, int x, int y, int radius)
 int     click_press(int key, int x, int y, t_game *data)
 {
     t_player *player;
-
+    // mini_map(data);
+    // draw_circle(data->player, data);
     player = data->player;
     (void)x;
     (void)y;
@@ -185,7 +190,8 @@ int     click_release(int key, int x, int y, t_game *data)
     if(key == 1)
     {
         player->turnDir = 0;
-    }
+    }    // mini_map(data);
+    // draw_circle(data->player, data);
     else if(key == 3)
     {
         player->turnDir = 0;
@@ -193,18 +199,155 @@ int     click_release(int key, int x, int y, t_game *data)
     return 0;
 }
 
-// int     click_release(int key, t_game *data)
-// {
-//     if(key == 1)
-//     {
-//         data->player->turnDir
-//     }
-//     else if(key == 3)
-//     {
-        
-//     }
-// }
+//000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+//000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+//000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+//000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+//000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+//____________________________________________________BONUS_____________________________________________________//
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void    load_gun_frames(t_game *data)
+{
+    int i;
+
+    i = 0;
+    while(i < FRAMES)
+    {
+        data->gun[i].img = mlx_xpm_file_to_image(data->mlx, data->gun[i].path, &data->gun[i].tex_width, &data->gun[i].tex_height);
+        if(!data->gun[i].img)
+        {
+            //free
+            printf("oho\n");
+            exit(1);
+        }
+        data->gun[i].addrs = mlx_get_data_addr(data->gun[i].img, &data->gun[i].bpp, &data->gun[i].size_line, &data->gun[i].endian);
+        if(!data->gun[i].addrs)
+        {
+            printf("lhamdullah\n");
+            exit(1);
+        }
+        i++;
+    }
+}
+
+
+
+
+
+
+
+
+void    render_gun(t_game *data)
+{
+    if (data->player->bullets)
+	{
+		data->player->frames++;
+		if (data->player->frames >= FRAMES)
+		{
+			data->player->frames = 0;
+			data->player->bullets = 0;
+		}
+        printf("frames = %d\n", data->player->frames);
+        put_gun(data, data->player->frames);
+	}
+	// if (!data->player->bullets && data->player->frames != 0)
+	// {
+	// 	data->player->frames--;
+	// }
+}
+
+
+
+
+
+void    put_gun(t_game *data, int frame)
+{
+    double  x;
+    double  y;
+    int i;
+    int j;
+    int color;
+    
+    i = 0;
+    x = (S_WIDTH - data->gun[frame].tex_width) / 2;
+    y = (S_HEIGHT - data->gun[frame].tex_height);
+    // x = (S_WIDTH / 2);
+    // y = (S_HEIGHT / 2);
+    
+    while(i < data->gun[frame].tex_height)
+    {
+        j = 0;
+        while(j < data->gun[frame].tex_width)
+        {
+    		color = *(unsigned int *)(data->gun[frame].addrs + (i * data->gun[frame].size_line + j * (data->gun[frame].bpp / 8)));
+			if ((unsigned int)color != 0xFF000000)
+            {
+                // printf("x + j= %f y + i = %f\n",x + j, y+i);
+				my_mlx_pixel_put(data, j + x, i + y, color);
+                // printf("HERE\n");    
+            }
+			j++;
+        }
+        i++;
+    }
+}
+
+
+
+
+
+
+
+
+void    init_sprites(t_game *data)
+{
+    int i;
+    char *number;
+    t_texture *gun;
+
+    gun = malloc(sizeof(t_texture) * FRAMES);
+    
+    i = 0;
+    while(i < FRAMES)
+    {
+        gun[i].path = ft_strdup("./Textures/punch/");
+        number = ft_itoa(i);
+        gun[i].path = ft_strjjoin(gun[i].path, number);
+        gun[i].path = ft_strjjoin(gun[i].path, ".xpm");
+        free(number);
+        i++;
+    }
+    data->gun = gun;
+}
+
+//000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+//000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+//000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+//000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 
 
 int main(int ac, char **av)
@@ -227,17 +370,19 @@ int main(int ac, char **av)
     init_player(game);//init dakchi d lplayer kamlo hna
     parse_config(game, av);
     init_ray(game);
+    init_sprites(game);
     
     game->mlx = mlx_init();
     game->win = mlx_new_window(game->mlx, S_WIDTH, S_HEIGHT, "gta");
 
+    printf("%s\n", game->gun[0].path);
     get_textures(game);
   
  
     game->img = malloc(sizeof(t_image));
     if(!game->img)
         return 1;
-        
+    load_gun_frames(game);
     mlx_loop_hook(game->mlx, (void *)game_loop, game);//rsm lmap o zid lplayer o fov flkher d lfunction
     // mlx_loop_hook()
     mlx_hook(game->win, 2, (1L<<0), player_control, game);

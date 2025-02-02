@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw.c                                             :+:      :+:    :+:   */
+/*   draw_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 16:01:18 by rachid            #+#    #+#             */
-/*   Updated: 2025/01/22 16:12:12 by rachid           ###   ########.fr       */
+/*   Updated: 2025/01/31 04:24:30 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./Headers/cub3d_bonus.h"
 
-// void draw_circle(t_player *player, t_game *data) {
-//     int x, y;
+void draw_circle(t_player *player, t_game *data) {
+    int x, y;
     
-//     for (x = -player->radius; x <= player->radius; x++) 
-//     {
-//         for (y = -player->radius; y <= player->radius; y++)
-//         {
-//             // Check if the point (x, y) satisfies the circle equation
-//             if ((x * x + y * y) <= player->radius * player->radius)
-//             {
-//                 my_mlx_pixel_put(data, (player->x + x) * MINIMAP, (player->y + y) * MINIMAP, RED);
-//             }
-//         }
-//     }
-// }
+    for (x = -player->radius; x <= player->radius; x++) 
+    {
+        for (y = -player->radius; y <= player->radius; y++)
+        {
+            // Check if the point (x, y) satisfies the circle equation
+            if ((x * x + y * y) <= player->radius * player->radius)
+            {
+                my_mlx_pixel_put(data, (player->x + x) * (MINIMAP * MINIMAP), (player->y + y) * (MINIMAP * MINIMAP), RED);
+            }
+        }
+    }
+}
 
 void    draw_line(t_player *player, t_game *data, double x_hit, double  y_hit )
 {
@@ -49,31 +49,31 @@ void    draw_line(t_player *player, t_game *data, double x_hit, double  y_hit )
     
 }
 
-// void    draw_minimap(t_game *data)
-// {
-// 	int	x;
-// 	int	y;
-// 	int color;
+void    mini_map(t_game *data)
+{
+	int	x;
+	int	y;
+	int color;
     
-// 	y = 0;
-// 	while (y < data->map_height)//is small than the height
-// 	{
-// 		x = 0;
-// 		while (x < data->map_width)//is small than the width
-// 		{
-// 			color = check_number(data->map[y][x]);
-// 			build_square(data, x * (TILE * MINIMAP) , y * (TILE * MINIMAP) ,color);
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// }
+	y = 0;
+	while (y < data->map_height)//is small than the height
+	{
+		x = 0;
+		while (x < data->map_width)//is small than the width
+		{
+			color = check_number(data->map[y][x]);
+			build_square(data, x * (TILE * (MINIMAP * MINIMAP)) , y * (TILE * (MINIMAP * MINIMAP)) ,color);
+			x++;
+		}
+		y++;
+	}
+}
 
 void    build_square(t_game *data, int x, int y, int color)
 {   
-    for(int i = 0;i < TILE * MINIMAP; i++)
+    for(int i = 0;i < TILE * (MINIMAP * MINIMAP); i++)
     {
-        for(int j = 0; j < TILE * MINIMAP ; j++)
+        for(int j = 0; j < TILE * (MINIMAP * MINIMAP) ; j++)
         {
             my_mlx_pixel_put(data, x + i, y + j, color);
         }

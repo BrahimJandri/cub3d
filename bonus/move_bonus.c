@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   move.c                                             :+:      :+:    :+:   */
+/*   move_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:27:31 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/27 18:26:36 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/01 10:19:49 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int     player_control(int key, t_game *data)
         player->sideDir = -1;
     else if(key == D)
         player->sideDir = 1;
+    else if(key == SPACE)
+        player->bullets = 1;
     else if(key == ESC)
     { 
         free(data->ray);

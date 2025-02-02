@@ -25,8 +25,9 @@
 #define W 119
 #define S 115
 #define D 100
-#define ESC 65307
 #define Q 113
+#define ESC 65307
+#define SPACE 32
 
 /*----------- COLORS ----------*/
 #define GREY 0x808080
@@ -40,9 +41,11 @@
 #define CREAM 0xFFFDD0
 
 #define S_WIDTH 1080
-#define S_HEIGHT 920
+#define S_HEIGHT 600
 #define WALL_WIDTH 1
 #define MINIMAP 0.2
+#define MINIMAP_SIZE 150
+#define FRAMES 3
 
 // #define TEX 
 #define TILE 256
@@ -72,6 +75,7 @@ typedef struct s_texture
     int tex_width;
     int tex_height;
     void    *tex_data;
+    char *path;
 }t_texture;
 
 
@@ -91,6 +95,8 @@ typedef struct s_player
     double angle;
     double line_lenght;
     char character;
+    int     bullets;
+    int     frames;
 } t_player;
 
 /*________________RAY_STRUCT_________________*/
@@ -153,6 +159,7 @@ typedef struct s_game
     t_ray *ray;
     t_image *img;
     t_texture *texture[4];
+    t_texture   *gun;
 } t_game;
 
 /*______________get_next_line________________*/
@@ -198,11 +205,16 @@ void    draw_minimap(t_game *data);
 int	shade_walls(int color, double distance);
 int	apply_shadow(int color, double shadow_factor);
 
-void    put_rays(t_game *data, t_player *player);
 
 void    update_sides(t_game *data, t_player *player);
 void    get_data(t_game *data);
 void    game_loop(t_game *data);
+
+/*__________BONUS_________*/
+void    render_gun(t_game *data);
+void    put_gun(t_game *data, int frame);
+void    init_sprites(t_game *data);
+void    load_gun_frames(t_game *data);
 
 /*__________RAYCASTING_________*/
 void    horizontal_intercepts(t_game *data, t_player *player, t_ray *ray, double angle);
@@ -218,8 +230,10 @@ double      calcul_line_length(double   x1, double y1, double x2, double y2);
 
 t_texture *upload_texture(t_game *data, int i);
 
-void    destroy_xpm(t_game *data);
+void    mini_map(t_game *data);
 
+void    destroy_xpm(t_game *data);
+void    draw_minimap(t_game *data);
 
 /*______BRAHIM___________*/
 void error_msg(char *str);
