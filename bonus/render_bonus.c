@@ -30,15 +30,8 @@ void	draw_map(t_game *data)
         return ;
     data->img->addrs = mlx_get_data_addr(data->img->img, &data->img->bpp, &data->img->size_line, &data->img->endian);
 
-    // draw_line(data->player, data);
-    // line(data->player, data);
-    
     draw_rays(data->player, data);
-    
-    // mini_map(data);
-    // mini_map(data);
-    // draw_circle(data->player, data);
-    
+    update_minimap(data);
     render_gun(data);
     put_gun(data, data->player->frames);
     

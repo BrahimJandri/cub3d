@@ -40,12 +40,15 @@
 #define GOLDEN 0xFFDF00
 #define CREAM 0xFFFDD0
 
-#define S_WIDTH 680
-#define S_HEIGHT 500
+#define S_WIDTH 1080
+#define S_HEIGHT 920
 #define WALL_WIDTH 1
-#define MINIMAP 0.2
-#define MINIMAP_SIZE 150
+#define MINIMAP 0.05
 #define FRAMES 7
+
+#define MINIMAP_SIZE (S_WIDTH / 16 + S_HEIGHT / 16) // Size of the minimap (width and height)
+#define MINIMAP_X 0      // X position of the minimap
+#define MINIMAP_Y 0      // Y position of the minimap
 
 // #define TEX 
 #define TILE 256
@@ -271,4 +274,13 @@ void validate_color_parts_count(char **parts);
 void validate_and_parse_color_values(char **parts, int *colors);
 void validate_color_format(char *str);
 void check_texture_validtion(t_game *game);
+
+void draw_map_mini(t_game *data);
+void draw_background(t_game *game);
+void draw_minimap_player(t_game *game);
+void draw_ray_line(t_game *game, int end_x, int end_y);
+void draw_player_direction(t_game *game);
+void draw_tile_within_bounds(t_game *data, int map_x, int map_y);
+void update_minimap(t_game *data);
+
 #endif
