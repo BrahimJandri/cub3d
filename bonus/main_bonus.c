@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/02 13:42:44 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/02 15:13:02 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,7 +266,7 @@ void    render_gun(t_game *data)
     if (data->player->bullets)
 	{
 		data->player->frames++;
-        usleep(100000);
+        // usleep(100000);
 		if (data->player->frames >= FRAMES)
 		{
 			data->player->frames = 0;

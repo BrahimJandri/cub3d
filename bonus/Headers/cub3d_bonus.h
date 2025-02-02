@@ -40,8 +40,8 @@
 #define GOLDEN 0xFFDF00
 #define CREAM 0xFFFDD0
 
-#define S_WIDTH 1080
-#define S_HEIGHT 920
+#define S_WIDTH 880
+#define S_HEIGHT 620
 #define WALL_WIDTH 1
 #define MINIMAP 0.05
 #define FRAMES 7
