@@ -154,7 +154,7 @@ void draw_tile_within_bounds(t_game *data, int map_x, int map_y)
 
     char cell = data->map[map_y][map_x];
     if (cell == '1')
-        color = GREY;
+        color = 0x606060;
     else if (cell == '0' || ft_strchr("NSEW", cell))
         color = WHITE;
     else if (cell == 'D')
