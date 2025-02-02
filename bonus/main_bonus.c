@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/02 10:57:22 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/02 13:42:44 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,6 +266,7 @@ void    render_gun(t_game *data)
     if (data->player->bullets)
 	{
 		data->player->frames++;
+        usleep(100000);
 		if (data->player->frames >= FRAMES)
 		{
 			data->player->frames = 0;
@@ -274,10 +275,10 @@ void    render_gun(t_game *data)
         printf("frames = %d\n", data->player->frames);
         put_gun(data, data->player->frames);
 	}
-	// if (!data->player->bullets && data->player->frames != 0)
-	// {
-	// 	data->player->frames--;
-	// }
+	if (!data->player->bullets && data->player->frames != 0)
+	{
+		data->player->frames--;
+	}
 }
 
 
@@ -293,7 +294,7 @@ void    put_gun(t_game *data, int frame)
     int color;
     
     i = 0;
-    x = (S_WIDTH - data->gun[frame].tex_width) / 2;
+    x = (S_WIDTH - data->gun[frame].tex_width)/2;
     y = (S_HEIGHT - data->gun[frame].tex_height);
     // x = (S_WIDTH / 2);
     // y = (S_HEIGHT / 2);
@@ -334,7 +335,7 @@ void    init_sprites(t_game *data)
     i = 0;
     while(i < FRAMES)
     {
-        gun[i].path = ft_strdup("./Textures/punch/");
+        gun[i].path = ft_strdup("./Textures/braha/");
         number = ft_itoa(i);
         gun[i].path = ft_strjjoin(gun[i].path, number);
         gun[i].path = ft_strjjoin(gun[i].path, ".xpm");
