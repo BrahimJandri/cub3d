@@ -6,7 +6,7 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/04 10:04:48 by reddamss         ###   ########.fr       */
+/*   Updated: 2025/02/04 11:45:32 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -359,7 +359,7 @@ int     get_index(t_game *data, int y, int x)
     index = 0;
     while(index < data->door_num)
     {
-        // printf("data->door[%d].x = %d, data->door[%d].y = %d\n", index, data->door[index].x, index, data->door[index].y);
+        printf("data->door[%d].x = %d, data->door[%d].y = %d\n", index, data->door[index].x, index, data->door[index].y);
         if(data->door[index].x == x && data->door[index].y == y)
             return index;
         index++;
@@ -376,6 +376,7 @@ int     x_accessibility(t_game *data, int y, double new_x)
     index = get_index(data, y, (new_x / TILE));
     if(index == -1)
         exit(11);
+    printf("accessible %d\n", data->door[index].open);
     if(data->door[index].open)
         return 1;
     else
@@ -386,6 +387,7 @@ int     y_accessibility(t_game *data, int x, double new_y)
 {
     int index;
 
+    //gets the index of the tile
     index = get_index(data, new_y / TILE, x);
     if(index == -1)
         exit(13);
@@ -400,6 +402,8 @@ int    y_side_accessibility(t_game *data, double y, double x)
     int index;
     
     (void)x;
+
+    printf("(14) y == %d, x = %d\n", (int)(y / TILE), (int)(data->player->x / TILE));
     index = get_index(data, (int)(y / TILE), (int)(data->player->x / TILE));
     
     if(index == -1)
@@ -414,7 +418,8 @@ int    x_side_accessibility(t_game *data, double y, double x)
 {
     int index;
     
-    index = get_index(data, y / TILE, x / TILE);
+    printf("(15) y == %d, x = %d\n", (int)(y / TILE), (int)(x / TILE));
+    index = get_index(data, (int)(y / TILE), (int)(x / TILE));
     if(index == -1)
         exit(15);
     if(data->door[index].open)

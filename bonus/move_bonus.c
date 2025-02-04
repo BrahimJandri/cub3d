@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:27:31 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/04 04:26:09 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/04 11:50:19 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,9 @@ void    update_sides(t_game *data, t_player *player)
     x = (int)player->x / TILE;
     y = (int)player->y / TILE;
     
-    if(data->map[y][(int)new_posx / TILE] != '1')
+    if(data->map[y][(int)new_posx / TILE] == '0')
         player->x = new_posx;
-    if(data->map[(int)new_posy / TILE][x] != '1')
+    if(data->map[(int)new_posy / TILE][x] == '0')
         player->y = new_posy;
     if(data->map[y][(int)new_posx / TILE] == 'D' && x_side_accessibility(data, new_posy, new_posx))
         player->x = new_posx;
@@ -134,10 +134,11 @@ void    update_player(t_game *data, t_player *player)
 
     x = (int)player->x / TILE;
     y = (int)player->y / TILE;
-    if(data->map[y][(int)new_posx / TILE] != '1')
+    if(data->map[y][(int)new_posx / TILE] == '0')
         player->x = new_posx;
-    if(data->map[(int)new_posy / TILE][x] != '1')
+    if(data->map[(int)new_posy / TILE][x] == '0')
         player->y = new_posy;
+    // if the tile is D and it is accessibile
     if(data->map[y][(int)new_posx / TILE] == 'D' && x_accessibility(data, y, new_posx))
     {
         player->x = new_posx;    

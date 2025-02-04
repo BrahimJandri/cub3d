@@ -6,7 +6,7 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 00:01:02 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/04 10:28:06 by reddamss         ###   ########.fr       */
+/*   Updated: 2025/02/04 11:14:52 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int    is_it_wall(t_game *data, double   x, double   y)
         return 1;
     }
 
-    printf("mapy = %d. mapx = %d\n", map_y, map_x);
+    // printf("mapy = %d. mapx = %d\n", map_y, map_x);
     if(data->map[map_y][map_x] == 'D')
     {
         index = get_index(data, map_y, map_x);
