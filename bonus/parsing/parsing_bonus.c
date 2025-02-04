@@ -12,18 +12,6 @@
 
 #include "../Headers/cub3d_bonus.h"
 
-void	draw_map2(t_game *game)
-{
-	int	i;
-
-	i = 0;
-	while (i < game->map_height)
-	{
-		printf("%s", game->map[i]);
-		i++;
-	}
-}
-
 void	read_map(t_game *game, char *file)
 {
 	calculate_map_dimensions(game, file);
@@ -54,20 +42,24 @@ void	init_game(t_game *game)
 	game->config_count = 0;
 }
 
-void	check_extension(const char *file)
+void	check_extension(const char *file, t_game *game)
 {
 	int	fd;
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		error_msg("Error\nFile deosn't exist or no permession\n");
+	{
+		first_free(game, "Error\nOpen file failed\n");
+	}
 	if (ft_strncmp(file + ft_strlen(file) - 4, ".cub", 4) != 0)
-		error_msg("Error\nInvalid file extension\n");
+	{
+		first_free(game, "Error\nInvalid file extension\n");
+	}
 }
 
 void	parse_config(t_game *game, char **av)
 {
-	check_extension(av[1]);
+	check_extension(av[1], game);
 	init_game(game);
 	read_map(game, av[1]);
 }

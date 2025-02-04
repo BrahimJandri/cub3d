@@ -12,10 +12,10 @@
 
 #include "../Headers/cub3d_bonus.h"
 
-static char	**split_and_trim_color_parts(char *str)
+static char **split_and_trim_color_parts(char *str)
 {
-	char	*trimmed_str;
-	char	**parts;
+	char *trimmed_str;
+	char **parts;
 
 	trimmed_str = ft_strtrim(str, " \t\n");
 	if (!trimmed_str)
@@ -27,9 +27,9 @@ static char	**split_and_trim_color_parts(char *str)
 	return (parts);
 }
 
-void	validate_color_parts_count(char **parts)
+void validate_color_parts_count(char **parts, t_game *game)
 {
-	int	count;
+	int count;
 
 	count = 0;
 	while (parts[count])
@@ -37,49 +37,61 @@ void	validate_color_parts_count(char **parts)
 	if (count != 3)
 	{
 		ft_free_split(parts);
-		error_msg("Error\nInvalid color format\n");
+		third_free(game, "Error\nInvalid color format\n");
 	}
 }
 
-void	validate_and_parse_color_values(char **parts, int *colors)
+int isAllDigits(const char *str)
 {
-	int	i;
+	while (*str)
+	{
+		if (!ft_isdigit(*str))
+			return 0;
+		str++;
+	}
+	return 1;
+}
+
+void validate_and_parse_color_values(char **parts, int *colors, t_game *game)
+{
+	int i;
 
 	i = 0;
 	while (i < 3)
 	{
-		if (!ft_isspace(parts[i]))
+		if (!ft_isspace(parts[i]) || !isAllDigits(parts[i]))
 		{
 			ft_free_split(parts);
-			error_msg("Error\nInvalid color format\n");
+			third_free(game, "Error\nInvalid color format\n");
 		}
 		colors[i] = ft_atoi(parts[i]);
 		if (colors[i] < 0 || colors[i] > 255)
 		{
 			ft_free_split(parts);
-			error_msg("Error\nColor values must be in the range 0-255\n");
+			third_free(game, "Error\nColor values must be in the range 0-255\n");
 		}
 		i++;
 	}
 }
 
-static int	convert_to_color(int *colors)
+static int convert_to_color(int *colors)
 {
 	return ((colors[0] << 16) | (colors[1] << 8) | colors[2]);
 }
 
-int	parse_color(char *str, t_game *game)
+int parse_color(char *str, t_game *game)
 {
-	char	**parts;
-	int		colors[3];
-	int		color;
+	char **parts;
+	int colors[3];
+	int color;
 
-	validate_color_format(str);
+	validate_color_format(str, game);
 	parts = split_and_trim_color_parts(str);
-	validate_color_parts_count(parts);
-	validate_and_parse_color_values(parts, colors);
+	validate_color_parts_count(parts, game);
+	validate_and_parse_color_values(parts, colors, game);
 	ft_free_split(parts);
 	color = convert_to_color(colors);
 	game->config_count++;
+
 	return (color);
 }

@@ -37,7 +37,7 @@ void	count_params(t_game *game)
 		i++;
 	}
 	if (count != 1)
-		error_msg("Error\nInvalid params of the map");
+		second_free(game, "Error\nInvalid params of the map");
 }
 
 void	check_map_params(t_game *game)
@@ -55,7 +55,7 @@ void	check_map_params(t_game *game)
 				&& (game->map[i][j] != 'N' && game->map[i][j] != 'S'
 					&& game->map[i][j] != 'E' && game->map[i][j] != 'W' && game->map[i][j] != 'D')
 				&& game->map[i][j] != 32 && game->map[i][j] != '\n')
-				error_msg("Error\nBad Params on map.");
+				second_free(game, "Error\nBad Params on map.");
 			j++;
 		}
 		i++;
@@ -65,8 +65,5 @@ void	check_map_params(t_game *game)
 void	check_config(t_game *game)
 {
 	if (game->config_count != 6)
-	{
-		free_texture(game);
-		error_msg("Error\nTextures or Colors are not correct.");
-	}
+		second_free(game, "Error\nTextures or Colors are not correct.");
 }

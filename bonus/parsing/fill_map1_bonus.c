@@ -12,64 +12,62 @@
 
 #include "../Headers/cub3d_bonus.h"
 
-void	calculate_map_dimensions(t_game *game, const char *file)
+void calculate_map_dimensions(t_game *game, const char *file)
 {
-	int		fd;
-	char	*line;
-	char	*trimed_line;
-	int		line_length;
+	int fd;
+	// char *line;
+	char *trimed_line;
+	int line_length;
 
 	fd = open_file(file);
-	line = skip_empty_lines(fd);
-	line = parse_textures_and_colors(game, line, fd);
-	while (line)
+	game->line = skip_empty_lines(fd, game);
+	game->line = parse_textures_and_colors(game, game->line, fd);
+	while (game->line)
 	{
-		trimed_line = ft_strtrim(line, "\n");
+		trimed_line = ft_strtrim(game->line, "\n");
 		game->map_height++;
 		line_length = ft_strlen(trimed_line);
 		if (line_length > game->map_width)
 			game->map_width = line_length;
-		free(line);
+		free(game->line);
 		free(trimed_line);
-		line = get_next_line(fd);
+		game->line = get_next_line(fd);
 	}
 	close(fd);
 }
 
-char	*skip_empty_lines(int fd)
+char *skip_empty_lines(int fd, t_game *game)
 {
-	char	*line;
-	char	*trimmed_line;
+	// char *line;
+	char *trimmed_line;
 
-	line = get_next_line(fd);
-	if (line == NULL)
-	{
-		error_msg("Error\nEmpty file.\n");
-	}
+	game->line = get_next_line(fd);
+	if (game->line == NULL)
+		first_free(game, "Error\nEmpty file.\n");
 	while (true)
 	{
-		if (line == NULL)
+		if (game->line == NULL)
 			return (NULL);
-		trimmed_line = ft_strtrim(line, " \t");
+		trimmed_line = ft_strtrim(game->line, " \t");
 		if (*trimmed_line == '\0')
 		{
 			free(trimmed_line);
-			free(line);
-			line = get_next_line(fd);
+			free(game->line);
+			game->line = get_next_line(fd);
 		}
 		else
 		{
-			free(line);
+			free(game->line);
 			return (trimmed_line);
 		}
 	}
 }
 
-char	*read_and_process_line(int fd)
+char	*read_and_process_line(int fd, t_game *game)
 {
 	char	*line;
 
-	line = skip_empty_lines(fd);
+	line = skip_empty_lines(fd, game);
 	return (skip_texture_colors(fd, line));
 }
 
@@ -103,7 +101,7 @@ void	fill_map(t_game *game, const char *file)
 
 	i = 0;
 	fd = open_file(file);
-	line = read_and_process_line(fd);
+	line = read_and_process_line(fd, game);
 	game->map = malloc(sizeof(char *) * (game->map_height + 1));
 	if (!game->map)
 		error_msg("Error\nMemory allocation error");
