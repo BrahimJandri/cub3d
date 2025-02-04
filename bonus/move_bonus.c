@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   move.c                                             :+:      :+:    :+:   */
+/*   move_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:27:31 by reddamss          #+#    #+#             */
-/*   Updated: 2025/01/27 18:26:36 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/04 04:26:09 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int     player_control(int key, t_game *data)
         player->sideDir = -1;
     else if(key == D)
         player->sideDir = 1;
+    else if(key == SPACE)
+        player->bullets = 1;
     else if(key == ESC)
     { 
         free(data->ray);
@@ -58,6 +60,11 @@ int     player_control(int key, t_game *data)
         free(data->img);
         free_all(data);
         exit(1);
+    }
+    else if(key == ENTER)
+    {
+        data->flag = 1;
+        ft_player_wall_hit(data);
     }
     return 1;
 }
@@ -101,7 +108,19 @@ void    update_sides(t_game *data, t_player *player)
         player->x = new_posx;
     if(data->map[(int)new_posy / TILE][x] != '1')
         player->y = new_posy;
+    if(data->map[y][(int)new_posx / TILE] == 'D' && x_side_accessibility(data, new_posy, new_posx))
+        player->x = new_posx;
+    if(data->map[(int)new_posy / TILE][x] == 'D' && y_side_accessibility(data, new_posy, new_posx))
+        player->y = new_posy;
+    // draw_map(data);
 }
+
+// void    update_rotation(t_game *data, t_player *player)
+// {
+//     player->rotationAngle += player->turnDir * player->rotationSpeed;
+        
+//     draw_map(data);    
+// }
 
 void    update_player(t_game *data, t_player *player)
 {
@@ -115,11 +134,18 @@ void    update_player(t_game *data, t_player *player)
 
     x = (int)player->x / TILE;
     y = (int)player->y / TILE;
-    
     if(data->map[y][(int)new_posx / TILE] != '1')
         player->x = new_posx;
     if(data->map[(int)new_posy / TILE][x] != '1')
         player->y = new_posy;
+    if(data->map[y][(int)new_posx / TILE] == 'D' && x_accessibility(data, y, new_posx))
+    {
+        player->x = new_posx;    
+    }
+    if(data->map[(int)new_posy / TILE][x] == 'D' && y_accessibility(data, x, new_posy))
+    {
+        player->y = new_posy;
+    }
 }
 
 

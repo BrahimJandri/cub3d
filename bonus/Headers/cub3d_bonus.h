@@ -25,8 +25,10 @@
 #define W 119
 #define S 115
 #define D 100
-#define ESC 65307
 #define Q 113
+#define ESC 65307
+#define ENTER 65293
+#define SPACE 32
 
 /*----------- COLORS ----------*/
 #define GREY 0x808080
@@ -39,10 +41,11 @@
 #define GOLDEN 0xFFDF00
 #define CREAM 0xFFFDD0
 
-#define S_WIDTH 900
+#define S_WIDTH 880
 #define S_HEIGHT 620
 #define WALL_WIDTH 1
 #define MINIMAP 0.05
+#define FRAMES 7
 
 #define MINIMAP_SIZE (S_WIDTH / 16 + S_HEIGHT / 16) // Size of the minimap (width and height)
 #define MINIMAP_X 0      // X position of the minimap
@@ -50,7 +53,8 @@
 
 // #define TEX
 #define TILE 256
-// #define TEX_WIDTH
+#define DOOR_DISTANCE 300
+// #define TEX_WIDTH 
 // #define TEX_HEIGHT 400
 #define PI 3.14159265358979323846
 #define TWO_PI 6.28318530718
@@ -66,6 +70,15 @@ typedef struct s_image
     void *img;
 } t_image;
 
+/*_______________DOORS_STRUCT_________________*/
+typedef struct s_door
+{
+    int x;
+    int y;
+    bool    open;
+}t_door;
+
+
 typedef struct s_texture
 {
     int bpp;
@@ -75,8 +88,10 @@ typedef struct s_texture
     void *img;
     int tex_width;
     int tex_height;
-    void *tex_data;
-} t_texture;
+    void    *tex_data;
+    char *path;
+}t_texture;
+
 
 /*_______________PLAYER_STRCUT_________________*/
 typedef struct s_player
@@ -94,6 +109,8 @@ typedef struct s_player
     double angle;
     double line_lenght;
     char character;
+    int     bullets;
+    int     frames;
 } t_player;
 
 /*________________RAY_STRUCT_________________*/
@@ -155,6 +172,10 @@ typedef struct s_game
     t_ray *ray;
     t_image *img;
     t_texture *texture[4];
+    t_texture   *gun;
+    t_door      *door;
+    int door_num;
+    bool flag;
 } t_game;
 
 /*______________get_next_line________________*/
@@ -190,30 +211,56 @@ int key_release(int key, t_game *data);
 void draw_rectangle(t_game *data, int x, int y, int height, int width);
 void my_mlx_pixel_put(t_game *data, int x, int y, int color);
 
-int is_it_wall(t_game *data, double x, double y);
-void define_angle(t_ray *ray, double angle);
+int    is_it_wall(t_game *data, double   x, double   y);
+void    define_angle(t_ray *ray, double angle);
 
-void draw_minimap(t_game *data);
 
-void put_rays(t_game *data, t_player *player);
+void    draw_minimap(t_game *data);
 
-void update_sides(t_game *data, t_player *player);
-void get_data(t_game *data);
-void game_loop(t_game *data);
+
+int	shade_walls(int color, double distance);
+int	apply_shadow(int color, double shadow_factor);
+
+
+void    update_sides(t_game *data, t_player *player);
+void    get_data(t_game *data);
+void    game_loop(t_game *data);
+
+/*__________BONUS_________*/
+void    render_gun(t_game *data);
+void    put_gun(t_game *data, int frame);
+void    init_sprites(t_game *data);
+void    load_gun_frames(t_game *data);
 
 /*__________RAYCASTING_________*/
-void horizontal_intercepts(t_game *data, t_player *player, t_ray *ray, double angle);
-void horizontal_steps(double x_next_touch, double y_next_touch, t_game *data, double angle);
-void vertical_intercepts(t_game *data, t_player *player, t_ray *ray, double angle);
-void vertical_steps(double x_next_touch, double y_next_touch, t_game *data, double angle);
-void get_vertical_hit(t_game *data, double array[4], t_ray *ray);
-void get_horizontal_hit(t_game *data, double array[4], t_ray *ray);
-void closer_intersection(t_player *player, t_ray *ray);
-double calcul_line_length(double x1, double y1, double x2, double y2);
+void    horizontal_intercepts(t_game *data, t_player *player, t_ray *ray, double angle);
+void    horizontal_steps(double x_next_touch, double y_next_touch, t_game *data, double angle);
+void    vertical_intercepts(t_game *data, t_player *player, t_ray *ray, double angle);
+void    vertical_steps(double x_next_touch, double y_next_touch, t_game *data, double angle);
+void    get_vertical_hit(t_game   *data, double array[4], t_ray *ray);
+void    get_horizontal_hit(t_game   *data, double array[4], t_ray *ray);
+void    closer_intersection(t_player *player, t_ray *ray);
+double      calcul_line_length(double   x1, double y1, double x2, double y2);
+
+
+/*__________DOORS_________*/
+int     get_index(t_game *data, int y, int x);
+void    init_door(t_game *data);
+void    assign_index(t_game *data, int index, int y, int x);
+void    alloc_doors(t_game * data);
+int    get_doors_num(t_game *data);
+int    x_side_accessibility(t_game *data, double y, double x);
+int    y_side_accessibility(t_game *data, double y, double x);
+int     y_accessibility(t_game *data, int x, double new_y);
+int     x_accessibility(t_game *data, int y, double new_x);
+void    ft_player_wall_hit(t_game *data);
 
 t_texture *upload_texture(t_game *data, int i);
 
-void destroy_xpm(t_game *data);
+void    mini_map(t_game *data);
+
+void    destroy_xpm(t_game *data);
+void    draw_minimap(t_game *data);
 
 /*______BRAHIM___________*/
 void error_msg(char *str);
@@ -259,5 +306,8 @@ void draw_ray_line(t_game *game, int end_x, int end_y);
 void draw_player_direction(t_game *game);
 void draw_tile_within_bounds(t_game *data, int map_x, int map_y);
 void update_minimap(t_game *data);
+int get_tile_color(char cell);
+void calculate_tile_position(t_game *data, int map_x, int map_y, int *tile_x, int *tile_y);
+void draw_tile(t_game *data, int tile_x, int tile_y, int color);
 
 #endif

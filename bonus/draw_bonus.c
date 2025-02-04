@@ -212,3 +212,4 @@ void draw_minimap(t_game *game)
     draw_player_direction(game);
 }
 
+

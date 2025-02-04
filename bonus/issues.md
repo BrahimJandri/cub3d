@@ -10,10 +10,14 @@
     9 - getting the textures of the SO, NO ,EA, WE ✅
     11 - the X button to quit.✅
     
-    6 - circular map (bonus)
-    5 - mouse_hook (bonus)
-    4 - sprites (bonus)
+    6 - circular map (bonus)✅
+    5 - mouse_hook (bonus)✅
+    4 - sprites (bonus)✅
     10 - leaks rgb
+    11 - Revision
+    12 - editing code of sprites to see how do they work
+    
+    13 - doors
 }
 
 

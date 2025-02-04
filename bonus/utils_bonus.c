@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 00:01:02 by rachid            #+#    #+#             */
-/*   Updated: 2025/01/19 00:05:33 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/04 03:58:45 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,30 @@ double      normalize_angle(double angle)
 
 int    is_it_wall(t_game *data, double   x, double   y)
 {
+    double map_x;
+    double map_y;
+    int index;
+    
+    map_x = floor(x / TILE);
+    map_y = floor(y / TILE);
     if((x < 0 || x > data->map_width * TILE) || (y < 0 || y > data->map_height * TILE))
     {
         return 1;
     }
-    double map_x;
-    double map_y;
 
-    map_x = floor(x / TILE);
-    map_y = floor(y / TILE);
-    return(data->map[(int)map_y ][(int)map_x] != '0');
+    if(data->map[(int)map_y ][(int)map_x] == '1')
+        return 1;
+    else if(data->map[(int)map_y][(int)map_x] == 'D')
+    {
+        index = get_index(data, map_y, map_x);
+        if(index == -1)
+            exit(17);
+        if(!data->door[index].open)
+            return (1);
+        if(data->flag && data->door[index].open)
+            return (1);  
+    }
+    return 0;
 }
 
 void	error_msg(char *str)
