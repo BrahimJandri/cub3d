@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/04 04:27:26 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/04 10:04:48 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,12 +324,12 @@ void    ft_player_wall_hit(t_game *data)
     cast_rays(data->player, data, data->player->rotationAngle);
     x = (int)(data->ray->x_wall / TILE);
     y = (int)(data->ray->y_wall / TILE);
-    printf("distance = %f\n", data->ray->distance);
+    // printf("distance = %f\n", data->ray->distance);
     if(x >= 0 && x < data->map_width && y >= 0 && y < data->map_height)
     {
         if(data->map[y][x] == 'D' && data->ray->distance < DOOR_DISTANCE)
         {
-            printf("YAAAAAAAAAAAAAAAY\n");
+            // printf("YAAAAAAAAAAAAAAAY\n");
             index = get_index(data, y, x);
             if(index == -1)
                 exit(12);
@@ -362,7 +362,7 @@ int     get_index(t_game *data, int y, int x)
     index = 0;
     while(index < data->door_num)
     {
-        printf("data->door[%d].x = %d, data->door[%d].y = %d\n", index, data->door[index].x, index, data->door[index].y);
+        // printf("data->door[%d].x = %d, data->door[%d].y = %d\n", index, data->door[index].x, index, data->door[index].y);
         if(data->door[index].x == x && data->door[index].y == y)
             return index;
         index++;
@@ -375,7 +375,7 @@ int     x_accessibility(t_game *data, int y, double new_x)
 {
     int index;
 
-    printf("y == %d, x = %d\n", y, (int)(new_x / TILE));
+    // printf("y == %d, x = %d\n", y, (int)(new_x / TILE));
     index = get_index(data, y, (new_x / TILE));
     if(index == -1)
         exit(11);
