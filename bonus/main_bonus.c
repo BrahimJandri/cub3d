@@ -6,7 +6,7 @@
 /*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/04 11:45:32 by reddamss         ###   ########.fr       */
+/*   Updated: 2025/02/04 13:37:50 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -407,7 +407,7 @@ int    y_side_accessibility(t_game *data, double y, double x)
     index = get_index(data, (int)(y / TILE), (int)(data->player->x / TILE));
     
     if(index == -1)
-        exit(14);
+        return 0;
     if(data->door[index].open)
         return 1;
     else
@@ -419,9 +419,9 @@ int    x_side_accessibility(t_game *data, double y, double x)
     int index;
     
     printf("(15) y == %d, x = %d\n", (int)(y / TILE), (int)(x / TILE));
-    index = get_index(data, (int)(y / TILE), (int)(x / TILE));
+    index = get_index(data, (int)floor(y / TILE), (int)floor(x / TILE));
     if(index == -1)
-        exit(15);
+        return 0;   
     if(data->door[index].open)
         return 1;
     else
