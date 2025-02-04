@@ -28,8 +28,8 @@ void	count_params(t_game *game)
 			if (game->map[i][j] == 'N' || game->map[i][j] == 'S'
 				|| game->map[i][j] == 'E' || game->map[i][j] == 'W')
 			{
-				game->player->y = i ;
-				game->player->x = j ;
+				game->player->y = i;
+				game->player->x = j;
 				count++;
 			}
 			j++;

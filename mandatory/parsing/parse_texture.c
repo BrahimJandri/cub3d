@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   parse_texture.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 08:54:39 by bjandri           #+#    #+#             */
-/*   Updated: 2025/01/25 13:11:00 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/04 16:05:25 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Headers/cub3d.h"
 
-void check_texture_validtion(t_game *game)
+void	check_texture_validtion(t_game *game)
 {
-	int fd;
+	int	fd;
 
 	fd = open(game->no_texture, O_RDONLY);
 	if (fd == -1)
@@ -41,7 +41,7 @@ void check_texture_validtion(t_game *game)
 	}
 }
 
-char *parse_texture_line(t_game *game, char *line)
+char	*parse_texture_line(t_game *game, char *line)
 {
 	if (ft_strncmp(line, "NO ", 3) == 0)
 		parse_texture(line, game, 0);
@@ -56,10 +56,8 @@ char *parse_texture_line(t_game *game, char *line)
 	return (line);
 }
 
-char *parse_color_line(t_game *game, char *line)
+char	*parse_color_line(t_game *game)
 {
-	(void)line;
-	// game->line = line;
 	if (ft_strncmp(game->line, "F ", 2) == 0)
 		game->floor_color = parse_color(game->line + 2, game);
 	else if (ft_strncmp(game->line, "C ", 2) == 0)
@@ -69,27 +67,26 @@ char *parse_color_line(t_game *game, char *line)
 	return (game->line);
 }
 
-char *parse_textures_and_colors(t_game *game, char *line, int fd)
+char	*parse_textures_and_colors(t_game *game, char *line, int fd)
 {
-	char *trimmed_line;
-	game->line = line;
+	char	*trimmed_line;
 
+	game->line = line;
 	while (game->line)
 	{
-
 		trimmed_line = ft_strtrim(game->line, " \t");
 		if (*trimmed_line == '\n')
 		{
 			free(game->line);
 			free(trimmed_line);
 			game->line = get_next_line(fd);
-			continue;
+			continue ;
 		}
 		free(trimmed_line);
 		if (parse_texture_line(game, game->line) == NULL)
 		{
-			if (parse_color_line(game, game->line) == NULL)
-				break;
+			if (parse_color_line(game) == NULL)
+				break ;
 		}
 		free(game->line);
 		game->line = get_next_line(fd);
@@ -97,10 +94,10 @@ char *parse_textures_and_colors(t_game *game, char *line, int fd)
 	return (game->line);
 }
 
-void parse_texture(char *line, t_game *game, int n)
+void	parse_texture(char *line, t_game *game, int n)
 {
-	char *trimmed_line;
-	char **split_line;
+	char	*trimmed_line;
+	char	**split_line;
 
 	trimmed_line = ft_strtrim(line, " \t\n");
 	split_line = ft_split(trimmed_line, ' ');

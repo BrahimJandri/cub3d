@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:41:24 by bjandri           #+#    #+#             */
-/*   Updated: 2025/01/12 11:38:58 by reddamss         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:02:11 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Headers/cub3d.h"
+
+int	parse_color(char *str, t_game *game)
+{
+	char	**parts;
+	int		colors[3];
+	int		color;
+
+	validate_color_format(str, game);
+	parts = split_and_trim_color_parts(str);
+	validate_color_parts_count(parts, game);
+	validate_and_parse_color_values(parts, colors, game);
+	ft_free_split(parts);
+	color = convert_to_color(colors);
+	game->config_count++;
+	return (color);
+}
 
 void	read_map(t_game *game, char *file)
 {
