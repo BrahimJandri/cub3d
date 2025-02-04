@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:27:31 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/04 03:34:18 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/04 04:26:09 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int     player_control(int key, t_game *data)
     }
     else if(key == ENTER)
     {
-        //flag turn on
+        data->flag = 1;
         ft_player_wall_hit(data);
     }
     return 1;

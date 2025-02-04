@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/04 04:11:55 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/04 04:27:26 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -355,7 +355,7 @@ void    ft_player_wall_hit(t_game *data)
     -- now we can move inside the door if it is open, and can't if it is the oposite
      _*/
 
-int     get_index(t_game *data, int y, double x)
+int     get_index(t_game *data, int y, int x)
 {
     int index;
 
@@ -376,7 +376,7 @@ int     x_accessibility(t_game *data, int y, double new_x)
     int index;
 
     printf("y == %d, x = %d\n", y, (int)(new_x / TILE));
-    index = get_index(data, y, new_x / TILE);
+    index = get_index(data, y, (new_x / TILE));
     if(index == -1)
         exit(11);
     if(data->door[index].open)
@@ -403,7 +403,7 @@ int    y_side_accessibility(t_game *data, double y, double x)
     int index;
     
     (void)x;
-    index = get_index(data, y / TILE, data->player->x / TILE);
+    index = get_index(data, (int)(y / TILE), (int)(data->player->x / TILE));
     
     if(index == -1)
         exit(14);

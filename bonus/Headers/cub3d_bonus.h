@@ -245,7 +245,7 @@ double      calcul_line_length(double   x1, double y1, double x2, double y2);
 
 
 /*__________DOORS_________*/
-int     get_index(t_game *data, int y, double x);
+int     get_index(t_game *data, int y, int x);
 void    init_door(t_game *data);
 void    assign_index(t_game *data, int index, int y, int x);
 void    alloc_doors(t_game * data);
