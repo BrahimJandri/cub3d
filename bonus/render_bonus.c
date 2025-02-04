@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/02 10:21:54 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/04 03:57:44 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	draw_map(t_game *data)
     data->img->addrs = mlx_get_data_addr(data->img->img, &data->img->bpp, &data->img->size_line, &data->img->endian);
 
     draw_rays(data->player, data);
+    data->flag = 0;
     update_minimap(data);
     render_gun(data);
     put_gun(data, data->player->frames);

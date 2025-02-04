@@ -27,6 +27,7 @@
 #define D 100
 #define Q 113
 #define ESC 65307
+#define ENTER 65293
 #define SPACE 32
 
 /*----------- COLORS ----------*/
@@ -52,6 +53,7 @@
 
 // #define TEX 
 #define TILE 256
+#define DOOR_DISTANCE 300
 // #define TEX_WIDTH 
 // #define TEX_HEIGHT 400
 #define PI 3.14159265358979323846
@@ -67,6 +69,15 @@ typedef struct s_image
     char *addrs;
     void *img;
 } t_image;
+
+/*_______________DOORS_STRUCT_________________*/
+typedef struct s_door
+{
+    int x;
+    int y;
+    bool    open;
+}t_door;
+
 
 typedef struct s_texture
 {
@@ -163,6 +174,9 @@ typedef struct s_game
     t_image *img;
     t_texture *texture[4];
     t_texture   *gun;
+    t_door      *door;
+    int door_num;
+    bool flag;
 } t_game;
 
 /*______________get_next_line________________*/
@@ -230,6 +244,17 @@ void    closer_intersection(t_player *player, t_ray *ray);
 double      calcul_line_length(double   x1, double y1, double x2, double y2);
 
 
+/*__________DOORS_________*/
+int     get_index(t_game *data, int y, double x);
+void    init_door(t_game *data);
+void    assign_index(t_game *data, int index, int y, int x);
+void    alloc_doors(t_game * data);
+int    get_doors_num(t_game *data);
+int    x_side_accessibility(t_game *data, double y, double x);
+int    y_side_accessibility(t_game *data, double y, double x);
+int     y_accessibility(t_game *data, int x, double new_y);
+int     x_accessibility(t_game *data, int y, double new_x);
+void    ft_player_wall_hit(t_game *data);
 
 t_texture *upload_texture(t_game *data, int i);
 

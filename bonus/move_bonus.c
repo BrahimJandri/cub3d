@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:27:31 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/01 10:19:49 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/04 03:34:18 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,11 @@ int     player_control(int key, t_game *data)
         free_all(data);
         exit(1);
     }
+    else if(key == ENTER)
+    {
+        //flag turn on
+        ft_player_wall_hit(data);
+    }
     return 1;
 }
 
@@ -103,6 +108,10 @@ void    update_sides(t_game *data, t_player *player)
         player->x = new_posx;
     if(data->map[(int)new_posy / TILE][x] != '1')
         player->y = new_posy;
+    if(data->map[y][(int)new_posx / TILE] == 'D' && x_side_accessibility(data, new_posy, new_posx))
+        player->x = new_posx;
+    if(data->map[(int)new_posy / TILE][x] == 'D' && y_side_accessibility(data, new_posy, new_posx))
+        player->y = new_posy;
     // draw_map(data);
 }
 
@@ -125,12 +134,18 @@ void    update_player(t_game *data, t_player *player)
 
     x = (int)player->x / TILE;
     y = (int)player->y / TILE;
-    
     if(data->map[y][(int)new_posx / TILE] != '1')
         player->x = new_posx;
     if(data->map[(int)new_posy / TILE][x] != '1')
         player->y = new_posy;
-    // draw_map(data);
+    if(data->map[y][(int)new_posx / TILE] == 'D' && x_accessibility(data, y, new_posx))
+    {
+        player->x = new_posx;    
+    }
+    if(data->map[(int)new_posy / TILE][x] == 'D' && y_accessibility(data, x, new_posy))
+    {
+        player->y = new_posy;
+    }
 }
 
 
