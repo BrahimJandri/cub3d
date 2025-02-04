@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_columns.c                                    :+:      :+:    :+:   */
+/*   check_columns_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 08:57:15 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/29 11:28:29 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/04 16:36:58 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	check_column_boundaries(t_game *game, int j)
 		i++;
 	while (i > 0 && (j >= (int)ft_strlen(game->map[i - 1]) || game->map[i
 				- 1][j] == ' ' || game->map[i - 1][j] == '\t' || game->map[i
-				- 1][j] == '\n' || game->map[i - 1][j] == '\0'))
+			- 1][j] == '\n' || game->map[i - 1][j] == '\0'))
 		i--;
 	if (i > 0 && j < (int)ft_strlen(game->map[i - 1]) && game->map[i
 			- 1][j] != '1')
@@ -64,8 +64,9 @@ void	check_column_zeros(t_game *game, int j, int i)
 		{
 			if ((i == 0 || j == 0 || i >= game->map_height - 1
 					|| j >= (int)ft_strlen(game->map[i]) - 1) || game->map[i
-					- 1][j] == ' ' || game->map[i + 1][j] == ' ' ||
-					game->map[i][j - 1] == ' ' || game->map[i][j + 1] == ' ')
+					- 1][j] == ' ' || game->map[i + 1][j] == ' '
+					|| game->map[i][j
+				- 1] == ' ' || game->map[i][j + 1] == ' ')
 				second_free(game, "Error\nMap Not Surrounded by Walls");
 		}
 		i++;

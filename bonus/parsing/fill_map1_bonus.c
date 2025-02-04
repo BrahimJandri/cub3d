@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_map1.c                                        :+:      :+:    :+:   */
+/*   fill_map1_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:43:31 by bjandri           #+#    #+#             */
-/*   Updated: 2025/01/15 09:39:02 by reddamss         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:37:10 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Headers/cub3d_bonus.h"
 
-void calculate_map_dimensions(t_game *game, const char *file)
+void	calculate_map_dimensions(t_game *game, const char *file)
 {
-	int fd;
-	// char *line;
-	char *trimed_line;
-	int line_length;
+	int		fd;
+	char	*trimed_line;
+	int		line_length;
 
 	fd = open_file(file);
 	game->line = skip_empty_lines(fd, game);
@@ -36,10 +35,9 @@ void calculate_map_dimensions(t_game *game, const char *file)
 	close(fd);
 }
 
-char *skip_empty_lines(int fd, t_game *game)
+char	*skip_empty_lines(int fd, t_game *game)
 {
-	// char *line;
-	char *trimmed_line;
+	char	*trimmed_line;
 
 	game->line = get_next_line(fd);
 	if (game->line == NULL)

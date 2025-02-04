@@ -19,7 +19,8 @@ void	check_first_line(t_game *game, int *j)
 	i = 0;
 	while (game->map[i][*j] && game->map[i][*j] != '\n')
 	{
-		if (game->map[i][*j] != '1' && game->map[i][*j] != ' ' && game->map[i][*j] != '\t') 
+		if (game->map[i][*j] != '1' && game->map[i][*j] != ' '
+			&& game->map[i][*j] != '\t')
 			second_free(game, "Error\nMap Not Surrounded by Walls");
 		(*j)++;
 	}

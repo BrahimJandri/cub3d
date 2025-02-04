@@ -324,6 +324,8 @@ void check_texture_validtion(t_game *game);
 void first_free(t_game *game, char *str);
 void second_free(t_game *game, char *str);
 void third_free(t_game *game, char *str);
+int	convert_to_color(int *colors);
+char	**split_and_trim_color_parts(char *str);
 
 void draw_map_mini(t_game *data);
 void draw_background(t_game *game);

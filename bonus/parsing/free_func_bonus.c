@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_func.c                                        :+:      :+:    :+:   */
+/*   free_func_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:01:36 by bjandri           #+#    #+#             */
-/*   Updated: 2025/01/27 16:41:09 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/04 16:33:51 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,37 +91,4 @@ void	ft_free_split(char **array)
 		i++;
 	}
 	free(array);
-}
-
-void first_free(t_game *game, char *str)
-{
-    free(game->player);
-    free(game);
-    error_msg(str);
-}
-
-void third_free(t_game *game, char *str)
-{
-	free_texture(game);
-	free(game->player);
-	free(game->line);
-	free(game);
-	error_msg(str);
-}
-
-void second_free(t_game *game, char *str)
-{
-    int i;
-
-    i = 0;
-    free(game->player);
-    while (game->map[i])
-    {
-        free(game->map[i]);
-        i++;
-    }
-    free(game->map);
-    free_texture(game);
-    free(game);
-    error_msg(str);
 }

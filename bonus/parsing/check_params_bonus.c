@@ -28,8 +28,8 @@ void	count_params(t_game *game)
 			if (game->map[i][j] == 'N' || game->map[i][j] == 'S'
 				|| game->map[i][j] == 'E' || game->map[i][j] == 'W')
 			{
-				game->player->y = i ;
-				game->player->x = j ;
+				game->player->y = i;
+				game->player->x = j;
 				count++;
 			}
 			j++;
@@ -53,8 +53,9 @@ void	check_map_params(t_game *game)
 		{
 			if ((game->map[i][j] != '1' && game->map[i][j] != '0')
 				&& (game->map[i][j] != 'N' && game->map[i][j] != 'S'
-					&& game->map[i][j] != 'E' && game->map[i][j] != 'W' && game->map[i][j] != 'D')
-				&& game->map[i][j] != 32 && game->map[i][j] != '\n')
+					&& game->map[i][j] != 'E' && game->map[i][j] != 'W'
+					&& game->map[i][j] != 'D') && game->map[i][j] != 32
+				&& game->map[i][j] != '\n')
 				second_free(game, "Error\nBad Params on map.");
 			j++;
 		}
