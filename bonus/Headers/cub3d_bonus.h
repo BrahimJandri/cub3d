@@ -31,7 +31,7 @@
 #define SPACE 32
 
 /*----------- COLORS ----------*/
-#define GREY 0x808080
+#define GREY 0x606060
 #define BLUE_SKY 0x019CE0
 #define EARTH_COLOR 0xB07C57
 #define RED 0xFF0000
@@ -40,6 +40,7 @@
 #define BLACK 0x000000
 #define GOLDEN 0xFFDF00
 #define CREAM 0xFFFDD0
+#define BLUE 0x4278F5
 
 #define S_WIDTH 880
 #define S_HEIGHT 620
@@ -91,6 +92,26 @@ typedef struct s_texture
     void    *tex_data;
     char *path;
 }t_texture;
+
+typedef struct s_minimap
+{
+    int		start_x;
+	int		start_y;
+	double	dx;
+	double	dy;
+	double	steps;
+	double	xinc;
+	double	yinc;
+	double	ray_angle;
+    int		center_x;
+	int		center_y;
+	double	ray_length;
+    int	visible_range;
+	int	player_map_x;
+	int	player_map_y;
+    int tile_x;
+    int tile_y;
+} t_minimap;
 
 
 /*_______________PLAYER_STRCUT_________________*/
@@ -175,6 +196,7 @@ typedef struct s_game
     char *line;
     t_texture   *gun;
     t_door      *door;
+    t_minimap *minimap;
     int door_num;
     bool flag;
 } t_game;
@@ -311,7 +333,7 @@ void draw_player_direction(t_game *game);
 void draw_tile_within_bounds(t_game *data, int map_x, int map_y);
 void update_minimap(t_game *data);
 int get_tile_color(char cell);
-void calculate_tile_position(t_game *data, int map_x, int map_y, int *tile_x, int *tile_y);
-void draw_tile(t_game *data, int tile_x, int tile_y, int color);
+void calculate_tile_position(t_game *data, int map_x, int map_y);
+void draw_tile(t_game *data, int color);
 
 #endif
