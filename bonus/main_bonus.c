@@ -6,27 +6,11 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/05 10:22:18 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/05 11:31:00 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./Headers/cub3d_bonus.h"
-//x -> -- horizontal , y = | vertical
-
-
-
-
-
-
-
-
-
-
-
-
-
-//array: 0 = so, 1 = no, 2 = we, 3 = ea;
-
 
 int     close_window(t_game *data)
 {
@@ -40,24 +24,6 @@ int     close_window(t_game *data)
     free_all(data);
     exit(0);
 }
-
-// void circle(t_game *data, int x, int y, int radius)
-// {
-//     int i, j;
-
-//     for (i = x - radius; i <= x + radius; i++)    // mini_map(data);
-//     // draw_circle(data->player, data);
-//     {
-//         for (j = y - radius; j <= y + radius; j++)
-//         {
-//             if ((i - x) * (i - x) + (j - y) * (j - y) <= radius * radius)
-//                 mlx_pixel_put(data->mlx, data->win, i, j, 0xFFFFFF); // White circle
-//         }
-//     }
-// }
-
-
-
 
 
 int main(int ac, char **av)
@@ -73,10 +39,7 @@ int main(int ac, char **av)
     {
     	return (ft_putstr_fd("Error\nUsage : Cub3d map.cub\n", 2), free(game),1);
     }
-    (void)ac;
-    
     inits(game, av);
-
     game->img = malloc(sizeof(t_image));
     if(!game->img)
         return 1;

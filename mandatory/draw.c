@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 16:01:18 by rachid            #+#    #+#             */
-/*   Updated: 2025/01/22 16:12:12 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/05 11:25:22 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,15 @@ void    draw_minimap(t_game *data)
 	}
 }
 
-void    build_square(t_game *data, int x, int y, int color)
-{   
-    for(int i = 0;i < TILE * MINIMAP; i++)
-    {
-        for(int j = 0; j < TILE * MINIMAP ; j++)
-        {
-            my_mlx_pixel_put(data, x + i, y + j, color);
-        }
-    }
+// void    build_square(t_game *data, int x, int y, int color)
+// {   
+//     for(int i = 0;i < TILE * MINIMAP; i++)
+//     {
+//         for(int j = 0; j < TILE * MINIMAP ; j++)
+//         {
+//             my_mlx_pixel_put(data, x + i, y + j, color);
+//         }
+//     }
     
-}
+// }
 

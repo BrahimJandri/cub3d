@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:41:13 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/05 10:10:57 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/05 11:20:32 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,6 +299,22 @@ void    mini_map(t_game *data);
 
 void    destroy_xpm(t_game *data);
 void    draw_minimap(t_game *data);
+
+
+void    inits(t_game *game, char **av);
+void    init_mlx(t_game *game);
+void    init_ray(t_game *data);
+void    init_player(t_game *data);
+void get_texture(t_game *data, int j);
+void    get_textures(t_game *data);
+void    set_direction(t_game *data);
+int get_plyr_pos(t_game *data);
+
+void    render_image(t_game *data, int wallTopPixel, int wallBottomPixel, int i);
+void put_ceiling(t_game *data, int walltop, int i);
+void    put_wall(t_game *data, int  wall_top, int wall_bottom, int i);
+void put_floor(t_game *data, int wall_bottom, int i);
+
 
 /*______BRAHIM___________*/
 void error_msg(char *str);

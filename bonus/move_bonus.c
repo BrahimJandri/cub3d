@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:27:31 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/04 18:34:18 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/05 11:35:24 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,7 @@ int     player_control(int key, t_game *data)
         free(data->player);
         free(data->img);
         free_all(data);
-        exit(1);
-    }
-    else if(key == ENTER)
-    {
-        data->flag = 1;
-        ft_player_wall_hit(data);
+        exit(0);
     }
     return 1;
 }
@@ -88,6 +83,11 @@ int     key_release(int key, t_game *data)
         player->sideDir = 0;
     else if(key == D)
         player->sideDir = 0;
+        else if(key == ENTER)
+    {
+        data->flag = 1;
+        ft_player_wall_hit(data);
+    }
     return 1;
 }
 
@@ -108,15 +108,8 @@ void    update_sides(t_game *data, t_player *player)
         player->x = new_posx;
     if((data->map[(int)new_posy / TILE][x] == '0') || (data->map[(int)new_posy / TILE][x] == 'D' && y_side_accessibility(data, new_posy, new_posx)))
         player->y = new_posy;
-    // draw_map(data);
 }
 
-// void    update_rotation(t_game *data, t_player *player)
-// {
-//     player->rotationAngle += player->turnDir * player->rotationSpeed;
-        
-//     draw_map(data);    
-// }
 
 void    update_player(t_game *data, t_player *player)
 {
@@ -130,19 +123,10 @@ void    update_player(t_game *data, t_player *player)
 
     x = (int)player->x / TILE;
     y = (int)player->y / TILE;
-    if(data->map[y][(int)new_posx / TILE] == '0')
+    if((data->map[y][(int)new_posx / TILE] == '0') || (data->map[y][(int)new_posx / TILE] == 'D' && x_accessibility(data, y, new_posx)))
         player->x = new_posx;
-    if(data->map[(int)new_posy / TILE][x] == '0')
+    if((data->map[(int)new_posy / TILE][x] == '0') || (data->map[(int)new_posy / TILE][x] == 'D' && y_accessibility(data, x, new_posy)))
         player->y = new_posy;
-    // if the tile is D and it is accessibile
-    if(data->map[y][(int)new_posx / TILE] == 'D' && x_accessibility(data, y, new_posx))
-    {
-        player->x = new_posx;    
-    }
-    if(data->map[(int)new_posy / TILE][x] == 'D' && y_accessibility(data, x, new_posy))
-    {
-        player->y = new_posy;
-    }
 }
 
 

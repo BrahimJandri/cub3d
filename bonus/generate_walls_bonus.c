@@ -6,41 +6,11 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:50:53 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/01 15:06:46 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/05 11:09:20 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./Headers/cub3d_bonus.h"
-
-// void    render_walls(t_game *data, t_player *player)
-// {
-//     int i;
-//     double wall_projected_height;
-//     double distance_projectplan;
-//     i = 0;
-
-//     while(i < data->num_rays)
-//     {
-//         // cast_rays(player,)
-
-//         wall_projected_height = TILE / data->ray->distance * distance_projectplan;
-
-//         distance_projectplan = (S_WIDTH / 2) / tan(FOV / 2);
-//         draw_rectangle(data, (S_WIDTH / 2) - wall_projected_height ,WALL_WIDTH, wall_projected_height)
-
-
-        
-//     }
-// }
-//here where i draw the rectange that represents walls.
-//before i draw this i should reset the window to black without touching the mini-map
-
-// void    reset_window(t_game *data)
-// {
-//     data->img = mlx_new_image(data->mlx, S_WIDTH, S_HEIGHT - data->map_y);
-//     data->addrs = mlx_get_data_addr(data->img, data->bitppixel, data->size_line, data->endian);
-    
-// }
 
 
 void    draw_rectangle(t_game *data, int x, int y, int width, int height)
@@ -75,3 +45,42 @@ void	my_mlx_pixel_put(t_game *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
+void put_floor(t_game *data, int wall_bottom, int i)
+{
+    int j;
+    double distance;
+
+    j = wall_bottom;
+    while (j < S_HEIGHT)
+    {
+        distance = (j - S_HEIGHT / 2) / (double)(S_HEIGHT / 2);
+        distance = 1 / (distance);
+        my_mlx_pixel_put(data, i * WALL_WIDTH, j++, data->floor_color);
+    }
+}
+
+void put_ceiling(t_game *data, int walltop, int i)
+{
+    int j;
+    double distance;
+
+    j = 0;
+    while (j < walltop)
+    {
+        distance = (S_HEIGHT / 2 - j) / (double)(S_HEIGHT / 2);
+        distance = 1 / (distance);
+        my_mlx_pixel_put(data, i * WALL_WIDTH, j++, data->ceiling_color);
+    }
+}
+
+void    put_wall(t_game *data, int  wall_top, int wall_bottom, int i)
+{
+    int j;
+
+    j = wall_top;
+    while (j < wall_bottom)
+    {
+        get_texture(data, j);
+        my_mlx_pixel_put(data, i * WALL_WIDTH, j++, data->color);
+    }
+}
