@@ -6,15 +6,15 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:00:36 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/29 11:55:57 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/05 12:31:44 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Headers/cub3d.h"
 
-int	count_sep(char *str)
+int count_sep(char *str)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (*str)
@@ -26,7 +26,7 @@ int	count_sep(char *str)
 	return (i);
 }
 
-int	ft_isspace(char *str)
+int ft_isspace(char *str)
 {
 	while (*str)
 	{
@@ -37,16 +37,16 @@ int	ft_isspace(char *str)
 	return (1);
 }
 
-char	*free_get(char *line, int fd)
+char *free_get(char *line, int fd)
 {
 	free(line);
 	line = get_next_line(fd);
 	return (line);
 }
 
-char	*skip_texture_colors(int fd, char *line)
+char *skip_texture_colors(int fd, char *line)
 {
-	char	*trimmed_line;
+	char *trimmed_line;
 
 	while (line)
 	{
@@ -56,25 +56,25 @@ char	*skip_texture_colors(int fd, char *line)
 			free(line);
 			free(trimmed_line);
 			line = get_next_line(fd);
-			continue ;
+			continue;
 		}
-		free(trimmed_line);
-		if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0
-			|| ft_strncmp(line, "WE ", 3) == 0 || ft_strncmp(line, "EA ",
-				3) == 0)
+		if (ft_strncmp(trimmed_line, "NO ", 3) == 0 || ft_strncmp(trimmed_line, "SO ", 3) == 0 || ft_strncmp(trimmed_line, "WE ", 3) == 0 || ft_strncmp(trimmed_line, "EA ", 3) == 0)
 			line = free_get(line, fd);
-		else if (ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "C ",
-				2) == 0)
+		else if (ft_strncmp(trimmed_line, "F ", 2) == 0 || ft_strncmp(trimmed_line, "C ", 2) == 0)
 			line = free_get(line, fd);
 		else
-			break ;
+		{
+			free(trimmed_line);
+			break;
+		}
+		free(trimmed_line);
 	}
 	return (line);
 }
 
-void	validate_color_format(char *str, t_game *game)
+void validate_color_format(char *str, t_game *game)
 {
-	char	*trimmed_str;
+	char *trimmed_str;
 
 	trimmed_str = ft_strtrim(str, " \t\n");
 	if (!trimmed_str)

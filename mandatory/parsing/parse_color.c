@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 09:12:30 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/04 16:28:56 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/05 12:55:45 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	validate_and_parse_color_values(char **parts, int *colors, t_game *game)
 		if (!ft_isspace(parts[i]) || !ft_alldigit(parts[i]))
 		{
 			ft_free_split(parts);
-			third_free(game, "Error\nInvalid color format\n");
+			third_free(game, "Error\nInvalid color formats\n");
 		}
 		colors[i] = ft_atoi(parts[i]);
 		if (colors[i] < 0 || colors[i] > 255)
