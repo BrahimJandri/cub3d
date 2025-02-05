@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 08:54:39 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/05 13:11:05 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/05 15:24:41 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,19 @@ void	check_texture_validtion(t_game *game)
 
 	fd = open(game->no_texture, O_RDONLY);
 	if (fd == -1)
-	{
 		second_free(game, "Error: Cannot open Texture\n");
-	}
 	fd = 0;
 	fd = open(game->so_texture, O_RDONLY);
 	if (fd == -1)
-	{
 		second_free(game, "Error: Cannot open Texture\n");
-	}
 	fd = 0;
 	fd = open(game->ea_texture, O_RDONLY);
 	if (fd == -1)
-	{
 		second_free(game, "Error: Cannot open Texture\n");
-	}
 	fd = 0;
 	fd = open(game->we_texture, O_RDONLY);
 	if (fd == -1)
-	{
 		second_free(game, "Error: Cannot open Texture\n");
-	}
 }
 
 char	*parse_texture_line(t_game *game, char *line)
@@ -75,18 +67,22 @@ char	*parse_color_line(t_game *game)
 	if (!trimmed_line)
 		return (NULL);
 	
-	if (ft_strncmp(trimmed_line, "F ", 2) == 0)
-		game->floor_color = parse_color(trimmed_line + 2, game);
-	else if (ft_strncmp(trimmed_line, "C ", 2) == 0)
-		game->ceiling_color = parse_color(trimmed_line + 2, game);
+	free(game->line);
+	game->line = trimmed_line;
+	
+	if (ft_strncmp(game->line, "F ", 2) == 0)
+		game->floor_color = parse_color(game->line + 2, game);
+	else if (ft_strncmp(game->line, "C ", 2) == 0)
+		game->ceiling_color = parse_color(game->line + 2, game);
 	else
 	{
-		free(trimmed_line);
+		free(game->line);
+		game->line = NULL;
 		return (NULL);
 	}
-	free(trimmed_line);
 	return (game->line);
 }
+
 
 
 char	*parse_textures_and_colors(t_game *game, char *line, int fd)

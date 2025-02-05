@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:18:54 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/05 10:49:14 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/05 15:13:57 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void    inits(t_game *game, char **av)
     init_door(game);
     init_mlx(game);
     get_textures(game);
+	init_minimap(game);
     
 }
 void    init_player(t_game *data)

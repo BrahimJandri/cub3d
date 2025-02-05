@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 16:01:18 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/03 11:36:38 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/05 15:13:48 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	init_minimap(t_game *game)
 
 void	draw_minimap(t_game *game)
 {
-	init_minimap(game);
 	mlx_clear_window(game->mlx, game->win);
 	draw_background(game);
 	draw_map_mini(game);

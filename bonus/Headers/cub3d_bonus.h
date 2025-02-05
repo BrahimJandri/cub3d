@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:41:13 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/05 11:20:32 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/05 15:13:41 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -368,5 +368,6 @@ void update_minimap(t_game *data);
 int get_tile_color(char cell);
 void calculate_tile_position(t_game *data, int map_x, int map_y);
 void draw_tile(t_game *data, int color);
+void	init_minimap(t_game *game);
 
 #endif

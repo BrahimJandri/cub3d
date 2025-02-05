@@ -4,7 +4,7 @@ EA                      ./maps/map1/funny-ea.xpm
                     WE ./maps/map1/funny-we.xpm
 
 
-F 66,244,89 
+F 66,244,,89 
             C                    58,109,140
 
 

@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:01:36 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/04 16:33:51 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/05 15:14:15 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	free_all(t_game *game)
 	free(game->map_dup);
 	game->map_dup = NULL;
 	free_texture(game);
+	free(game->minimap);
 	free(game);
 }
 
