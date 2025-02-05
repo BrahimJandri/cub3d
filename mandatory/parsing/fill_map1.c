@@ -6,17 +6,17 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:43:31 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/05 13:01:07 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/05 16:26:12 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Headers/cub3d.h"
 
-void	calculate_map_dimensions(t_game *game, const char *file)
+void calculate_map_dimensions(t_game *game, const char *file)
 {
-	int		fd;
-	char	*trimed_line;
-	int		line_length;
+	int fd;
+	char *trimed_line;
+	int line_length;
 
 	fd = open_file(file);
 	game->line = skip_empty_lines(fd, game);
@@ -35,9 +35,10 @@ void	calculate_map_dimensions(t_game *game, const char *file)
 	close(fd);
 }
 
-char	*skip_empty_lines(int fd, t_game *game)
+char *skip_empty_lines(int fd, t_game *game)
 {
-	char	*trimmed_line;
+	// char *line;
+	char *trimmed_line;
 
 	game->line = get_next_line(fd);
 	if (game->line == NULL)
@@ -61,18 +62,18 @@ char	*skip_empty_lines(int fd, t_game *game)
 	}
 }
 
-char	*read_and_process_line(int fd, t_game *game)
+char *read_and_process_line(int fd, t_game *game)
 {
-	char	*line;
+	char *line;
 
 	line = skip_empty_lines(fd, game);
 	return (skip_texture_colors(fd, line));
 }
 
-char	*pad_line(const char *line, int map_width)
+char *pad_line(const char *line, int map_width)
 {
-	int		line_length;
-	char	*padded_line;
+	int line_length;
+	char *padded_line;
 
 	line_length = ft_strlen(line);
 	if (line_length < map_width)
@@ -91,11 +92,11 @@ char	*pad_line(const char *line, int map_width)
 	return (padded_line);
 }
 
-void	fill_map(t_game *game, const char *file)
+void fill_map(t_game *game, const char *file)
 {
-	int		fd;
-	int		i;
-	char	*line;
+	int fd;
+	int i;
+	char *line;
 
 	i = 0;
 	fd = open_file(file);

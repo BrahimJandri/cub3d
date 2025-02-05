@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/04 16:41:24 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/04 16:41:25 by bjandri          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef CUBE_H
 #define CUBE_H
 
@@ -251,12 +239,9 @@ void fill_map(t_game *game, const char *file);
 bool ft_flood_fill(int x, int y, t_game *game);
 char *skip_empty_lines(int fd, t_game *game);
 char *parse_textures_and_colors(t_game *game, char *line, int fd);
-char	**split_and_trim_color_parts(char *str);
 char *skip_texture_colors(int fd, char *line);
-int	convert_to_color(int *colors);
 void parse_texture(char *line, t_game *game, int n);
 int parse_color(char *str, t_game *game);
-char	*parse_color_line(t_game *game);
 int count_sep(char *str);
 int open_file(const char *file);
 void free_texture(t_game *game);
@@ -270,6 +255,4 @@ void check_texture_validtion(t_game *game);
 void first_free(t_game *game, char *str);
 void second_free(t_game *game, char *str);
 void third_free(t_game *game, char *str);
-int	ft_alldigit(const char *str);
-
 #endif
