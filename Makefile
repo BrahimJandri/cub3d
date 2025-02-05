@@ -9,7 +9,7 @@ SRC = ./library/get_next_line/get_next_line.c ./library/get_next_line/get_next_l
 	./mandatory/parsing/fill_map1.c ./mandatory/parsing/flood_fill.c ./mandatory/main.c ./mandatory/parsing/free_func.c \
 	./mandatory/parsing/parse_color.c ./mandatory/parsing/parse_texture.c ./mandatory/parsing/utils.c \
 	./mandatory/render.c ./mandatory/move.c ./mandatory/generate_walls.c ./mandatory/raycasting.c ./mandatory/raycasting_utils.c \
-	./mandatory/utils.c ./mandatory/draw.c ./mandatory/parsing/free_func2.c
+	./mandatory/utils.c ./mandatory/parsing/free_func2.c
 
 SRC_BNS = ./library/get_next_line/get_next_line.c ./library/get_next_line/get_next_line_utils.c \
 	./bonus/parsing/parsing_bonus.c ./bonus/parsing/check_boundaries_bonus.c ./bonus/parsing/check_columns_bonus.c ./bonus/parsing/check_params_bonus.c \

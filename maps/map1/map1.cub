@@ -1,7 +1,7 @@
 NO ./maps/map1/funny-no.xpm
 SO ./maps/map1/funny-so.xpm
-EA ./maps/map1/funny-ea.xpm
-WE ./maps/map1/funny-we.xpm
+EA                      ./maps/map1/funny-ea.xpm
+                    WE ./maps/map1/funny-we.xpm
 
 
 F 66,244,89 
