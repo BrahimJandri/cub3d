@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_texture.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 08:54:39 by bjandri           #+#    #+#             */
-/*   Updated: 2025/01/25 13:11:00 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/05 19:16:11 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ char *parse_textures_and_colors(t_game *game, char *line, int fd)
 
 	while (game->line)
 	{
-
 		trimmed_line = ft_strtrim(game->line, " \t");
 		if (*trimmed_line == '\n')
 		{
