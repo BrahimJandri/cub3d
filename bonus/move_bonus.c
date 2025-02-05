@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:27:31 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/04 11:50:19 by reddamss         ###   ########.fr       */
+/*   Updated: 2025/02/04 18:34:18 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,9 @@ void    update_sides(t_game *data, t_player *player)
     x = (int)player->x / TILE;
     y = (int)player->y / TILE;
     
-    if(data->map[y][(int)new_posx / TILE] == '0')
+    if((data->map[y][(int)new_posx / TILE] == '0') || (data->map[y][(int)new_posx / TILE] == 'D' && x_side_accessibility(data, new_posy, new_posx)))
         player->x = new_posx;
-    if(data->map[(int)new_posy / TILE][x] == '0')
-        player->y = new_posy;
-    if(data->map[y][(int)new_posx / TILE] == 'D' && x_side_accessibility(data, new_posy, new_posx))
-        player->x = new_posx;
-    if(data->map[(int)new_posy / TILE][x] == 'D' && y_side_accessibility(data, new_posy, new_posx))
+    if((data->map[(int)new_posy / TILE][x] == '0') || (data->map[(int)new_posy / TILE][x] == 'D' && y_side_accessibility(data, new_posy, new_posx)))
         player->y = new_posy;
     // draw_map(data);
 }

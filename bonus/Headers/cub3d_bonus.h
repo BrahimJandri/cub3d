@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:41:13 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/04 16:41:14 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/05 10:10:57 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,6 +266,9 @@ void    render_gun(t_game *data);
 void    put_gun(t_game *data, int frame);
 void    init_sprites(t_game *data);
 void    load_gun_frames(t_game *data);
+
+int     click_release(int key, int x, int y, t_game *data);
+int     click_press(int key, int x, int y, t_game *data);
 
 /*__________RAYCASTING_________*/
 void    horizontal_intercepts(t_game *data, t_player *player, t_ray *ray, double angle);

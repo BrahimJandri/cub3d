@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/04 03:57:44 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/05 10:10:46 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void game_loop(t_game *data)
 {
     get_data(data);
     draw_map(data);
-    
 }
 
 

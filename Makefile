@@ -16,7 +16,8 @@ SRC_BNS = ./library/get_next_line/get_next_line.c ./library/get_next_line/get_ne
 	./bonus/parsing/fill_map1_bonus.c ./bonus/parsing/flood_fill_bonus.c ./bonus/main_bonus.c ./bonus/parsing/free_func_bonus.c \
 	./bonus/parsing/parse_color_bonus.c ./bonus/parsing/parse_texture_bonus.c ./bonus/parsing/utils_bonus.c \
 	./bonus/render_bonus.c ./bonus/move_bonus.c ./bonus/generate_walls_bonus.c ./bonus/raycasting_bonus.c ./bonus/raycasting_utils_bonus.c ./bonus/utils_bonus.c \
-	./bonus/minimap_bonus.c ./bonus/minimap_util1_bonus.c ./bonus/minimap_util2_bonus.c ./bonus/parsing/free_func2_bonus.c
+	./bonus/minimap_bonus.c ./bonus/minimap_util1_bonus.c ./bonus/minimap_util2_bonus.c ./bonus/parsing/free_func2_bonus.c ./bonus/door_bonus.c ./bonus/door_utils_bonus.c \
+	./bonus/sprites_bonus.c ./bonus/mouse_bonus.c 
 OBJ = $(SRC:.c=.o)
 OBJ_BNS = $(SRC_BNS:.c=.o)
 
