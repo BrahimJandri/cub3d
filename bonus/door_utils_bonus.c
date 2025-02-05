@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 09:44:07 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/05 09:49:31 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/05 10:55:13 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int     get_index(t_game *data, int y, int x)
     return (-1);
 }
 
-
 // will find it in render file, get_data function
 int     x_accessibility(t_game *data, int y, double new_x)
 {
@@ -44,7 +43,6 @@ int     x_accessibility(t_game *data, int y, double new_x)
     else
         return 0;
 }
-
 
 // will find it in render file, get_data function
 int     y_accessibility(t_game *data, int x, double new_y)
