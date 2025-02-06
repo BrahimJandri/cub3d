@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:21:09 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/03 11:43:14 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/06 11:49:13 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	draw_background(t_game *game)
 		x = 0;
 		while (x < MINIMAP_SIZE)
 		{
-			my_mlx_pixel_put(game, MINIMAP_X + x, MINIMAP_Y + y, 0x000000);
+			my_mlx_pixel_put(game, MINIMAP_X + x, MINIMAP_Y + y, BLACK);
 			x++;
 		}
 		y++;

@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:22:53 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/03 11:33:12 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/06 11:53:17 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,15 @@ int	get_tile_color(char cell)
 
 void	calculate_tile_position(t_game *data, int map_x, int map_y)
 {
-	float	player_map_x;
-	float	player_map_y;
-	float	offset_x;
-	float	offset_y;
+	double	player_map_x;
+	double	player_map_y;
+	double	offset_x;
+	double	offset_y;
 
 	player_map_x = data->player->x / TILE;
 	player_map_y = data->player->y / TILE;
-	offset_x = (data->player->x - (int)(player_map_x * TILE)) * MINIMAP;
-	offset_y = (data->player->y - (int)(player_map_y * TILE)) * MINIMAP;
+	offset_x = (data->player->x - (player_map_x * TILE)) * MINIMAP;
+	offset_y = (data->player->y - (player_map_y * TILE)) * MINIMAP;
 	data->minimap->tile_x = MINIMAP_X + (MINIMAP_SIZE / 2) + (map_x
 			- player_map_x) * (TILE * MINIMAP) - offset_x;
 	data->minimap->tile_y = MINIMAP_Y + (MINIMAP_SIZE / 2) + (map_y
