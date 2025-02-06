@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 21:53:02 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/06 21:53:16 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/06 21:56:01 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,5 +256,7 @@ void				first_free(t_game *game, char *str);
 void				second_free(t_game *game, char *str);
 void				third_free(t_game *game, char *str);
 int					ft_isalldigit(const char *str);
+void	            free_func(t_game *game, char *trimmed_line);
+char	            *free_get(char *line, int fd);
 
 #endif
