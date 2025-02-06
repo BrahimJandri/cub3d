@@ -6,15 +6,15 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:00:36 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/06 08:19:31 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/06 21:42:52 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Headers/cub3d.h"
 
-int count_sep(char *str)
+int	count_sep(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (*str)
@@ -26,7 +26,7 @@ int count_sep(char *str)
 	return (i);
 }
 
-int ft_isspace(char *str)
+int	ft_isspace(char *str)
 {
 	while (*str)
 	{
@@ -37,16 +37,17 @@ int ft_isspace(char *str)
 	return (1);
 }
 
-char *free_get(char *line, int fd)
+int	ft_check(char *trimmed_line)
 {
-	free(line);
-	line = get_next_line(fd);
-	return (line);
+	return (ft_strncmp(trimmed_line, "NO ", 3) == 0 || ft_strncmp(trimmed_line,
+			"SO ", 3) == 0 || ft_strncmp(trimmed_line, "WE ", 3) == 0
+		|| ft_strncmp(trimmed_line, "EA ", 3) == 0 || ft_strncmp(trimmed_line,
+			"F ", 2) == 0 || ft_strncmp(trimmed_line, "C ", 2) == 0);
 }
 
-char *skip_texture_colors(int fd, char *line)
+char	*skip_texture_colors(int fd, char *line)
 {
-	char *trimmed_line;
+	char	*trimmed_line;
 
 	while (line)
 	{
@@ -55,12 +56,11 @@ char *skip_texture_colors(int fd, char *line)
 			return (NULL);
 		if (*trimmed_line == '\n')
 		{
-			free(line);
 			free(trimmed_line);
-			line = get_next_line(fd);
-			continue;
+			line = free_get(line, fd);
+			continue ;
 		}
-		if (ft_strncmp(trimmed_line, "NO ", 3) == 0 || ft_strncmp(trimmed_line, "SO ", 3) == 0 || ft_strncmp(trimmed_line, "WE ", 3) == 0 || ft_strncmp(trimmed_line, "EA ", 3) == 0 || ft_strncmp(trimmed_line, "F ", 2) == 0 || ft_strncmp(trimmed_line, "C ", 2) == 0)
+		if (ft_check(trimmed_line))
 		{
 			free(trimmed_line);
 			line = free_get(line, fd);
@@ -68,15 +68,15 @@ char *skip_texture_colors(int fd, char *line)
 		else
 		{
 			free(trimmed_line);
-			break;
+			break ;
 		}
 	}
 	return (line);
 }
 
-int validate_color_format(char *str, t_game *game)
+int	validate_color_format(char *str, t_game *game)
 {
-	char *trimmed_str;
+	char	*trimmed_str;
 
 	(void)game;
 	trimmed_str = ft_strtrim(str, " \t\n");
@@ -85,8 +85,8 @@ int validate_color_format(char *str, t_game *game)
 	if (count_sep(trimmed_str) != 2)
 	{
 		free(trimmed_str);
-		return -1;
+		return (-1);
 	}
 	free(trimmed_str);
-	return 0;
+	return (0);
 }

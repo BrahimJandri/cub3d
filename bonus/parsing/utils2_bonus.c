@@ -1,46 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_func2_bonus.c                                 :+:      :+:    :+:   */
+/*   utils2_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/04 16:33:26 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/06 21:47:18 by bjandri          ###   ########.fr       */
+/*   Created: 2025/02/06 21:48:29 by bjandri           #+#    #+#             */
+/*   Updated: 2025/02/06 21:48:47 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Headers/cub3d_bonus.h"
 
-void	first_free(t_game *game, char *str)
+int	ft_isalldigit(const char *str)
 {
-	free(game->player);
-	free(game);
-	error_msg(str);
-}
-
-void	third_free(t_game *game, char *str)
-{
-	free_texture(game);
-	free(game->player);
-	free(game->line);
-	free(game);
-	error_msg(str);
-}
-
-void	second_free(t_game *game, char *str)
-{
-	int	i;
-
-	i = 0;
-	free(game->player);
-	while (game->map[i])
+	while (*str)
 	{
-		free(game->map[i]);
-		i++;
+		if (!ft_isdigit(*str))
+			return (0);
+		str++;
 	}
-	free(game->map);
-	free_texture(game);
-	free(game);
-	error_msg(str);
+	return (1);
+}
+
+void	free_func(t_game *game, char *trimmed_line)
+{
+	free(trimmed_line);
+	third_free(game, "invalid color\n");
+}
+
+char	*free_get(char *line, int fd)
+{
+	free(line);
+	line = get_next_line(fd);
+	return (line);
 }

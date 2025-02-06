@@ -6,12 +6,11 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:41:24 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/06 10:19:07 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/06 21:48:04 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Headers/cub3d_bonus.h"
-
 
 void	read_map(t_game *game, char *file)
 {

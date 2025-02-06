@@ -6,26 +6,27 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 08:58:21 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/06 09:14:37 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/06 21:46:03 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Headers/cub3d_bonus.h"
 
-void check_first_line(t_game *game, int *j)
+void	check_first_line(t_game *game, int *j)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (game->map[i][*j] && game->map[i][*j] != '\n')
 	{
-		if (game->map[i][*j] != '1' && game->map[i][*j] != ' ' && game->map[i][*j] != '\t')
+		if (game->map[i][*j] != '1' && game->map[i][*j] != ' '
+			&& game->map[i][*j] != '\t')
 			second_free(game, "Error\nMap Not Surrounded by Walls");
 		(*j)++;
 	}
 }
 
-void check_last_line(t_game *game, int *j, int *i)
+void	check_last_line(t_game *game, int *j, int *i)
 {
 	while (game->map[*i][*j] && game->map[*i][*j] != '\n')
 	{
@@ -35,7 +36,7 @@ void check_last_line(t_game *game, int *j, int *i)
 	}
 }
 
-void check_middle_line(t_game *game, int *i, int *j)
+void	check_middle_line(t_game *game, int *i, int *j)
 {
 	if (game->map[*i][*j] != '1' && game->map[*i][*j] != ' ')
 		second_free(game, "Error\nMap Not Surrounded by Walls");
@@ -45,21 +46,22 @@ void check_middle_line(t_game *game, int *i, int *j)
 		second_free(game, "Error\nMap Not Surrounded by Walls");
 }
 
-void check_map_boundaries(t_game *game)
+void	check_map_boundaries(t_game *game)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (game->map[i])
 	{
 		j = 0;
-		while (game->map[i][j] && (game->map[i][j] == ' ' || game->map[i][j] == '\t'))
+		while (game->map[i][j] && (game->map[i][j] == ' '
+				|| game->map[i][j] == '\t'))
 			j++;
 		if (game->map[i][j] == '\0' || game->map[i][j] == '\n')
 		{
 			i++;
-			continue;
+			continue ;
 		}
 		if (i == 0)
 			check_first_line(game, &j);

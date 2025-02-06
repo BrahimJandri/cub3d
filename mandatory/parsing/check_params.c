@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_params.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:45:08 by bjandri           #+#    #+#             */
-/*   Updated: 2025/01/25 11:22:38 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/06 21:43:39 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	count_params(t_game *game)
 			if (game->map[i][j] == 'N' || game->map[i][j] == 'S'
 				|| game->map[i][j] == 'E' || game->map[i][j] == 'W')
 			{
-				game->player->y = i ;
-				game->player->x = j ;
+				game->player->y = i;
+				game->player->x = j;
 				count++;
 			}
 			j++;

@@ -6,12 +6,11 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:45:08 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/06 09:14:47 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/06 21:46:30 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Headers/cub3d_bonus.h"
-
 
 void	count_params(t_game *game)
 {
@@ -29,8 +28,8 @@ void	count_params(t_game *game)
 			if (game->map[i][j] == 'N' || game->map[i][j] == 'S'
 				|| game->map[i][j] == 'E' || game->map[i][j] == 'W')
 			{
-				game->player->y = i ;
-				game->player->x = j ;
+				game->player->y = i;
+				game->player->x = j;
 				count++;
 			}
 			j++;
