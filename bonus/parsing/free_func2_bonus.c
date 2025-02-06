@@ -6,11 +6,12 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:33:26 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/04 16:34:30 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/06 09:15:07 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Headers/cub3d_bonus.h"
+
 
 void	first_free(t_game *game, char *str)
 {

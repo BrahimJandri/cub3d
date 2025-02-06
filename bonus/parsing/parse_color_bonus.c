@@ -6,16 +6,17 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 09:12:30 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/05 13:09:58 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/06 09:49:22 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Headers/cub3d_bonus.h"
 
-char	**split_and_trim_color_parts(char *str)
+
+static char **split_and_trim_color_parts(char *str)
 {
-	char	*trimmed_str;
-	char	**parts;
+	char *trimmed_str;
+	char **parts;
 
 	trimmed_str = ft_strtrim(str, " \t\n");
 	if (!trimmed_str)
@@ -27,55 +28,78 @@ char	**split_and_trim_color_parts(char *str)
 	return (parts);
 }
 
-void	validate_color_parts_count(char **parts, t_game *game)
+int validate_color_parts_count(char **parts, t_game *game)
 {
-	int	count;
+	int count;
 
+	(void)game;
 	count = 0;
 	while (parts[count])
 		count++;
 	if (count != 3)
 	{
 		ft_free_split(parts);
-		third_free(game, "Error\nInvalid color format\n");
+		return -1;
 	}
+	return 0;
 }
 
-int	ft_alldigit(const char *str)
+int ft_isalldigit(const char *str)
 {
 	while (*str)
 	{
 		if (!ft_isdigit(*str))
-			return (0);
+			return 0;
 		str++;
 	}
-	return (1);
+	return 1;
 }
 
-void	validate_and_parse_color_values(char **parts, int *colors, t_game *game)
+int validate_and_parse_color_values(char **parts, int *colors, t_game *game)
 {
-	int	i;
+	int i;
 
+	(void)game;
 	i = 0;
 	while (i < 3)
 	{
-		if (!ft_isspace(parts[i]) || !ft_alldigit(parts[i]))
+		if (!ft_isspace(parts[i]) || !ft_isalldigit(parts[i]))
 		{
 			ft_free_split(parts);
-			third_free(game, "Error\nInvalid color formats\n");
+			return -1;
 		}
 		colors[i] = ft_atoi(parts[i]);
 		if (colors[i] < 0 || colors[i] > 255)
 		{
 			ft_free_split(parts);
-			third_free(game,
-				"Error\nColor values must be in the range 0-255\n");
+			return -1;
 		}
 		i++;
 	}
+	return 0;
 }
 
-int	convert_to_color(int *colors)
+static int convert_to_color(int *colors)
 {
 	return ((colors[0] << 16) | (colors[1] << 8) | colors[2]);
+}
+
+int parse_color(char *str, t_game *game)
+{
+	char **parts;
+	int colors[3];
+	int color;
+
+	if(validate_color_format(str, game))
+		return -1;
+	parts = split_and_trim_color_parts(str);
+	if(validate_color_parts_count(parts, game))
+		return -1;
+	if(validate_and_parse_color_values(parts, colors, game))
+		return -1;
+	ft_free_split(parts);
+	color = convert_to_color(colors);
+	game->config_count++;
+
+	return (color);
 }

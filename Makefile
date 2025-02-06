@@ -13,7 +13,7 @@ SRC = ./library/get_next_line/get_next_line.c ./library/get_next_line/get_next_l
 
 SRC_BNS = ./library/get_next_line/get_next_line.c ./library/get_next_line/get_next_line_utils.c \
 	./bonus/parsing/parsing_bonus.c ./bonus/parsing/check_boundaries_bonus.c ./bonus/parsing/check_columns_bonus.c ./bonus/parsing/check_params_bonus.c \
-	./bonus/parsing/fill_map1_bonus.c ./bonus/parsing/flood_fill_bonus.c ./bonus/main_bonus.c ./bonus/parsing/free_func_bonus.c \
+	./bonus/parsing/fill_map1_bonus.c  ./bonus/main_bonus.c ./bonus/parsing/free_func_bonus.c \
 	./bonus/parsing/parse_color_bonus.c ./bonus/parsing/parse_texture_bonus.c ./bonus/parsing/utils_bonus.c \
 	./bonus/render_bonus.c ./bonus/move_bonus.c ./bonus/generate_walls_bonus.c ./bonus/raycasting_bonus.c ./bonus/raycasting_utils_bonus.c ./bonus/utils_bonus.c \
 	./bonus/minimap_bonus.c ./bonus/minimap_util1_bonus.c ./bonus/minimap_util2_bonus.c ./bonus/parsing/free_func2_bonus.c ./bonus/door_bonus.c ./bonus/door_utils_bonus.c \

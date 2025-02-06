@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/05 11:31:00 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/06 09:18:01 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ int main(int ac, char **av)
         return 1;
     }
 	if(ac != 2)
-    {
     	return (ft_putstr_fd("Error\nUsage : Cub3d map.cub\n", 2), free(game),1);
-    }
     inits(game, av);
     game->img = malloc(sizeof(t_image));
     if(!game->img)

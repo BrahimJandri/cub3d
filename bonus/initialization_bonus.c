@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:18:54 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/05 15:13:57 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/06 09:28:04 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ void    init_player(t_game *data)
     dot->sideDir = 0;
     dot->moveSpeed = 8;
     dot->rotationSpeed = 1 * (PI / 2);
-    dot->line_lenght = 50;
-    dot->angle = 0;
     dot->frames = 0;
     dot->bullets = 0;
 
@@ -50,7 +48,7 @@ void    init_ray(t_game *data)
 {
     t_ray *raay = malloc(sizeof(t_ray) * data->num_rays);
     if(!raay)
-        return ;
+        error_msg("num rays failed\n");
     data->ray = raay;
 
     get_plyr_pos(data);
@@ -61,6 +59,10 @@ void    init_ray(t_game *data)
 void    init_mlx(t_game *game)
 {
     game->mlx = mlx_init();
-    game->win = mlx_new_window(game->mlx, S_WIDTH, S_HEIGHT, "gta");
+    if(!game->mlx)
+        error_msg("mlx_init failed\n");
+    game->win = mlx_new_window(game->mlx, S_WIDTH, S_HEIGHT, "CUB3D");
+    if(!game->win)
+        error_msg("win failed\n");
 }
 

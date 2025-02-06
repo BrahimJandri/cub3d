@@ -6,11 +6,12 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:01:36 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/05 15:14:15 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/06 10:21:55 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Headers/cub3d_bonus.h"
+
 
 int	open_file(const char *file)
 {
@@ -56,16 +57,8 @@ void	free_all(t_game *game)
 		free(game->map[i]);
 		i++;
 	}
-	i = 0;
-	while (game->map_dup[i])
-	{
-		free(game->map_dup[i]);
-		i++;
-	}
 	free(game->map);
 	game->map = NULL;
-	free(game->map_dup);
-	game->map_dup = NULL;
 	free_texture(game);
 	free(game->minimap);
 	free(game);
@@ -93,3 +86,4 @@ void	ft_free_split(char **array)
 	}
 	free(array);
 }
+

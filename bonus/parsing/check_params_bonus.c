@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_params.c                                     :+:      :+:    :+:   */
+/*   check_params_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:45:08 by bjandri           #+#    #+#             */
-/*   Updated: 2025/01/25 11:22:38 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/06 09:14:47 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Headers/cub3d_bonus.h"
+
 
 void	count_params(t_game *game)
 {
@@ -28,8 +29,8 @@ void	count_params(t_game *game)
 			if (game->map[i][j] == 'N' || game->map[i][j] == 'S'
 				|| game->map[i][j] == 'E' || game->map[i][j] == 'W')
 			{
-				game->player->y = i;
-				game->player->x = j;
+				game->player->y = i ;
+				game->player->x = j ;
 				count++;
 			}
 			j++;
@@ -53,9 +54,8 @@ void	check_map_params(t_game *game)
 		{
 			if ((game->map[i][j] != '1' && game->map[i][j] != '0')
 				&& (game->map[i][j] != 'N' && game->map[i][j] != 'S'
-					&& game->map[i][j] != 'E' && game->map[i][j] != 'W'
-					&& game->map[i][j] != 'D') && game->map[i][j] != 32
-				&& game->map[i][j] != '\n')
+					&& game->map[i][j] != 'E' && game->map[i][j] != 'W')
+				&& game->map[i][j] != 32 && game->map[i][j] != '\n')
 				second_free(game, "Error\nBad Params on map.");
 			j++;
 		}

@@ -6,27 +6,12 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:41:24 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/04 16:36:12 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/06 10:19:07 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Headers/cub3d_bonus.h"
 
-int	parse_color(char *str, t_game *game)
-{
-	char	**parts;
-	int		colors[3];
-	int		color;
-
-	validate_color_format(str, game);
-	parts = split_and_trim_color_parts(str);
-	validate_color_parts_count(parts, game);
-	validate_and_parse_color_values(parts, colors, game);
-	ft_free_split(parts);
-	color = convert_to_color(colors);
-	game->config_count++;
-	return (color);
-}
 
 void	read_map(t_game *game, char *file)
 {
@@ -38,15 +23,11 @@ void	read_map(t_game *game, char *file)
 	check_map_params(game);
 	check_map_columns(game);
 	check_map_boundaries(game);
-	map_dup(game);
-	if (!ft_flood_fill(game->player->y, game->player->x, game))
-		error_msg("Error\nMap Not Surrounded by Walls");
 }
 
 void	init_game(t_game *game)
 {
 	game->map = NULL;
-	game->map_dup = NULL;
 	game->no_texture = NULL;
 	game->we_texture = NULL;
 	game->so_texture = NULL;

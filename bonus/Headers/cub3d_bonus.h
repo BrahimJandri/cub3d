@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:41:13 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/05 15:13:41 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/06 10:18:53 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,8 +139,6 @@ typedef struct s_player
     double rotationSpeed;
     double moveSpeed;
     double fov;
-    double angle;
-    double line_lenght;
     char character;
     int     bullets;
     int     frames;
@@ -174,7 +172,6 @@ typedef struct s_game
     void *win;
 
     char **map;
-    char **map_dup;
     int floor_color;
     int ceiling_color;
     int config_count;
@@ -348,15 +345,14 @@ void free_texture(t_game *game);
 void ft_free_split(char **array);
 size_t ft_arraylen(char **array);
 int ft_isspace(char *str);
-void validate_color_parts_count(char **parts, t_game *game);
-void validate_and_parse_color_values(char **parts, int *colors, t_game *game);
-void validate_color_format(char *str, t_game *game);
+int validate_color_parts_count(char **parts, t_game *game);
+int validate_and_parse_color_values(char **parts, int *colors, t_game *game);
+int validate_color_format(char *str, t_game *game);
 void check_texture_validtion(t_game *game);
 void first_free(t_game *game, char *str);
 void second_free(t_game *game, char *str);
 void third_free(t_game *game, char *str);
-int	convert_to_color(int *colors);
-char	**split_and_trim_color_parts(char *str);
+char *parse_color_line(t_game *game);
 
 void draw_map_mini(t_game *data);
 void draw_background(t_game *game);
