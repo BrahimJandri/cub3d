@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 09:48:24 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/05 09:51:00 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/06 10:55:37 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void    init_sprites(t_game *data)
     t_texture *gun;
 
     gun = malloc(sizeof(t_texture) * FRAMES);
-    
+    if(!gun)
+        error_msg("gun failed\n");
     i = 0;
     while(i < FRAMES)
     {
@@ -44,13 +45,13 @@ void    load_gun_frames(t_game *data)
         if(!data->gun[i].img)
         {
             //free
-            printf("oho\n");
+            printf("oho\n"); // adsis origh leaks
             exit(1);
         }
         data->gun[i].addrs = mlx_get_data_addr(data->gun[i].img, &data->gun[i].bpp, &data->gun[i].size_line, &data->gun[i].endian);
         if(!data->gun[i].addrs)
         {
-            printf("lhamdullah\n");
+            printf("lhamdullah\n"); // adsis origh leaks
             exit(1);
         }
         i++;

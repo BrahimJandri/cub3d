@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 16:01:18 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/05 15:13:48 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/06 10:54:44 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	init_minimap(t_game *game)
 	t_minimap	*minimap;
 
 	minimap = malloc(sizeof(t_minimap));
+	if(!minimap)
+		error_msg("minimap failed\n");
 	minimap->dx = 0;
 	minimap->dy = 0;
 	minimap->start_x = 0;

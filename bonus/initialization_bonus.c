@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:18:54 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/06 09:28:04 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/06 10:34:36 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void    inits(t_game *game, char **av)
     parse_config(game, av);
     init_ray(game);
     init_sprites(game);
-    alloc_doors(game);
-    init_door(game);
     init_mlx(game);
     get_textures(game);
 	init_minimap(game);

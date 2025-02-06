@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/05 11:26:31 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/06 11:45:55 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void	draw_map(t_game *data)
 {
 
     data->img->img = mlx_new_image(data->mlx, S_WIDTH, S_HEIGHT);
-    if (!data->img)
-        return;
+    if (!data->img->img)
+        error_msg("Img failed\n"); // adsis origh leaks
     data->img->addrs = mlx_get_data_addr(data->img->img, &data->img->bpp, &data->img->size_line, &data->img->endian);
-
+    if(!data->img->addrs)
+        error_msg("Img failed\n"); // leaks
     draw_rays(data->player, data);
-    data->flag = 0;
     update_minimap(data);
     render_gun(data);
     put_gun(data, data->player->frames);
@@ -46,28 +46,30 @@ void    render_image(t_game *data, int wallTopPixel, int wallBottomPixel, int i)
 void draw_rays(t_player *player, t_game *data)
 {
     double rayAngle;
-    double angleIncrement;
+    double angle_increment;
     int wallTopPixel;
     int wallBottomPixel;
     int i;
     
-    angleIncrement = FOV / data->num_rays;
+    angle_increment = FOV / data->num_rays;
     rayAngle = player->rotationAngle - (FOV / 2);
     i = -1;
     while(++i <  data->num_rays)
     {
         cast_rays(player, data, rayAngle);
+        
         data->corrected_wall = data->ray->distance * cos(rayAngle - player->rotationAngle);
         data->distance_projectplan = (S_WIDTH / 2) / tan(FOV / 2);
         data->wall_projected_height = (TILE / data->corrected_wall) * data->distance_projectplan;
         wallTopPixel = (S_HEIGHT / 2) - (data->wall_projected_height / 2);
+        
         if (wallTopPixel < 0)
             wallTopPixel = 0;
         wallBottomPixel = (S_HEIGHT / 2) + (data->wall_projected_height / 2);
         if (wallBottomPixel > S_HEIGHT)
             wallBottomPixel = S_HEIGHT;
         render_image(data, wallTopPixel, wallBottomPixel, i);
-        rayAngle += angleIncrement;        
+        rayAngle += angle_increment;
     }
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:27:31 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/05 11:35:24 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/06 11:30:18 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,6 @@ int     key_release(int key, t_game *data)
         player->sideDir = 0;
     else if(key == D)
         player->sideDir = 0;
-        else if(key == ENTER)
-    {
-        data->flag = 1;
-        ft_player_wall_hit(data);
-    }
     return 1;
 }
 
@@ -104,9 +99,9 @@ void    update_sides(t_game *data, t_player *player)
     x = (int)player->x / TILE;
     y = (int)player->y / TILE;
     
-    if((data->map[y][(int)new_posx / TILE] == '0') || (data->map[y][(int)new_posx / TILE] == 'D' && x_side_accessibility(data, new_posy, new_posx)))
+    if((data->map[y][(int)new_posx / TILE] == '0'))
         player->x = new_posx;
-    if((data->map[(int)new_posy / TILE][x] == '0') || (data->map[(int)new_posy / TILE][x] == 'D' && y_side_accessibility(data, new_posy, new_posx)))
+    if((data->map[(int)new_posy / TILE][x] == '0'))
         player->y = new_posy;
 }
 
@@ -123,9 +118,9 @@ void    update_player(t_game *data, t_player *player)
 
     x = (int)player->x / TILE;
     y = (int)player->y / TILE;
-    if((data->map[y][(int)new_posx / TILE] == '0') || (data->map[y][(int)new_posx / TILE] == 'D' && x_accessibility(data, y, new_posx)))
+    if((data->map[y][(int)new_posx / TILE] == '0')) 
         player->x = new_posx;
-    if((data->map[(int)new_posy / TILE][x] == '0') || (data->map[(int)new_posy / TILE][x] == 'D' && y_accessibility(data, x, new_posy)))
+    if((data->map[(int)new_posy / TILE][x] == '0')) 
         player->y = new_posy;
 }
 

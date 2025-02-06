@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:41:13 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/06 10:18:53 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/06 11:02:08 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,7 +256,7 @@ int	apply_shadow(int color, double shadow_factor);
 
 void    update_sides(t_game *data, t_player *player);
 void    get_data(t_game *data);
-void    game_loop(t_game *data);
+int    game_loop(t_game *data);
 
 /*__________BONUS_________*/
 void    render_gun(t_game *data);

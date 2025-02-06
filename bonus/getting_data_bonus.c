@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_control_bonus.c                                :+:      :+:    :+:   */
+/*   getting_data_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:23:27 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/05 11:04:26 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/06 11:01:35 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,9 @@ void get_texture(t_game *data, int j)
     }
 }
 
-void game_loop(t_game *data)
+int game_loop(t_game *data)
 {
     get_data(data);
     draw_map(data);
+    return (0);
 }
