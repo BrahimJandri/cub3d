@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 08:54:39 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/05 16:30:01 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/06 08:09:43 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,30 +43,41 @@ void check_texture_validtion(t_game *game)
 
 char *parse_texture_line(t_game *game, char *line)
 {
+	char *trimmed_line;
 	
-	if (ft_strncmp(line, "NO ", 3) == 0)
+	trimmed_line = ft_strtrim(line, " \t");
+	if (ft_strncmp(trimmed_line, "NO ", 3) == 0)
 		parse_texture(line, game, 0);
-	else if (ft_strncmp(line, "SO ", 3) == 0)
+	else if (ft_strncmp(trimmed_line, "SO ", 3) == 0)
 		parse_texture(line, game, 1);
-	else if (ft_strncmp(line, "WE ", 3) == 0)
+	else if (ft_strncmp(trimmed_line, "WE ", 3) == 0)
 		parse_texture(line, game, 2);
-	else if (ft_strncmp(line, "EA ", 3) == 0)
+	else if (ft_strncmp(trimmed_line, "EA ", 3) == 0)
 		parse_texture(line, game, 3);
 	else
+	{
+		free(trimmed_line);	
 		return (NULL);
+	}
+	free(trimmed_line);
 	return (line);
 }
 
 char *parse_color_line(t_game *game, char *line)
 {
+	char *trimmed_line;
 	(void)line;
-	// game->line = line;
-	if (ft_strncmp(game->line, "F ", 2) == 0)
-		game->floor_color = parse_color(game->line + 2, game);
-	else if (ft_strncmp(game->line, "C ", 2) == 0)
-		game->ceiling_color = parse_color(game->line + 2, game);
+	trimmed_line = ft_strtrim(game->line, " \t");
+	if (ft_strncmp(trimmed_line, "F ", 2) == 0)
+		game->floor_color = parse_color(trimmed_line + 2, game);
+	else if (ft_strncmp(trimmed_line, "C ", 2) == 0)
+		game->ceiling_color = parse_color(trimmed_line + 2, game);
 	else
+	{
+		free(trimmed_line);
 		return (NULL);
+	}
+	free(trimmed_line);
 	return (game->line);
 }
 
