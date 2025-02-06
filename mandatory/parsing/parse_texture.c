@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 08:54:39 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/06 08:09:43 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/06 08:20:02 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,29 @@ char *parse_texture_line(t_game *game, char *line)
 char *parse_color_line(t_game *game, char *line)
 {
 	char *trimmed_line;
+	int color;
 	(void)line;
 	trimmed_line = ft_strtrim(game->line, " \t");
 	if (ft_strncmp(trimmed_line, "F ", 2) == 0)
-		game->floor_color = parse_color(trimmed_line + 2, game);
+	{
+		color = parse_color(trimmed_line + 2, game);
+		if(color == -1)
+		{
+			free(trimmed_line);
+			third_free(game, "invalid color\n");
+		}
+		game->floor_color = color;
+	}
 	else if (ft_strncmp(trimmed_line, "C ", 2) == 0)
-		game->ceiling_color = parse_color(trimmed_line + 2, game);
+	{
+		color = parse_color(trimmed_line + 2, game);
+		if(color == -1)
+		{
+			free(trimmed_line);
+			third_free(game, "invalid color\n");
+		}
+		game->ceiling_color = color;
+	}
 	else
 	{
 		free(trimmed_line);

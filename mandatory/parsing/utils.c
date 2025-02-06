@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:00:36 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/06 08:08:53 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/06 08:19:31 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,17 +74,19 @@ char *skip_texture_colors(int fd, char *line)
 	return (line);
 }
 
-void validate_color_format(char *str, t_game *game)
+int validate_color_format(char *str, t_game *game)
 {
 	char *trimmed_str;
 
+	(void)game;
 	trimmed_str = ft_strtrim(str, " \t\n");
 	if (!trimmed_str)
 		error_msg("Error\nMemory allocation failed while trimming\n");
 	if (count_sep(trimmed_str) != 2)
 	{
 		free(trimmed_str);
-		third_free(game, "Error\nInvalid color format\n");
+		return -1;
 	}
 	free(trimmed_str);
+	return 0;
 }
