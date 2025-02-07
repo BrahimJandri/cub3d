@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   sprites_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 09:48:24 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/06 10:55:37 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/07 05:49:39 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./Headers/cub3d_bonus.h"
 
-void    init_sprites(t_game *data)
+void            init_sprites(t_game *data)
 {
     int i;
     char *number;
@@ -44,15 +44,19 @@ void    load_gun_frames(t_game *data)
         data->gun[i].img = mlx_xpm_file_to_image(data->mlx, data->gun[i].path, &data->gun[i].tex_width, &data->gun[i].tex_height);
         if(!data->gun[i].img)
         {
-            //free
-            printf("oho\n"); // adsis origh leaks
-            exit(1);
+            while(i >= 0)
+            {
+                if(data->gun[i].img)
+                    mlx_destroy_image(data->mlx ,data->gun[i].img);
+                i--;
+            }
+            escape_free(data);
+            return(error_msg("images failed\n"), exit(1));
         }
         data->gun[i].addrs = mlx_get_data_addr(data->gun[i].img, &data->gun[i].bpp, &data->gun[i].size_line, &data->gun[i].endian);
         if(!data->gun[i].addrs)
         {
-            printf("lhamdullah\n"); // adsis origh leaks
-            exit(1);
+            return(error_msg("image address failed\n"), exit(1));
         }
         i++;
     }

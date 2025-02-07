@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:09:58 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/06 11:01:20 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/07 05:36:42 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,9 @@
 
 int     close_window(t_game *data)
 {
-    free(data->ray);
-    destroy_xpm(data);
-    mlx_destroy_window(data->mlx, data->win);
-    mlx_destroy_display(data->mlx);
-    free(data->mlx);
-    free(data->player);
-    free(data->img);
-    free_all(data);
+    destroy_sprite(data);
+    escape_free(data);
+    write(1,"Exited\n",7);
     exit(0);
 }
 

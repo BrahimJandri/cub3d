@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:27:31 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/06 11:30:18 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/07 05:36:21 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,46 @@ void    destroy_xpm(t_game *data)
     return ;
 }
 
+void    destroy_path(t_game *data)
+{
+    int i;
+
+    i = 0;
+    while(i < FRAMES)
+    {
+        free(data->gun[i].path);
+        i++;
+    }
+    return ;
+}
+
+void    destroy_sprite(t_game *data)
+{
+    int i;
+
+    i = 0;
+    while(i < FRAMES)
+    {
+        mlx_destroy_image(data->mlx, data->gun[i].img);
+        i++;
+    }
+    return ;
+}
+
+void    escape_free(t_game *data)
+{
+    free(data->ray);
+    destroy_xpm(data);
+    destroy_path(data);
+    mlx_destroy_window(data->mlx, data->win);
+    mlx_destroy_display(data->mlx);
+    free(data->mlx);
+    free(data->player);
+    free(data->img);
+    free(data->gun);
+    free_all(data);
+}
+
 int     player_control(int key, t_game *data)
 {
     t_player *player;
@@ -50,15 +90,9 @@ int     player_control(int key, t_game *data)
     else if(key == SPACE)
         player->bullets = 1;
     else if(key == ESC)
-    { 
-        free(data->ray);
-        destroy_xpm(data);
-        mlx_destroy_window(data->mlx, data->win);
-        mlx_destroy_display(data->mlx);
-        free(data->mlx);
-        free(data->player);
-        free(data->img);
-        free_all(data);
+    {
+        destroy_sprite(data);
+        escape_free(data);
         exit(0);
     }
     return 1;

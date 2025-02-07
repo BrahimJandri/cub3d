@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/06 19:00:49 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/07 05:11:44 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,18 @@ void	draw_map(t_game *data)
 
     data->img->img = mlx_new_image(data->mlx, S_WIDTH, S_HEIGHT);
     if (!data->img->img)
-        error_msg("Img failed\n"); // adsis origh leaks
+    {
+        mlx_destroy_image(data->mlx, data->img->img);
+        escape_free(data);
+        error_msg("Img failed\n");
+    }
     data->img->addrs = mlx_get_data_addr(data->img->img, &data->img->bpp, &data->img->size_line, &data->img->endian);
     if(!data->img->addrs)
+    {
+        mlx_destroy_image(data->mlx, data->img->img);
+        escape_free(data);
         error_msg("Img failed\n"); // leaks
+    }
     draw_rays(data->player, data);
     update_minimap(data);
     render_gun(data);
