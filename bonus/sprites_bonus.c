@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 09:48:24 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/07 05:49:39 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/07 06:08:07 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void    load_gun_frames(t_game *data)
         }
         i++;
     }
+    destroy_path(data);
 }
 
 void    render_gun(t_game *data)

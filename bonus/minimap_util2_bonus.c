@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_util2_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:22:53 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/06 11:53:17 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/07 11:31:12 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ int	get_tile_color(char cell)
 		return (GREY);
 	else if (cell == '0' || ft_strchr("NSEW", cell))
 		return (WHITE);
-	else if (cell == 'D')
-		return (BLUE);
 	return (-1);
 }
 

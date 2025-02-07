@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:41:13 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/07 05:16:22 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/07 06:37:11 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,6 +237,8 @@ int					game_loop(t_game *data);
 
 void                escape_free(t_game *data);
 void                destroy_sprite(t_game *data);
+void                destroy_path(t_game *data);
+void                wall_tex_free(t_game *data);
 
 /*__________BONUS_________*/
 void				render_gun(t_game *data);

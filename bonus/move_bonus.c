@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:27:31 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/07 05:36:21 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/07 11:40:45 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,40 @@ void    destroy_sprite(t_game *data)
     return ;
 }
 
+void    free_parse(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	while (game->map[i])
+	{
+		free(game->map[i]);
+		i++;
+	}
+	free(game->map);
+	game->map = NULL;
+	free_texture(game);
+	free(game);
+}
+
+void    wall_tex_free(t_game *data)
+{
+    free(data->ray);
+    destroy_path(data);
+    mlx_destroy_window(data->mlx, data->win);
+    mlx_destroy_display(data->mlx);
+    free(data->mlx);
+    free(data->player);
+    // free(data->img);
+    free(data->gun);
+    free_parse(data);
+}
+
+
 void    escape_free(t_game *data)
 {
     free(data->ray);
     destroy_xpm(data);
-    destroy_path(data);
     mlx_destroy_window(data->mlx, data->win);
     mlx_destroy_display(data->mlx);
     free(data->mlx);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:15:45 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/06 10:44:50 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/07 06:36:04 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ t_texture *upload_texture(t_game *data, int i)
         tex->img = mlx_xpm_file_to_image(data->mlx, data->ea_texture, &tex->tex_width, &tex->tex_height);
     if (!tex->img)
     {
-        // free(data->img);
-        // free_all(data);
-        exit(1); // adsis origh leaks 
+        return(free(tex), NULL);
     }
-
     tex->addrs = mlx_get_data_addr(tex->img, &tex->bpp, &tex->size_line, &tex->endian);
     if (!tex->addrs)
-        error_msg("Failed to get address of the image"); // adsis origh leaks
+    {
+        mlx_destroy_image(data->mlx, tex->img);
+        return(free(tex), NULL);        
+    }
     return (tex);
 }
 
@@ -49,6 +49,20 @@ void get_textures(t_game *data)
     while (i < 4)
     {
         data->texture[i] = upload_texture(data, i);
+        if(!data->texture[i])
+        {
+            while(i >= 0)
+            {
+                if(data->texture[i])
+                {
+                    if(data->texture[i]->img)
+                        mlx_destroy_image(data->mlx, data->texture[i]->img);
+                    free(data->texture[i]);
+                }
+                i--;
+            }
+            return(wall_tex_free(data), error_msg("textures failed to allocate\n"), exit(1));
+        }
         i++;
     }
     return;
