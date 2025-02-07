@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycasting_utils.c                                 :+:      :+:    :+:   */
+/*   raycasting_utils_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 23:40:13 by rachid            #+#    #+#             */
-/*   Updated: 2025/01/25 10:16:46 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/06 15:11:53 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void    cast_rays(t_player *player, t_game *data, double angle )
     ray->found_h_wall = false;
     ray->found_v_wall = false;
 
-    define_angle(ray, angle);
+    define_angle(ray, angle);//
     horizontal_intercepts(data, player, ray, angle);
     vertical_intercepts(data, player, ray, angle);
     closer_intersection(player, ray);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/06 11:45:55 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/06 19:00:49 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,31 +45,30 @@ void    render_image(t_game *data, int wallTopPixel, int wallBottomPixel, int i)
 
 void draw_rays(t_player *player, t_game *data)
 {
-    double rayAngle;
+    double ray_angle;
     double angle_increment;
-    int wallTopPixel;
-    int wallBottomPixel;
+    int wall_top_pixel;
+    int wall_bottom_pixel;
     int i;
     
     angle_increment = FOV / data->num_rays;
-    rayAngle = player->rotationAngle - (FOV / 2);
+    ray_angle = player->rotationAngle - (FOV / 2);
     i = -1;
     while(++i <  data->num_rays)
     {
-        cast_rays(player, data, rayAngle);
-        
-        data->corrected_wall = data->ray->distance * cos(rayAngle - player->rotationAngle);
+        cast_rays(player, data, ray_angle);//alhamdullah --needs some final checks so you don't forget
+        data->corrected_wall = data->ray->distance * cos(ray_angle - player->rotationAngle);
         data->distance_projectplan = (S_WIDTH / 2) / tan(FOV / 2);
         data->wall_projected_height = (TILE / data->corrected_wall) * data->distance_projectplan;
-        wallTopPixel = (S_HEIGHT / 2) - (data->wall_projected_height / 2);
+        wall_top_pixel = (S_HEIGHT / 2) - (data->wall_projected_height / 2);
         
-        if (wallTopPixel < 0)
-            wallTopPixel = 0;
-        wallBottomPixel = (S_HEIGHT / 2) + (data->wall_projected_height / 2);
-        if (wallBottomPixel > S_HEIGHT)
-            wallBottomPixel = S_HEIGHT;
-        render_image(data, wallTopPixel, wallBottomPixel, i);
-        rayAngle += angle_increment;
+        if (wall_top_pixel < 0)
+            wall_top_pixel = 0;
+        wall_bottom_pixel = (S_HEIGHT / 2) + (data->wall_projected_height / 2);
+        if (wall_bottom_pixel > S_HEIGHT)
+            wall_bottom_pixel = S_HEIGHT;
+        render_image(data, wall_top_pixel, wall_bottom_pixel, i);
+        ray_angle += angle_increment;
     }
 }
 

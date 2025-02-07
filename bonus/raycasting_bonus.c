@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycasting.c                                       :+:      :+:    :+:   */
+/*   raycasting_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 23:40:54 by rachid            #+#    #+#             */
-/*   Updated: 2025/01/18 23:54:22 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/06 18:43:52 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,14 @@ void    horizontal_intercepts(t_game *data, t_player *player, t_ray *ray, double
 {
     double      y_intercept;
     double      x_intercept;
-    double      y_next_touch;
-    double      x_next_touch;
 
     y_intercept = floor(player->y / TILE) * TILE;
     if(ray->ray_down)
-        y_intercept += TILE;
+        y_intercept += TILE; 
     
     x_intercept = player->x + (y_intercept - player->y) / tan(angle);
 
-    y_next_touch = y_intercept;
-    x_next_touch = x_intercept;
-    horizontal_steps(x_next_touch, y_next_touch, data, angle);
+    horizontal_steps(x_intercept, y_intercept, data, angle);
 }
 
 void    horizontal_steps(double x_next_touch, double y_next_touch, t_game *data, double angle)
@@ -50,7 +46,7 @@ void    horizontal_steps(double x_next_touch, double y_next_touch, t_game *data,
     if(ray->ray_right && x_steps < 0)
         x_steps *= -1;
 
-    if (ray->ray_up)
+    if (ray->ray_up)//ila kan ray up the next_y_touch ghadi tji f lkht so in case kan 7it maghdi ch t3rf wash 7it dakchi 3lach kan9so pixel which is pixel ghatl3 bach tkun fldakher d l7it
         y_next_touch--;
         
     step_touch[0] = x_next_touch;
@@ -64,8 +60,6 @@ void    vertical_intercepts(t_game *data, t_player *player, t_ray *ray, double a
 {
     double      y_intercept;
     double      x_intercept;
-    double      y_next_touch;
-    double      x_next_touch;
 
     x_intercept = floor(player->x / TILE) * TILE;
     if(ray->ray_right)
@@ -73,11 +67,7 @@ void    vertical_intercepts(t_game *data, t_player *player, t_ray *ray, double a
     
     //at the beginning the y_intercept is negative
     y_intercept = player->y + ((x_intercept - player->x) * tan(angle));
-    
-    y_next_touch = y_intercept;
-    x_next_touch = x_intercept;
-
-    vertical_steps(x_next_touch, y_next_touch, data, angle);
+    vertical_steps(x_intercept, y_intercept, data, angle);
 }
 
 void    vertical_steps(double x_next_touch, double y_next_touch, t_game *data, double angle)

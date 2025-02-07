@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:41:13 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/06 21:58:02 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/07 04:27:44 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,10 @@
 # define MINIMAP_Y 0
 // Y position of the minimap
 
-// #define TEX
-# define TILE 256
-# define DOOR_DISTANCE 300
-// #define TEX_WIDTH
-// #define TEX_HEIGHT 400
-# define PI 3.14159265358979323846
-# define TWO_PI 6.28318530718
-# define FOV 60 * (PI / 180)
+#define TILE 256
+#define PI 3.14159265358979323846
+#define TWO_PI 6.28318530718
+#define FOV 60 * (PI / 180)
 
 /*_______________IMAGES_STRUCT_________________*/
 typedef struct s_image
