@@ -54,8 +54,8 @@ fclean: clean
 	@rm -f $(NAME_BONUS)
 	@echo "$(BOLD)all obj and exec file are removed 💔$(RESET)"
 
-re: fclean all
+re: fclean all 
 
-re_bonus: fclean bonus
+re_bonus: fclean bonus clean
 
 .PHONY: all clean fclean re bonus

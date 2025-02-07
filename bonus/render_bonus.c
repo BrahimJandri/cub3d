@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/07 05:11:44 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/07 16:03:54 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,11 @@ void	draw_map(t_game *data)
     if (!data->img->img)
     {
         mlx_destroy_image(data->mlx, data->img->img);
+        free_parse(data);
+        free(data->minimap);
+        destroy_sprite(data);
         escape_free(data);
+        free(data);
         error_msg("Img failed\n");
     }
     data->img->addrs = mlx_get_data_addr(data->img->img, &data->img->bpp, &data->img->size_line, &data->img->endian);
@@ -28,14 +32,13 @@ void	draw_map(t_game *data)
     {
         mlx_destroy_image(data->mlx, data->img->img);
         escape_free(data);
+        free_all(data);
         error_msg("Img failed\n"); // leaks
     }
     draw_rays(data->player, data);
     update_minimap(data);
     render_gun(data);
     put_gun(data, data->player->frames);
-    
-    
     mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0,0);
     mlx_destroy_image(data->mlx, data->img->img);    
 }

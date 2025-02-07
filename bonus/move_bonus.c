@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:27:31 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/07 11:40:45 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/07 15:59:07 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void    free_parse(t_game *game)
 	free(game->map);
 	game->map = NULL;
 	free_texture(game);
-	free(game);
+    // free(game->minimap);// commented for sprites
 }
 
 void    wall_tex_free(t_game *data)
@@ -83,11 +83,13 @@ void    wall_tex_free(t_game *data)
     // free(data->img);
     free(data->gun);
     free_parse(data);
+    free(data);
 }
 
 
 void    escape_free(t_game *data)
 {
+    // destroy_path(data); //deleted for ESC and CROSS
     free(data->ray);
     destroy_xpm(data);
     mlx_destroy_window(data->mlx, data->win);
@@ -96,7 +98,6 @@ void    escape_free(t_game *data)
     free(data->player);
     free(data->img);
     free(data->gun);
-    free_all(data);
 }
 
 int     player_control(int key, t_game *data)
@@ -122,6 +123,7 @@ int     player_control(int key, t_game *data)
     {
         destroy_sprite(data);
         escape_free(data);
+        free_all(data);
         exit(0);
     }
     return 1;

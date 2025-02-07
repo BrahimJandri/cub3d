@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 09:48:24 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/07 06:08:07 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/07 16:03:07 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ void    load_gun_frames(t_game *data)
                     mlx_destroy_image(data->mlx ,data->gun[i].img);
                 i--;
             }
-            escape_free(data);
-            return(error_msg("images failed\n"), exit(1));
+            return(destroy_path(data), escape_free(data), free_all(data),error_msg("images failed\n"), exit(1));
         }
         data->gun[i].addrs = mlx_get_data_addr(data->gun[i].img, &data->gun[i].bpp, &data->gun[i].size_line, &data->gun[i].endian);
         if(!data->gun[i].addrs)
