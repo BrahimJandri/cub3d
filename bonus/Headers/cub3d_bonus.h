@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:41:13 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/07 15:41:33 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/07 16:14:50 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,15 +201,11 @@ typedef struct s_game
 	t_texture		*texture[4];
 	char			*line;
 	t_texture		*gun;
-	t_door			*door;
 	t_minimap		*minimap;
-	int				door_num;
-	bool			flag;
 }					t_game;
 
 /*_____________new_functions______________*/
 
-void				build_square(t_game *data, int x, int y, int color);
 int					check_number(char c);
 void				draw_map(t_game *data);
 int					player_control(int key, t_game *data);
@@ -222,8 +218,6 @@ double				normalize_angle(double angle);
 void				cast_rays(t_player *player, t_game *data, double angle);
 int					key_release(int key, t_game *data);
 
-void				draw_rectangle(t_game *data, int x, int y, int height,
-						int width);
 void				my_mlx_pixel_put(t_game *data, int x, int y, int color);
 
 int					is_it_wall(t_game *data, double x, double y);

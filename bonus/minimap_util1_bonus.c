@@ -3,34 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_util1_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:21:09 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/06 11:49:13 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/07 16:14:34 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./Headers/cub3d_bonus.h"
 
-void	build_square(t_game *data, int x, int y, int color)
-{
-	int	tile_size;
-	int	i;
-	int	j;
-
-	i = 0;
-	tile_size = TILE * MINIMAP;
-	while (i < tile_size)
-	{
-		j = 0;
-		while (j < tile_size)
-		{
-			my_mlx_pixel_put(data, x + i, y + j, color);
-			j++;
-		}
-		i++;
-	}
-}
 
 void	draw_background(t_game *game)
 {

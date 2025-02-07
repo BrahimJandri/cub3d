@@ -6,31 +6,14 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:50:53 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/05 11:09:20 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/07 16:10:55 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./Headers/cub3d_bonus.h"
 
 
-void    draw_rectangle(t_game *data, int x, int y, int width, int height)
-{
-    int i;
-    int j;
 
-
-    i = 0;
-    while(i < height)
-    {
-        j = 0;
-        while(j < width)
-        {
-            my_mlx_pixel_put(data, j + x, i + y, WHITE);
-            j++;
-        }
-        i++;
-    }
-}
 
 void	my_mlx_pixel_put(t_game *data, int x, int y, int color)
 {
