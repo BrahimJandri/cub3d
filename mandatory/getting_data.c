@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   getting_data.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:23:27 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/08 12:57:53 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/08 16:18:35 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void get_texture(t_game *data, int j)
         offset_x = (int)data->ray->x_wall % TILE;
 
     distance_from_top = j + (data->wall_projected_height / 2) - (S_HEIGHT / 2);
-    offset_y = distance_from_top * ((double)TILE / data->wall_projected_height);
+    offset_y = distance_from_top * (TILE / data->wall_projected_height);
 
     if ((offset_x >= 0 && offset_x < TILE) && (offset_y >= 0 && offset_y < TILE))
     {
