@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:27:31 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/08 12:58:09 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/08 16:19:50 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,9 +138,6 @@ void update_sides(t_game *data, t_player *player)
     }
 
 }
-
-
-
 
 void update_player(t_game *data, t_player *player)
 {

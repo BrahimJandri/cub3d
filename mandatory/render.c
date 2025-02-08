@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/08 12:58:22 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/08 16:19:21 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,9 @@ void draw_rays(t_player *player, t_game *data)
         data->corrected_wall = data->ray->distance * cos(ray_angle - player->rotationAngle);
         data->distance_projectplan = (S_WIDTH / 2) / tan(player->fov / 2);
         data->wall_projected_height = (TILE / data->corrected_wall) * data->distance_projectplan;
-        
         wall_top_pixel = (S_HEIGHT / 2) - (data->wall_projected_height / 2);
         if (wall_top_pixel < 0)
             wall_top_pixel = 0;
-            
         wall_bottom_pixel = (S_HEIGHT / 2) + (data->wall_projected_height / 2);
         if (wall_bottom_pixel > S_HEIGHT)
             wall_bottom_pixel = S_HEIGHT;
