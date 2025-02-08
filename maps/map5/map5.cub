@@ -1,0 +1,15 @@
+NO ./maps/map5/minimalist-no.xpm
+SO ./maps/map5/minimalist-so.xpm
+EA ./maps/map5/minimalist-ea.xpm
+WE ./maps/map5/minimalist-we.xpm
+
+F 255,143,0
+C 232,249,255
+
+1111111111
+1100001001
+1100010001
+1100001001
+1000S00001
+1000001001
+1111111111
