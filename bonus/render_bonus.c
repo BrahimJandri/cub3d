@@ -36,7 +36,7 @@ void	draw_map(t_game *data)
         error_msg("Img failed\n"); // leaks
     }
     draw_rays(data->player, data);
-    update_minimap(data);
+    draw_minimap(data);
     render_gun(data);
     put_gun(data, data->player->frames);
     mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0,0);

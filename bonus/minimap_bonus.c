@@ -37,18 +37,6 @@ void	draw_tile_within_bounds(t_game *data, int map_x, int map_y)
 	}
 }
 
-void	update_minimap(t_game *data)
-{
-	static int	frame;
-
-	frame = 0;
-	if (frame % 1 == 0)
-	{
-		draw_minimap(data);
-	}
-	frame++;
-}
-
 void	init_minimap(t_game *game)
 {
 	t_minimap	*minimap;

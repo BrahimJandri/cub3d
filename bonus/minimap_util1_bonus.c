@@ -12,19 +12,18 @@
 
 #include "./Headers/cub3d_bonus.h"
 
-
 void	draw_background(t_game *game)
 {
 	int	y;
 	int	x;
 
 	y = 0;
-	while (y < game->minimap->minimap_size)
+	while (y <= game->minimap->minimap_size)
 	{
 		x = 0;
-		while (x < game->minimap->minimap_size)
+		while (x <= game->minimap->minimap_size)
 		{
-			my_mlx_pixel_put(game, MINIMAP_X + x, MINIMAP_Y + y, BLACK);
+			my_mlx_pixel_put(game, MINIMAP_X + x, MINIMAP_Y + y, WHITE);
 			x++;
 		}
 		y++;
@@ -60,7 +59,7 @@ void	draw_minimap_player(t_game *game)
 			if (x * x + y * y <= radius * radius)
 			{
 				my_mlx_pixel_put_safe(game, player_x + x, player_y + y,
-					0xFF0000);
+					RED);
 			}
 			y++;
 		}
@@ -87,7 +86,7 @@ void	draw_ray_line(t_game *game, int end_x, int end_y)
 	i = 0;
 	while (i <= game->minimap->steps)
 	{
-		my_mlx_pixel_put_safe(game, round(x), round(y), 0xFF0000);
+		my_mlx_pixel_put_safe(game, round(x), round(y), RED);
 		x += game->minimap->xinc;
 		y += game->minimap->yinc;
 		i++;

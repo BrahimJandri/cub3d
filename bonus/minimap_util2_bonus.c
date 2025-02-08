@@ -20,7 +20,7 @@ void	draw_player_direction(t_game *game)
 
 	game->minimap->center_x = MINIMAP_X + (game->minimap->minimap_size / 2);
 	game->minimap->center_y = MINIMAP_Y + (game->minimap->minimap_size / 2);
-	game->minimap->ray_length = game->minimap->minimap_size / 8;
+	game->minimap->ray_length = game->minimap->minimap_size / 6;
 	i = -30;
 	while (i <= 30)
 	{
@@ -90,12 +90,13 @@ void	draw_tile(t_game *data, int color)
 	int	i;
 	int	j;
 
-	tile_size = TILE * MINIMAP;
+	tile_size = (TILE * MINIMAP);
+
 	i = 0;
-	while (i < tile_size)
+	while (i <= tile_size) 
 	{
 		j = 0;
-		while (j < tile_size)
+		while (j <= tile_size)
 		{
 			pixel_x = data->minimap->tile_x + i;
 			pixel_y = data->minimap->tile_y + j;
