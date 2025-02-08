@@ -14,10 +14,10 @@
 
 void	draw_player_direction(t_game *game)
 {
-	int	i;
-	int	end_x;
-	int	end_y;
-	double fov;
+	int		i;
+	int		end_x;
+	int		end_y;
+	double	fov;
 
 	fov = game->player->fov;
 	game->minimap->center_x = MINIMAP_X + (game->minimap->minimap_size / 2);
@@ -26,7 +26,7 @@ void	draw_player_direction(t_game *game)
 	i = -30;
 	while (i <= 30)
 	{
-		game->minimap->ray_angle = game->player->rotationAngle + (i * fov / 60);
+		game->minimap->ray_angle = game->player->rotation_angle + (i * fov / 60);
 		end_x = game->minimap->center_x + cos(game->minimap->ray_angle)
 			* game->minimap->ray_length;
 		end_y = game->minimap->center_y + sin(game->minimap->ray_angle)
@@ -78,10 +78,10 @@ void	calculate_tile_position(t_game *data, int map_x, int map_y)
 	player_map_y = data->player->y / TILE;
 	offset_x = (data->player->x - (player_map_x * TILE)) * MINIMAP;
 	offset_y = (data->player->y - (player_map_y * TILE)) * MINIMAP;
-	data->minimap->tile_x = MINIMAP_X + (data->minimap->minimap_size / 2) + (map_x
-			- player_map_x) * (TILE * MINIMAP) - offset_x;
-	data->minimap->tile_y = MINIMAP_Y + (data->minimap->minimap_size / 2) + (map_y
-			- player_map_y) * (TILE * MINIMAP) - offset_y;
+	data->minimap->tile_x = MINIMAP_X + (data->minimap->minimap_size / 2)
+		+ (map_x - player_map_x) * (TILE * MINIMAP) - offset_x;
+	data->minimap->tile_y = MINIMAP_Y + (data->minimap->minimap_size / 2)
+		+ (map_y - player_map_y) * (TILE * MINIMAP) - offset_y;
 }
 
 void	draw_tile(t_game *data, int color)
@@ -93,17 +93,17 @@ void	draw_tile(t_game *data, int color)
 	int	j;
 
 	tile_size = (TILE * MINIMAP);
-
 	i = 0;
-	while (i <= tile_size) 
+	while (i <= tile_size)
 	{
 		j = 0;
 		while (j <= tile_size)
 		{
 			pixel_x = data->minimap->tile_x + i;
 			pixel_y = data->minimap->tile_y + j;
-			if (pixel_x >= MINIMAP_X && pixel_x < MINIMAP_X + data->minimap->minimap_size
-				&& pixel_y >= MINIMAP_Y && pixel_y < MINIMAP_Y + data->minimap->minimap_size)
+			if (pixel_x >= MINIMAP_X && pixel_x < MINIMAP_X
+				+ data->minimap->minimap_size && pixel_y >= MINIMAP_Y
+				&& pixel_y < MINIMAP_Y + data->minimap->minimap_size)
 			{
 				my_mlx_pixel_put(data, pixel_x, pixel_y, color);
 			}

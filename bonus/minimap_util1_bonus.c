@@ -32,8 +32,8 @@ void	draw_background(t_game *game)
 
 void	my_mlx_pixel_put_safe(t_game *data, int x, int y, int color)
 {
-	if (x >= MINIMAP_X && x < MINIMAP_X + data->minimap->minimap_size && y >= MINIMAP_Y
-		&& y < MINIMAP_Y + data->minimap->minimap_size)
+	if (x >= MINIMAP_X && x < MINIMAP_X + data->minimap->minimap_size
+		&& y >= MINIMAP_Y && y < MINIMAP_Y + data->minimap->minimap_size)
 	{
 		my_mlx_pixel_put(data, x, y, color);
 	}
@@ -58,8 +58,7 @@ void	draw_minimap_player(t_game *game)
 		{
 			if (x * x + y * y <= radius * radius)
 			{
-				my_mlx_pixel_put_safe(game, player_x + x, player_y + y,
-					RED);
+				my_mlx_pixel_put_safe(game, player_x + x, player_y + y, RED);
 			}
 			y++;
 		}

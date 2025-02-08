@@ -12,40 +12,38 @@
 
 #include "./Headers/cub3d_bonus.h"
 
-//1 = right, 3 = left
-int     click_press(int key, int x, int y, t_game *data)
+int	click_press(int key, int x, int y, t_game *data)
 {
-    t_player *player;
-    // mini_map(data);
-    // draw_circle(data->player, data);
-    player = data->player;
-    (void)x;
-    (void)y;
-    if(key == 1)
-    {
-        player->turn_dir = -0.02;
-    }
-    else if(key == 3)
-    {
-        player->turn_dir = 0.02;
-    }
-    return 0;
+	t_player	*player;
+
+	player = data->player;
+	(void)x;
+	(void)y;
+	if (key == 1)
+	{
+		player->turn_dir = -0.02;
+	}
+	else if (key == 3)
+	{
+		player->turn_dir = 0.02;
+	}
+	return (0);
 }
 
-int     click_release(int key, int x, int y, t_game *data)
+int	click_release(int key, int x, int y, t_game *data)
 {
-    t_player *player;
+	t_player	*player;
 
-    player = data->player;
-    (void)x;
-    (void)y;
-    if(key == 1)
-    {
-        player->turn_dir = 0;
-    } 
-    else if(key == 3)
-    {
-        player->turn_dir = 0;
-    }
-    return 0;
+	player = data->player;
+	(void)x;
+	(void)y;
+	if (key == 1)
+	{
+		player->turn_dir = 0;
+	}
+	else if (key == 3)
+	{
+		player->turn_dir = 0;
+	}
+	return (0);
 }

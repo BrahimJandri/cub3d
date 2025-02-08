@@ -12,55 +12,53 @@
 
 #include "./Headers/cub3d_bonus.h"
 
-void    inits(t_game *game, char **av)
+void	inits(t_game *game, char **av)
 {
-    init_player(game);//init dakchi d lplayer kamlo hna
-    parse_config(game, av);
-    init_ray(game);
-    init_sprites(game);
-    init_mlx(game);
-    get_textures(game);
+	init_player(game);
+	parse_config(game, av);
+	init_ray(game);
+	init_sprites(game);
+	init_mlx(game);
+	get_textures(game);
 	init_minimap(game);
 }
-void    init_player(t_game *data)
-{
-    t_player *dot;
 
-    dot = malloc(sizeof(t_player ));
-    dot->radius = TILE / 5;
-    dot->turn_dir = 0;
-    dot->walk_dir = 0;
-    dot->side_dir = 0;
-    dot->moveSpeed = 8;
-    dot->rotationSpeed = 1 * (PI / 2);
-    dot->frames = 0;
-    dot->jab = 0;
-    dot->fov = FOV * (PI / 180);
-    
-    data->player = dot;
-    data->num_rays = S_WIDTH / WALL_WIDTH ;   
+void	init_player(t_game *data)
+{
+	t_player	*dot;
+
+	dot = malloc(sizeof(t_player));
+	dot->radius = TILE / 5;
+	dot->turn_dir = 0;
+	dot->walk_dir = 0;
+	dot->side_dir = 0;
+	dot->move_speed = 8;
+	dot->rotation_speed = 1 * (PI / 2);
+	dot->frames = 0;
+	dot->jab = 0;
+	dot->fov = FOV * (PI / 180);
+	data->player = dot;
+	data->num_rays = S_WIDTH / WALL_WIDTH;
 }
 
-
-void    init_ray(t_game *data)
+void	init_ray(t_game *data)
 {
-    t_ray *raay = malloc(sizeof(t_ray) * data->num_rays);
-    if(!raay)
-        error_msg("num rays failed\n");
-    data->ray = raay;
+	t_ray	*raay;
 
-    get_plyr_pos(data);
-    set_direction(data);
+	raay = malloc(sizeof(t_ray) * data->num_rays);
+	if (!raay)
+		error_msg("num rays failed\n");
+	data->ray = raay;
+	get_plyr_pos(data);
+	set_direction(data);
 }
 
-
-void    init_mlx(t_game *game)
+void	init_mlx(t_game *game)
 {
-    game->mlx = mlx_init();
-    if(!game->mlx)
-        error_msg("mlx_init failed\n");
-    game->win = mlx_new_window(game->mlx, S_WIDTH, S_HEIGHT, "CUB3D");
-    if(!game->win)
-        error_msg("win failed\n");
+	game->mlx = mlx_init();
+	if (!game->mlx)
+		error_msg("mlx_init failed\n");
+	game->win = mlx_new_window(game->mlx, S_WIDTH, S_HEIGHT, "CUB3D");
+	if (!game->win)
+		error_msg("win failed\n");
 }
-

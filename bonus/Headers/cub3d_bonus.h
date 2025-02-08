@@ -66,10 +66,10 @@
 # define MINIMAP_Y 0
 // Y position of the minimap
 
-#define TILE 256
-#define PI 3.14159265358979323846
-#define TWO_PI 6.28318530718
-#define FOV 60 
+# define TILE 256
+# define PI 3.14159265358979323846
+# define TWO_PI 6.28318530718
+# define FOV 60
 
 /*_______________IMAGES_STRUCT_________________*/
 typedef struct s_image
@@ -112,7 +112,7 @@ typedef struct s_minimap
 	double			xinc;
 	double			yinc;
 	double			ray_angle;
-	double 			minimap_size;
+	double			minimap_size;
 	int				center_x;
 	int				center_y;
 	double			ray_length;
@@ -132,9 +132,9 @@ typedef struct s_player
 	double			turn_dir;
 	double			walk_dir;
 	double			side_dir;
-	double			rotationAngle;
-	double			rotationSpeed;
-	double			moveSpeed;
+	double			rotation_angle;
+	double			rotation_speed;
+	double			move_speed;
 	double			fov;
 	char			character;
 	int				jab;
@@ -228,12 +228,11 @@ void				update_sides(t_game *data, t_player *player);
 void				get_data(t_game *data);
 int					game_loop(t_game *data);
 
-
-void                escape_free(t_game *data);
-void                destroy_sprite(t_game *data);
-void                destroy_path(t_game *data);
-void                wall_tex_free(t_game *data);
-void    free_parse(t_game *game);
+void				escape_free(t_game *data);
+void				destroy_sprite(t_game *data);
+void				destroy_path(t_game *data);
+void				wall_tex_free(t_game *data);
+void				free_parse(t_game *game);
 
 /*__________BONUS_________*/
 void				render_gun(t_game *data);
@@ -321,9 +320,9 @@ void				first_free(t_game *game, char *str);
 void				second_free(t_game *game, char *str);
 void				third_free(t_game *game, char *str);
 char				*parse_color_line(t_game *game);
-int	                ft_isalldigit(const char *str);
-void	            free_func(t_game *game, char *trimmed_line);
-char	            *free_get(char *line, int fd);
+int					ft_isalldigit(const char *str);
+void				free_func(t_game *game, char *trimmed_line);
+char				*free_get(char *line, int fd);
 
 void				draw_map_mini(t_game *data);
 void				draw_background(t_game *game);
