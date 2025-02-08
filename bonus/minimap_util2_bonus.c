@@ -26,7 +26,8 @@ void	draw_player_direction(t_game *game)
 	i = -30;
 	while (i <= 30)
 	{
-		game->minimap->ray_angle = game->player->rotation_angle + (i * fov / 60);
+		game->minimap->ray_angle = game->player->rotation_angle
+			+ (i * fov / 60);
 		end_x = game->minimap->center_x + cos(game->minimap->ray_angle)
 			* game->minimap->ray_length;
 		end_y = game->minimap->center_y + sin(game->minimap->ray_angle)

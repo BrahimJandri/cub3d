@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:41:13 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/08 10:16:39 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/08 18:51:15 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,6 @@ typedef struct s_game
 
 /*_____________new_functions______________*/
 
-int					check_number(char c);
 void				draw_map(t_game *data);
 int					player_control(int key, t_game *data);
 void				update_player(t_game *data, t_player *player);
@@ -256,7 +255,7 @@ void				get_vertical_hit(t_game *data, double array[4], t_ray *ray);
 void				get_horizontal_hit(t_game *data, double array[4],
 						t_ray *ray);
 void				closer_intersection(t_player *player, t_ray *ray);
-double				calcul_line_length(double x1, double y1, double x2,
+double				cal_len(double x1, double y1, double x2,
 						double y2);
 
 t_texture			*upload_texture(t_game *data, int i);
@@ -279,6 +278,7 @@ void				put_ceiling(t_game *data, int walltop, int i);
 void				put_wall(t_game *data, int wall_top, int wall_bottom,
 						int i);
 void				put_floor(t_game *data, int wall_bottom, int i);
+void				free_hepler(t_game *data, int c);
 
 /*______BRAHIM___________*/
 void				error_msg(char *str);

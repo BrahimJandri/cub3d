@@ -12,6 +12,17 @@
 
 #include "./Headers/cub3d_bonus.h"
 
+void	tex_addrs(t_game *data, t_texture *tex)
+{
+	tex->addrs = mlx_get_data_addr(tex->img, &tex->bpp, &tex->size_line,
+			&tex->endian);
+	if (!tex->addrs)
+	{
+		mlx_destroy_image(data->mlx, tex->img);
+		free(tex);
+	}
+}
+
 t_texture	*upload_texture(t_game *data, int i)
 {
 	t_texture	*tex;
@@ -33,13 +44,7 @@ t_texture	*upload_texture(t_game *data, int i)
 				&tex->tex_width, &tex->tex_height);
 	if (!tex->img)
 		return (free(tex), NULL);
-	tex->addrs = mlx_get_data_addr(tex->img, &tex->bpp, &tex->size_line,
-			&tex->endian);
-	if (!tex->addrs)
-	{
-		mlx_destroy_image(data->mlx, tex->img);
-		return (free(tex), NULL);
-	}
+	tex_addrs(data, tex);
 	return (tex);
 }
 

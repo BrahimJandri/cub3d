@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:18:54 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/08 13:34:14 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/08 18:54:19 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	init_player(t_game *data)
 	dot->turn_dir = 0;
 	dot->walk_dir = 0;
 	dot->side_dir = 0;
-	dot->moveSpeed = 20;
-	dot->rotationSpeed = 2 * (PI / 2);
+	dot->move_speed = 5;
+	dot->rotation_speed = 1 * (PI / 2);
 	dot->fov = FOV * (PI / 180);
 	data->player = dot;
 	data->num_rays = S_WIDTH / WALL_WIDTH;

@@ -6,12 +6,11 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 09:09:14 by bjandri           #+#    #+#             */
-/*   Updated: 2024/12/18 11:06:52 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/08 19:14:24 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
 
 int	ft_strllen(char *str)
 {

@@ -36,31 +36,29 @@ void	define_angle(t_ray *ray, double angle)
 
 void	closer_intersection(t_player *player, t_ray *ray)
 {
-	double	v_hit_distance;
-	double	h_hit_distance;
+	double	v_hit_dist;
+	double	h_hit_dist;
 
 	if (ray->found_v_wall)
-		v_hit_distance = calcul_line_length(player->x, player->y, ray->v_hitx,
-				ray->v_hity);
+		v_hit_dist = cal_len(player->x, player->y, ray->v_hitx, ray->v_hity);
 	else
-		v_hit_distance = 9199999999999999999;
+		v_hit_dist = 9199999999999999999;
 	if (ray->found_h_wall)
-		h_hit_distance = calcul_line_length(player->x, player->y, ray->h_hitx,
-				ray->h_hity);
+		h_hit_dist = cal_len(player->x, player->y, ray->h_hitx, ray->h_hity);
 	else
-		h_hit_distance = 9199999999999999999;
-	if (h_hit_distance < v_hit_distance)
+		h_hit_dist = 9199999999999999999;
+	if (h_hit_dist < v_hit_dist)
 	{
 		ray->x_wall = ray->h_hitx;
 		ray->y_wall = ray->h_hity;
-		ray->distance = h_hit_distance;
+		ray->distance = h_hit_dist;
 		ray->is_vert = 0;
 	}
 	else
 	{
 		ray->x_wall = ray->v_hitx;
 		ray->y_wall = ray->v_hity;
-		ray->distance = v_hit_distance;
+		ray->distance = v_hit_dist;
 		ray->is_vert = 1;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:41:13 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/08 13:00:26 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/08 18:59:56 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,10 @@
 # define MINIMAP 0.05
 # define FRAMES 7
 
-
-#define TILE 256
-#define PI 3.14159265358979323846
-#define TWO_PI 6.28318530718
-#define FOV 60 
+# define TILE 256
+# define PI 3.14159265358979323846
+# define TWO_PI 6.28318530718
+# define FOV 60
 
 /*_______________IMAGES_STRUCT_________________*/
 typedef struct s_image
@@ -107,7 +106,7 @@ typedef struct s_minimap
 	double			xinc;
 	double			yinc;
 	double			ray_angle;
-	double 			minimap_size;
+	double			minimap_size;
 	int				center_x;
 	int				center_y;
 	double			ray_length;
@@ -127,9 +126,9 @@ typedef struct s_player
 	double			turn_dir;
 	double			walk_dir;
 	double			side_dir;
-	double			rotationAngle;
-	double			rotationSpeed;
-	double			moveSpeed;
+	double			rotation_angle;
+	double			rotation_speed;
+	double			move_speed;
 	double			fov;
 	char			character;
 	int				jab;
@@ -201,7 +200,6 @@ typedef struct s_game
 
 /*_____________new_functions______________*/
 
-int					check_number(char c);
 void				draw_map(t_game *data);
 int					player_control(int key, t_game *data);
 void				update_player(t_game *data, t_player *player);
@@ -222,13 +220,11 @@ void				update_sides(t_game *data, t_player *player);
 void				get_data(t_game *data);
 int					game_loop(t_game *data);
 
-
-void                escape_free(t_game *data);
-void                destroy_sprite(t_game *data);
-void                destroy_path(t_game *data);
-void                wall_tex_free(t_game *data);
-void    free_parse(t_game *game);
-
+void				escape_free(t_game *data);
+void				destroy_sprite(t_game *data);
+void				destroy_path(t_game *data);
+void				wall_tex_free(t_game *data);
+void				free_parse(t_game *game);
 
 int					click_release(int key, int x, int y, t_game *data);
 int					click_press(int key, int x, int y, t_game *data);
@@ -246,7 +242,7 @@ void				get_vertical_hit(t_game *data, double array[4], t_ray *ray);
 void				get_horizontal_hit(t_game *data, double array[4],
 						t_ray *ray);
 void				closer_intersection(t_player *player, t_ray *ray);
-double				calcul_line_length(double x1, double y1, double x2,
+double				cal_llen(double x1, double y1, double x2,
 						double y2);
 
 t_texture			*upload_texture(t_game *data, int i);
@@ -310,8 +306,8 @@ void				first_free(t_game *game, char *str);
 void				second_free(t_game *game, char *str);
 void				third_free(t_game *game, char *str);
 char				*parse_color_line(t_game *game);
-int	                ft_isalldigit(const char *str);
-void	            free_func(t_game *game, char *trimmed_line);
-char	            *free_get(char *line, int fd);
+int					ft_isalldigit(const char *str);
+void				free_func(t_game *game, char *trimmed_line);
+char				*free_get(char *line, int fd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:27:31 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/08 15:35:56 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/08 18:39:52 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,72 +26,6 @@ void	destroy_xpm(t_game *data)
 	while (i < 4)
 		free(data->texture[i++]);
 	return ;
-}
-
-void	destroy_path(t_game *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < FRAMES)
-	{
-		free(data->gun[i].path);
-		i++;
-	}
-	return ;
-}
-
-void	destroy_sprite(t_game *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < FRAMES)
-	{
-		mlx_destroy_image(data->mlx, data->gun[i].img);
-		i++;
-	}
-	return ;
-}
-
-void	free_parse(t_game *game)
-{
-	int	i;
-
-	i = 0;
-	while (game->map[i])
-	{
-		free(game->map[i]);
-		i++;
-	}
-	free(game->map);
-	game->map = NULL;
-	free_texture(game);
-}
-
-void	wall_tex_free(t_game *data)
-{
-	free(data->ray);
-	destroy_path(data);
-	mlx_destroy_window(data->mlx, data->win);
-	mlx_destroy_display(data->mlx);
-	free(data->mlx);
-	free(data->player);
-	free(data->gun);
-	free_parse(data);
-	free(data);
-}
-
-void	escape_free(t_game *data)
-{
-	free(data->ray);
-	destroy_xpm(data);
-	mlx_destroy_window(data->mlx, data->win);
-	mlx_destroy_display(data->mlx);
-	free(data->mlx);
-	free(data->player);
-	free(data->img);
-	free(data->gun);
 }
 
 int	player_control(int key, t_game *data)
@@ -145,8 +79,11 @@ int	key_release(int key, t_game *data)
 
 void	update_sides(t_game *data, t_player *player)
 {
-	double	new_posx,	new_posy;
-	int new_x,	new_y;
+	double	new_posx;
+	double	new_posy;
+	int		new_x;
+	int		new_y;
+
 	new_posx = player->x + cos(player->rotation_angle + (PI / 2))
 		* player->side_dir * player->move_speed;
 	new_posy = player->y + sin(player->rotation_angle + (PI / 2))
@@ -161,8 +98,10 @@ void	update_sides(t_game *data, t_player *player)
 
 void	update_player(t_game *data, t_player *player)
 {
-	double new_posx, new_posy;
-	int new_x, new_y;
+	double	new_posx;
+	double	new_posy;
+	int		new_x;
+	int		new_y;
 
 	new_posx = player->x + cos(player->rotation_angle) * player->walk_dir
 		* player->move_speed;

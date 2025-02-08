@@ -38,8 +38,8 @@ void	load_gun_frames(t_game *data)
 {
 	int	i;
 
-	i = 0;
-	while (i < FRAMES)
+	i = -1;
+	while (++i < FRAMES)
 	{
 		data->gun[i].img = mlx_xpm_file_to_image(data->mlx, data->gun[i].path,
 				&data->gun[i].tex_width, &data->gun[i].tex_height);
@@ -58,10 +58,7 @@ void	load_gun_frames(t_game *data)
 				&data->gun[i].bpp, &data->gun[i].size_line,
 				&data->gun[i].endian);
 		if (!data->gun[i].addrs)
-		{
 			return (error_msg("image address failed\n"), exit(1));
-		}
-		i++;
 	}
 	destroy_path(data);
 }
