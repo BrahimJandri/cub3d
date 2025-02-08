@@ -331,7 +331,6 @@ void				draw_minimap_player(t_game *game);
 void				draw_ray_line(t_game *game, int end_x, int end_y);
 void				draw_player_direction(t_game *game);
 void				draw_tile_within_bounds(t_game *data, int map_x, int map_y);
-void				update_minimap(t_game *data);
 int					get_tile_color(char cell);
 void				calculate_tile_position(t_game *data, int map_x, int map_y);
 void				draw_tile(t_game *data, int color);

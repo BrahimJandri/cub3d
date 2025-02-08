@@ -30,31 +30,6 @@ void    destroy_xpm(t_game *data)
     return ;
 }
 
-void    destroy_path(t_game *data)
-{
-    int i;
-
-    i = 0;
-    while(i < FRAMES)
-    {
-        free(data->gun[i].path);
-        i++;
-    }
-    return ;
-}
-
-void    destroy_sprite(t_game *data)
-{
-    int i;
-
-    i = 0;
-    while(i < FRAMES)
-    {
-        mlx_destroy_image(data->mlx, data->gun[i].img);
-        i++;
-    }
-    return ;
-}
 
 void    free_parse(t_game *game)
 {
@@ -75,7 +50,6 @@ void    free_parse(t_game *game)
 void    wall_tex_free(t_game *data)
 {
     free(data->ray);
-    destroy_path(data);
     mlx_destroy_window(data->mlx, data->win);
     mlx_destroy_display(data->mlx);
     free(data->mlx);
@@ -97,7 +71,6 @@ void    escape_free(t_game *data)
     free(data->mlx);
     free(data->player);
     free(data->img);
-    free(data->gun);
 }
 
 int     player_control(int key, t_game *data)
@@ -119,7 +92,6 @@ int     player_control(int key, t_game *data)
         player->side_dir = 1;
     else if(key == ESC)
     {
-        destroy_sprite(data);
         escape_free(data);
         free_all(data);
         exit(0);

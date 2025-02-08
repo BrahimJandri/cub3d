@@ -29,10 +29,8 @@ void    init_player(t_game *data)
     dot->turn_dir = 0;
     dot->walk_dir = 0;
     dot->side_dir = 0;
-    dot->moveSpeed = 8;
-    dot->rotationSpeed = 1 * (PI / 2);
-    dot->frames = 0;
-    dot->jab = 0;
+    dot->moveSpeed = 2;
+    dot->rotationSpeed = 0.2 * (PI / 2);
     dot->fov = FOV * (PI / 180);
     
     data->player = dot;

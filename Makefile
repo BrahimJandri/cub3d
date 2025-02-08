@@ -6,8 +6,8 @@ MLXFLAGS = -lm -L./library/minilibx -lmlx -lX11 -lXext
 LIBFT = ./library/Libft/libft.a
 SRC = ./library/get_next_line/get_next_line.c ./library/get_next_line/get_next_line_utils.c \
 	./mandatory/parsing/parsing.c ./mandatory/parsing/check_boundaries.c ./mandatory/parsing/check_columns.c ./mandatory/parsing/check_params.c \
-	./mandatory/parsing/fill_map1.c ./mandatory/main.c ./mandatory/parsing/free_func.c \
-	./mandatory/parsing/parse_color.c ./mandatory/parsing/parse_texture.c ./mandatory/parsing/utils.c \
+	./mandatory/parsing/fill_map1.c ./mandatory/main.c ./mandatory/parsing/free_func.c ./mandatory/initialization.c ./mandatory/texture.c\
+	./mandatory/parsing/parse_color.c ./mandatory/parsing/parse_texture.c ./mandatory/parsing/utils.c ./mandatory/getting_data.c\
 	./mandatory/render.c ./mandatory/move.c ./mandatory/generate_walls.c ./mandatory/raycasting.c ./mandatory/raycasting_utils.c \
 	./mandatory/utils.c ./mandatory/parsing/free_func2.c ./mandatory/parsing/utils2.c
 

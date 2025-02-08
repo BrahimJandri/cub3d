@@ -14,7 +14,6 @@
 
 int     close_window(t_game *data)
 {
-    destroy_sprite(data);
     escape_free(data);
     free_all(data);
     write(1,"Exited\n",7);

@@ -66,4 +66,6 @@ void	check_config(t_game *game)
 {
 	if (game->config_count != 6)
 		second_free(game, "Error\nTextures or Colors are not correct.");
+	if(game->ceiling_color == -1 || game->floor_color == -1 || !game->no_texture || !game->so_texture || !game->ea_texture || !game->we_texture)
+		second_free(game, "Error\nTextures or Colors are not correct.");
 }

@@ -20,8 +20,6 @@ void	draw_map(t_game *data)
     {
         mlx_destroy_image(data->mlx, data->img->img);
         free_parse(data);
-        free(data->minimap);
-        destroy_sprite(data);
         escape_free(data);
         free(data);
         error_msg("Img failed\n");
@@ -35,9 +33,6 @@ void	draw_map(t_game *data)
         error_msg("Img failed\n"); // leaks
     }
     draw_rays(data->player, data);
-    draw_minimap(data);
-    render_gun(data);
-    put_gun(data, data->player->frames);
     mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0,0);
     mlx_destroy_image(data->mlx, data->img->img);    
 }

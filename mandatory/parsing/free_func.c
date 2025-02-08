@@ -59,7 +59,6 @@ void	free_all(t_game *game)
 	free(game->map);
 	game->map = NULL;
 	free_texture(game);
-	free(game->minimap);
 	free(game);
 }
 
