@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_params_bonus.c                               :+:      :+:    :+:   */
+/*   check_params.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:45:08 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/06 21:46:30 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/08 12:54:19 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,6 @@ void	check_config(t_game *game)
 {
 	if (game->config_count != 6)
 		second_free(game, "Error\nTextures or Colors are not correct.");
-	if(game->ceiling_color == -1 || game->floor_color == -1 || !game->no_texture || !game->so_texture || !game->ea_texture || !game->we_texture)
+	if(game->ceiling_color == -1 || game->floor_color == -1 || !game->no_texture || !game->we_texture || !game->so_texture || !game->ea_texture)
 		second_free(game, "Error\nTextures or Colors are not correct.");
 }

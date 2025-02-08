@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_texture_bonus.c                              :+:      :+:    :+:   */
+/*   parse_texture.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 08:54:39 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/06 21:47:53 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/08 12:53:16 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	parse_texture(char *line, t_game *game, int n)
 	split_line = ft_split(trimmed_line, ' ');
 	if (split_line && ft_arraylen(split_line) == 2)
 	{
-		if (n == 0 && game->config_count < 6 && game->no_texture)
+		if (n == 0 && game->config_count < 6 && !game->no_texture)
 			game->no_texture = ft_strdup(split_line[1]);
 		else if (n == 1 && game->config_count < 6 && !game->so_texture)
 			game->so_texture = ft_strdup(split_line[1]);
