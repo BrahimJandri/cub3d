@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:18:54 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/06 10:34:36 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/08 09:14:35 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ void    init_player(t_game *data)
 
     dot = malloc(sizeof(t_player ));
     dot->radius = TILE / 5;
-    dot->turnDir = 0;
-    dot->walkDir = 0;
-    dot->sideDir = 0;
+    dot->turn_dir = 0;
+    dot->walk_dir = 0;
+    dot->side_dir = 0;
     dot->moveSpeed = 8;
     dot->rotationSpeed = 1 * (PI / 2);
     dot->frames = 0;
-    dot->bullets = 0;
+    dot->jab = 0;
 
     data->player = dot;
     data->num_rays = S_WIDTH / WALL_WIDTH ;   

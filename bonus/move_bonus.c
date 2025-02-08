@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:27:31 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/07 15:59:07 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/08 09:11:48 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,19 +106,19 @@ int     player_control(int key, t_game *data)
 
     player = data->player;
     if (key == UP || key == W)
-        player->walkDir = 1;
+        player->walk_dir = 1;
     else if (key == DOWN || key == S)
-        player->walkDir= -1;
+        player->walk_dir= -1;
     else if (key == RIGHT)
-        player->turnDir = 0.02;
+        player->turn_dir = 0.02;
     else if (key == LEFT)
-        player->turnDir = -0.02;
+        player->turn_dir = -0.02;
     else if (key == A)
-        player->sideDir = -1;
+        player->side_dir = -1;
     else if(key == D)
-        player->sideDir = 1;
+        player->side_dir = 1;
     else if(key == SPACE)
-        player->bullets = 1;
+        player->jab = 1;
     else if(key == ESC)
     {
         destroy_sprite(data);
@@ -136,18 +136,18 @@ int     key_release(int key, t_game *data)
 
     player = data->player;
     if (key == UP || key == W)
-        player->walkDir = 0;
+        player->walk_dir = 0;
     else if (key == DOWN || key == S)
-        player->walkDir = 0;
+        player->walk_dir = 0;
     else if (key == RIGHT)
-        player->turnDir = 0;
+        player->turn_dir = 0;
     else if (key == LEFT)
-        player->turnDir = 0;
+        player->turn_dir = 0;
 
     else if (key == A)
-        player->sideDir = 0;
+        player->side_dir = 0;
     else if(key == D)
-        player->sideDir = 0;
+        player->side_dir = 0;
     return 1;
 }
 
@@ -158,8 +158,8 @@ void    update_sides(t_game *data, t_player *player)
     int x;
     int y;
     
-    new_posx = player->x + cos(player->rotationAngle + (PI / 2)) * player->sideDir * player->moveSpeed;
-    new_posy = player->y + sin(player->rotationAngle + (PI / 2)) * player->sideDir * player->moveSpeed;
+    new_posx = player->x + cos(player->rotationAngle + (PI / 2)) * player->side_dir * player->moveSpeed;
+    new_posy = player->y + sin(player->rotationAngle + (PI / 2)) * player->side_dir * player->moveSpeed;
     
     x = (int)player->x / TILE;
     y = (int)player->y / TILE;
@@ -178,8 +178,8 @@ void    update_player(t_game *data, t_player *player)
     double new_posx;
     double new_posy;
     
-    new_posx = player->x + cos(player->rotationAngle) * player->walkDir * player->moveSpeed;
-    new_posy = player->y + sin(player->rotationAngle) * player->walkDir * player->moveSpeed;
+    new_posx = player->x + cos(player->rotationAngle) * player->walk_dir * player->moveSpeed;
+    new_posy = player->y + sin(player->rotationAngle) * player->walk_dir * player->moveSpeed;
 
     x = (int)player->x / TILE;
     y = (int)player->y / TILE;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:41:13 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/08 08:54:39 by reddamss         ###   ########.fr       */
+/*   Updated: 2025/02/08 09:12:28 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,15 +129,15 @@ typedef struct s_player
 	double			x;
 	double			y;
 	int				radius;
-	double			turnDir;
-	double			walkDir;
-	double			sideDir;
+	double			turn_dir;
+	double			walk_dir;
+	double			side_dir;
 	double			rotationAngle;
 	double			rotationSpeed;
 	double			moveSpeed;
 	double			fov;
 	char			character;
-	int				bullets;
+	int				jab;
 	int				frames;
 }					t_player;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   getting_data_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:23:27 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/06 11:01:35 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/08 09:13:19 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void get_data(t_game *data)
 {
-    if (data->player->walkDir)
+    if (data->player->walk_dir)
     {
         update_player(data, data->player);
     }
-    if (data->player->turnDir)
+    if (data->player->turn_dir)
     {
-        data->player->rotationAngle += data->player->turnDir * data->player->rotationSpeed;
+        data->player->rotationAngle += data->player->turn_dir * data->player->rotationSpeed;
     }
-    if (data->player->sideDir)
+    if (data->player->side_dir)
     {
         update_sides(data, data->player);
     }
