@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   generate_walls.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/02 11:50:53 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/08 12:57:48 by bjandri          ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2025/02/08 16:20:05 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "./Headers/cub3d.h"
 
@@ -28,29 +29,19 @@ void	my_mlx_pixel_put(t_game *data, int x, int y, int color)
 void put_floor(t_game *data, int wall_bottom, int i)
 {
     int j;
-    double distance;
 
     j = wall_bottom;
     while (j < S_HEIGHT)
-    {
-        distance = (j - S_HEIGHT / 2) / (double)(S_HEIGHT / 2);
-        distance = 1 / (distance);
         my_mlx_pixel_put(data, i * WALL_WIDTH, j++, data->floor_color);
-    }
 }
 
 void put_ceiling(t_game *data, int walltop, int i)
 {
     int j;
-    double distance;
-
+    
     j = 0;
     while (j < walltop)
-    {
-        distance = (S_HEIGHT / 2 - j) / (S_HEIGHT / 2);
-        distance = 1 / (distance);
         my_mlx_pixel_put(data, i * WALL_WIDTH, j++, data->ceiling_color);
-    }
 }
 
 void    put_wall(t_game *data, int  wall_top, int wall_bottom, int i)
