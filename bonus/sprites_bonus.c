@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 09:48:24 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/08 09:12:51 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/08 10:05:05 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,12 @@ void    render_gun(t_game *data)
     if (data->player->jab)
 	{
 		data->player->frames++;
-        // usleep(100000);
 		if (data->player->frames >= FRAMES)
 		{
 			data->player->frames = 0;
 			data->player->jab = 0;
 		}
-        // printf("frames = %d\n", data->player->frames);
         put_gun(data, data->player->frames);
-	}
-	if (!data->player->jab && data->player->frames != 0)
-	{
-		data->player->frames--;
 	}
 }
 

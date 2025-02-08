@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:27:31 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/08 09:11:48 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/08 10:01:18 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int     player_control(int key, t_game *data)
         player->side_dir = -1;
     else if(key == D)
         player->side_dir = 1;
-    else if(key == SPACE)
+    if(key == SPACE)
         player->jab = 1;
     else if(key == ESC)
     {

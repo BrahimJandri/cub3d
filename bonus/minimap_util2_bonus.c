@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_util2_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:22:53 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/08 08:59:02 by reddamss         ###   ########.fr       */
+/*   Updated: 2025/02/08 10:11:41 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,16 @@ void	draw_player_direction(t_game *game)
 	int	i;
 	int	end_x;
 	int	end_y;
+	double fov;
 
+	fov = game->player->fov;
 	game->minimap->center_x = MINIMAP_X + (game->minimap->minimap_size / 2);
 	game->minimap->center_y = MINIMAP_Y + (game->minimap->minimap_size / 2);
 	game->minimap->ray_length = game->minimap->minimap_size / 6;
 	i = -30;
 	while (i <= 30)
 	{
-		game->minimap->ray_angle = game->player->rotationAngle + (i * FOV / 60);
+		game->minimap->ray_angle = game->player->rotationAngle + (i * fov / 60);
 		end_x = game->minimap->center_x + cos(game->minimap->ray_angle)
 			* game->minimap->ray_length;
 		end_y = game->minimap->center_y + sin(game->minimap->ray_angle)

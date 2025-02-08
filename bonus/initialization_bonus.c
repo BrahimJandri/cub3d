@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:18:54 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/08 09:14:35 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/08 10:10:46 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void    inits(t_game *game, char **av)
     init_mlx(game);
     get_textures(game);
 	init_minimap(game);
-    
 }
 void    init_player(t_game *data)
 {
@@ -36,7 +35,8 @@ void    init_player(t_game *data)
     dot->rotationSpeed = 1 * (PI / 2);
     dot->frames = 0;
     dot->jab = 0;
-
+    dot->fov = FOV * (PI / 180);
+    
     data->player = dot;
     data->num_rays = S_WIDTH / WALL_WIDTH ;   
 }

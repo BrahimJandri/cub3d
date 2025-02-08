@@ -6,30 +6,13 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:50:53 by rachid            #+#    #+#             */
-/*   Updated: 2025/01/22 10:42:31 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/08 10:12:52 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./Headers/cub3d.h"
 
-// void    render_walls(t_game *data, t_player *player)
-// {
-//     int i;
-//     double wall_projected_height;
-//     double distance_projectplan;
-//     i = 0;
 
-//     while(i < data->num_rays)
-//     {
-//         // cast_rays(player,)
-
-//         wall_projected_height = TILE / data->ray->distance * distance_projectplan;
-
-//         distance_projectplan = (S_WIDTH / 2) / tan(FOV / 2);
-//         draw_rectangle(data, (S_WIDTH / 2) - wall_projected_height ,WALL_WIDTH, wall_projected_height)
-
-
-        
 //     }
 // }
 //here where i draw the rectange that represents walls.

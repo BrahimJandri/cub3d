@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:41:13 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/08 09:12:28 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/08 10:16:39 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@
 #define TILE 256
 #define PI 3.14159265358979323846
 #define TWO_PI 6.28318530718
-#define FOV 60 * (PI / 180)
+#define FOV 60 
 
 /*_______________IMAGES_STRUCT_________________*/
 typedef struct s_image
@@ -331,6 +331,7 @@ void				draw_minimap_player(t_game *game);
 void				draw_ray_line(t_game *game, int end_x, int end_y);
 void				draw_player_direction(t_game *game);
 void				draw_tile_within_bounds(t_game *data, int map_x, int map_y);
+void				update_minimap(t_game *data);
 int					get_tile_color(char cell);
 void				calculate_tile_position(t_game *data, int map_x, int map_y);
 void				draw_tile(t_game *data, int color);
