@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycasting_utils_bonus.c                           :+:      :+:    :+:   */
+/*   raycasting_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 23:40:13 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/08 10:50:15 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/08 12:58:14 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "./Headers/cub3d_bonus.h"
+#include "./Headers/cub3d.h"
 
 void    cast_rays(t_player *player, t_game *data, double angle )
 {

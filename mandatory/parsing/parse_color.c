@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_color_bonus.c                                :+:      :+:    :+:   */
+/*   parse_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 09:12:30 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/06 21:47:33 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/08 12:57:13 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Headers/cub3d_bonus.h"
+#include "../Headers/cub3d.h"
 
 static char	**split_and_trim_color_parts(char *str)
 {

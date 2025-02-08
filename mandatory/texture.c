@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   texture_bonus.c                                    :+:      :+:    :+:   */
+/*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:15:45 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/07 06:36:04 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/08 12:58:26 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./Headers/cub3d_bonus.h"
+#include "./Headers/cub3d.h"
 
 // array: 0 = so, 1 = no, 2 = we, 3 = ea;
 t_texture *upload_texture(t_game *data, int i)

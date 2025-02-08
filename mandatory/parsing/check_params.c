@@ -6,11 +6,11 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:45:08 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/08 12:54:19 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/08 12:55:57 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Headers/cub3d_bonus.h"
+#include "../Headers/cub3d.h"
 
 void	count_params(t_game *game)
 {

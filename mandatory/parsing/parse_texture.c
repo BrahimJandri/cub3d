@@ -6,11 +6,11 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 08:54:39 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/08 12:53:16 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/08 12:57:20 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Headers/cub3d_bonus.h"
+#include "../Headers/cub3d.h"
 
 void	check_texture_validtion(t_game *game)
 {

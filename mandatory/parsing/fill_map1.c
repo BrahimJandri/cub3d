@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_map1_bonus.c                                  :+:      :+:    :+:   */
+/*   fill_map1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:43:31 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/06 21:46:46 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/08 12:56:18 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Headers/cub3d_bonus.h"
+#include "../Headers/cub3d.h"
 
 void	calculate_map_dimensions(t_game *game, const char *file)
 {

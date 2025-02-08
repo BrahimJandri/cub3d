@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_columns_bonus.c                              :+:      :+:    :+:   */
+/*   check_columns.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 08:57:15 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/06 21:50:08 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/08 12:55:48 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Headers/cub3d_bonus.h"
+#include "../Headers/cub3d.h"
 
 void	check_map_columns(t_game *game)
 {

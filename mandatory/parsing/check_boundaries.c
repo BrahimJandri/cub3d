@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_boundaries_bonus.c                           :+:      :+:    :+:   */
+/*   check_boundaries.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 08:58:21 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/06 21:46:03 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/08 12:55:43 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Headers/cub3d_bonus.h"
+#include "../Headers/cub3d.h"
 
 void	check_first_line(t_game *game, int *j)
 {

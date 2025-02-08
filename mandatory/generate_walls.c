@@ -1,19 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   generate_walls_bonus.c                             :+:      :+:    :+:   */
+/*   generate_walls.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:50:53 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/08 10:31:03 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/08 12:57:48 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./Headers/cub3d_bonus.h"
-
-
-
+#include "./Headers/cub3d.h"
 
 void	my_mlx_pixel_put(t_game *data, int x, int y, int color)
 {

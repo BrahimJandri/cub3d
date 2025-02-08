@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialization_bonus.c                             :+:      :+:    :+:   */
+/*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:18:54 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/08 11:42:24 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/08 13:34:14 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./Headers/cub3d_bonus.h"
+#include "./Headers/cub3d.h"
 
 void    inits(t_game *game, char **av)
 {
@@ -29,8 +29,8 @@ void    init_player(t_game *data)
     dot->turn_dir = 0;
     dot->walk_dir = 0;
     dot->side_dir = 0;
-    dot->moveSpeed = 2;
-    dot->rotationSpeed = 0.2 * (PI / 2);
+    dot->moveSpeed = 20;
+    dot->rotationSpeed = 2 * (PI / 2);
     dot->fov = FOV * (PI / 180);
     
     data->player = dot;

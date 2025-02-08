@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycasting_bonus.c                                 :+:      :+:    :+:   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 23:40:54 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/06 18:43:52 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/08 12:58:18 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "./Headers/cub3d_bonus.h"
+#include "./Headers/cub3d.h"
 
 void    horizontal_intercepts(t_game *data, t_player *player, t_ray *ray, double angle)
 {

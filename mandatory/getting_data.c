@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   getting_data_bonus.c                               :+:      :+:    :+:   */
+/*   getting_data.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:23:27 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/08 09:13:19 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/08 12:57:53 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./Headers/cub3d_bonus.h"
+#include "./Headers/cub3d.h"
 
 void get_data(t_game *data)
 {

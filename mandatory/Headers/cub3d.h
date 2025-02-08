@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:41:13 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/08 10:16:39 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/08 13:00:26 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_BONUS_H
-# define CUB3D_BONUS_H
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
@@ -60,11 +60,6 @@
 # define MINIMAP 0.05
 # define FRAMES 7
 
-// Size of the minimap (width and height)
-# define MINIMAP_X 0
-// X position of the minimap
-# define MINIMAP_Y 0
-// Y position of the minimap
 
 #define TILE 256
 #define PI 3.14159265358979323846
@@ -222,7 +217,6 @@ void				my_mlx_pixel_put(t_game *data, int x, int y, int color);
 
 int					is_it_wall(t_game *data, double x, double y);
 void				define_angle(t_ray *ray, double angle);
-void				draw_minimap(t_game *data);
 
 void				update_sides(t_game *data, t_player *player);
 void				get_data(t_game *data);
@@ -235,11 +229,6 @@ void                destroy_path(t_game *data);
 void                wall_tex_free(t_game *data);
 void    free_parse(t_game *game);
 
-/*__________BONUS_________*/
-void				render_gun(t_game *data);
-void				put_gun(t_game *data, int frame);
-void				init_sprites(t_game *data);
-void				load_gun_frames(t_game *data);
 
 int					click_release(int key, int x, int y, t_game *data);
 int					click_press(int key, int x, int y, t_game *data);
@@ -324,16 +313,5 @@ char				*parse_color_line(t_game *game);
 int	                ft_isalldigit(const char *str);
 void	            free_func(t_game *game, char *trimmed_line);
 char	            *free_get(char *line, int fd);
-
-void				draw_map_mini(t_game *data);
-void				draw_background(t_game *game);
-void				draw_minimap_player(t_game *game);
-void				draw_ray_line(t_game *game, int end_x, int end_y);
-void				draw_player_direction(t_game *game);
-void				draw_tile_within_bounds(t_game *data, int map_x, int map_y);
-int					get_tile_color(char cell);
-void				calculate_tile_position(t_game *data, int map_x, int map_y);
-void				draw_tile(t_game *data, int color);
-void				init_minimap(t_game *game);
 
 #endif
