@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_util1_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:21:09 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/07 16:14:34 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/08 08:57:56 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	draw_background(t_game *game)
 	int	x;
 
 	y = 0;
-	while (y < MINIMAP_SIZE)
+	while (y < game->minimap->minimap_size)
 	{
 		x = 0;
-		while (x < MINIMAP_SIZE)
+		while (x < game->minimap->minimap_size)
 		{
 			my_mlx_pixel_put(game, MINIMAP_X + x, MINIMAP_Y + y, BLACK);
 			x++;
@@ -33,8 +33,8 @@ void	draw_background(t_game *game)
 
 void	my_mlx_pixel_put_safe(t_game *data, int x, int y, int color)
 {
-	if (x >= MINIMAP_X && x < MINIMAP_X + MINIMAP_SIZE && y >= MINIMAP_Y
-		&& y < MINIMAP_Y + MINIMAP_SIZE)
+	if (x >= MINIMAP_X && x < MINIMAP_X + data->minimap->minimap_size && y >= MINIMAP_Y
+		&& y < MINIMAP_Y + data->minimap->minimap_size)
 	{
 		my_mlx_pixel_put(data, x, y, color);
 	}
@@ -48,8 +48,8 @@ void	draw_minimap_player(t_game *game)
 	int	x;
 	int	y;
 
-	player_x = MINIMAP_X + (MINIMAP_SIZE / 2);
-	player_y = MINIMAP_Y + (MINIMAP_SIZE / 2);
+	player_x = MINIMAP_X + (game->minimap->minimap_size / 2);
+	player_y = MINIMAP_Y + (game->minimap->minimap_size / 2);
 	radius = 3;
 	x = -radius;
 	while (x <= radius)
@@ -74,8 +74,8 @@ void	draw_ray_line(t_game *game, int end_x, int end_y)
 	double	y;
 	int		i;
 
-	game->minimap->start_x = MINIMAP_X + (MINIMAP_SIZE / 2);
-	game->minimap->start_y = MINIMAP_Y + (MINIMAP_SIZE / 2);
+	game->minimap->start_x = MINIMAP_X + (game->minimap->minimap_size / 2);
+	game->minimap->start_y = MINIMAP_Y + (game->minimap->minimap_size / 2);
 	game->minimap->dx = end_x - game->minimap->start_x;
 	game->minimap->dy = end_y - game->minimap->start_y;
 	game->minimap->steps = fmax(fabs(game->minimap->dx),

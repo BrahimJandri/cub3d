@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 09:48:24 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/07 16:03:07 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/08 08:40:22 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,6 @@ void    put_gun(t_game *data, int frame)
     i = 0;
     x = (S_WIDTH - data->gun[frame].tex_width)/2;
     y = (S_HEIGHT - data->gun[frame].tex_height);
-    // x = (S_WIDTH / 2);
-    // y = (S_HEIGHT / 2);
-    
     while(i < data->gun[frame].tex_height)
     {
         j = 0;
@@ -104,9 +101,7 @@ void    put_gun(t_game *data, int frame)
     		color = *(unsigned int *)(data->gun[frame].addrs + (i * data->gun[frame].size_line + j * (data->gun[frame].bpp / 8)));
 			if ((unsigned int)color != 0xFF000000)
             {
-                // printf("x + j= %f y + i = %f\n",x + j, y+i);
 				my_mlx_pixel_put(data, j + x, i + y, color);
-                // printf("HERE\n");    
             }
 			j++;
         }

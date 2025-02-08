@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_util2_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:22:53 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/07 11:31:12 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/08 08:59:02 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	draw_player_direction(t_game *game)
 	int	end_x;
 	int	end_y;
 
-	game->minimap->center_x = MINIMAP_X + (MINIMAP_SIZE / 2);
-	game->minimap->center_y = MINIMAP_Y + (MINIMAP_SIZE / 2);
-	game->minimap->ray_length = MINIMAP_SIZE / 8;
+	game->minimap->center_x = MINIMAP_X + (game->minimap->minimap_size / 2);
+	game->minimap->center_y = MINIMAP_Y + (game->minimap->minimap_size / 2);
+	game->minimap->ray_length = game->minimap->minimap_size / 8;
 	i = -30;
 	while (i <= 30)
 	{
@@ -76,9 +76,9 @@ void	calculate_tile_position(t_game *data, int map_x, int map_y)
 	player_map_y = data->player->y / TILE;
 	offset_x = (data->player->x - (player_map_x * TILE)) * MINIMAP;
 	offset_y = (data->player->y - (player_map_y * TILE)) * MINIMAP;
-	data->minimap->tile_x = MINIMAP_X + (MINIMAP_SIZE / 2) + (map_x
+	data->minimap->tile_x = MINIMAP_X + (data->minimap->minimap_size / 2) + (map_x
 			- player_map_x) * (TILE * MINIMAP) - offset_x;
-	data->minimap->tile_y = MINIMAP_Y + (MINIMAP_SIZE / 2) + (map_y
+	data->minimap->tile_y = MINIMAP_Y + (data->minimap->minimap_size / 2) + (map_y
 			- player_map_y) * (TILE * MINIMAP) - offset_y;
 }
 
@@ -99,8 +99,8 @@ void	draw_tile(t_game *data, int color)
 		{
 			pixel_x = data->minimap->tile_x + i;
 			pixel_y = data->minimap->tile_y + j;
-			if (pixel_x >= MINIMAP_X && pixel_x < MINIMAP_X + MINIMAP_SIZE
-				&& pixel_y >= MINIMAP_Y && pixel_y < MINIMAP_Y + MINIMAP_SIZE)
+			if (pixel_x >= MINIMAP_X && pixel_x < MINIMAP_X + data->minimap->minimap_size
+				&& pixel_y >= MINIMAP_Y && pixel_y < MINIMAP_Y + data->minimap->minimap_size)
 			{
 				my_mlx_pixel_put(data, pixel_x, pixel_y, color);
 			}

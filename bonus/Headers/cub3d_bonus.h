@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: reddamss <reddamss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:41:13 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/07 16:14:50 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/08 08:54:39 by reddamss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@
 # define MINIMAP 0.05
 # define FRAMES 7
 
-# define MINIMAP_SIZE (S_WIDTH / 16 + S_HEIGHT / 16)
 // Size of the minimap (width and height)
 # define MINIMAP_X 0
 // X position of the minimap
@@ -113,6 +112,7 @@ typedef struct s_minimap
 	double			xinc;
 	double			yinc;
 	double			ray_angle;
+	double 			minimap_size;
 	int				center_x;
 	int				center_y;
 	double			ray_length;
