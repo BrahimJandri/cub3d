@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:50:53 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/07 16:10:55 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/08 10:31:03 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void put_ceiling(t_game *data, int walltop, int i)
     j = 0;
     while (j < walltop)
     {
-        distance = (S_HEIGHT / 2 - j) / (double)(S_HEIGHT / 2);
+        distance = (S_HEIGHT / 2 - j) / (S_HEIGHT / 2);
         distance = 1 / (distance);
         my_mlx_pixel_put(data, i * WALL_WIDTH, j++, data->ceiling_color);
     }

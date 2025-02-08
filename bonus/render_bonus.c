@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:04:23 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/08 10:12:38 by rachid           ###   ########.fr       */
+/*   Updated: 2025/02/08 11:31:59 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 void	draw_map(t_game *data)
 {
-
     data->img->img = mlx_new_image(data->mlx, S_WIDTH, S_HEIGHT);
     if (!data->img->img)
     {
@@ -46,12 +45,10 @@ void	draw_map(t_game *data)
 
 void    render_image(t_game *data, int wallTopPixel, int wallBottomPixel, int i)
 {
-   put_ceiling(data, wallTopPixel, i);
+    put_ceiling(data, wallTopPixel, i);
     put_wall(data, wallTopPixel, wallBottomPixel, i);
     put_floor(data, wallBottomPixel, i);
 }
-
-
 
 
 void draw_rays(t_player *player, t_game *data)
