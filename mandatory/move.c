@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:27:31 by reddamss          #+#    #+#             */
-/*   Updated: 2025/02/08 19:12:14 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/09 11:54:58 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,10 @@ void	update_sides(t_game *data, t_player *player)
 		* player->side_dir * player->move_speed;
 	new_x = (int)(new_posx / TILE);
 	new_y = (int)(new_posy / TILE);
-	if (data->map[new_y][new_x] == '0')
-	{
+	if (data->map[(int)(player->y / TILE)][new_x] == '0')
 		player->x = new_posx;
+	if (data->map[new_y][(int)(player->x / TILE)] == '0')
 		player->y = new_posy;
-	}
 }
 
 void	update_player(t_game *data, t_player *player)
@@ -91,9 +90,8 @@ void	update_player(t_game *data, t_player *player)
 		* player->move_speed;
 	new_x = (int)(new_posx / TILE);
 	new_y = (int)(new_posy / TILE);
-	if (data->map[new_y][new_x] == '0')
-	{
+	if (data->map[(int)(player->y / TILE)][new_x] == '0')
 		player->x = new_posx;
+	if (data->map[new_y][(int)(player->x / TILE)] == '0')
 		player->y = new_posy;
-	}
 }

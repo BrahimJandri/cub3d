@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:18:54 by rachid            #+#    #+#             */
-/*   Updated: 2025/02/08 18:54:34 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/09 11:51:25 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	init_player(t_game *data)
 	dot->turn_dir = 0;
 	dot->walk_dir = 0;
 	dot->side_dir = 0;
-	dot->move_speed = 5;
+	dot->move_speed = 2;
 	dot->rotation_speed = 1 * (PI / 2);
 	dot->frames = 0;
 	dot->jab = 0;

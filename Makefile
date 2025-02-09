@@ -18,44 +18,37 @@ SRC_BNS = ./library/get_next_line/get_next_line.c ./library/get_next_line/get_ne
 	./bonus/render_bonus.c ./bonus/move_bonus.c ./bonus/generate_walls_bonus.c ./bonus/raycasting_bonus.c ./bonus/raycasting_utils_bonus.c ./bonus/utils_bonus.c \
 	./bonus/minimap_bonus.c ./bonus/minimap_util1_bonus.c ./bonus/minimap_util2_bonus.c ./bonus/parsing/free_func2_bonus.c ./bonus/free_kra_bonus.c\
 	./bonus/sprites_bonus.c ./bonus/mouse_bonus.c ./bonus/initialization_bonus.c ./bonus/texture_bonus.c ./bonus/getting_data_bonus.c ./bonus/parsing/utils2_bonus.c
+
 OBJ = $(SRC:.c=.o)
 OBJ_BNS = $(SRC_BNS:.c=.o)
 
-# ANSI escape codes for bold text
-BOLD = \033[1m
-RESET = \033[0m
-
-# Default target
-all: $(NAME) clean 
-	@echo "$(BOLD)compiling success ✅$(RESET)"
+all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
 	@$(CC) $(CFLAGS) $(OBJ) $(MLXFLAGS) $(LIBFT) -o $(NAME)
 
-bonus: $(OBJ_BNS) $(LIBFT)
+bonus: $(NAME_BONUS)
+
+$(NAME_BONUS): $(OBJ_BNS) $(LIBFT)
 	@$(CC) $(CFLAGS) $(OBJ_BNS) $(MLXFLAGS) $(LIBFT) -o $(NAME_BONUS)
-	@echo "$(BOLD)Bonus features compiled successfully 💥$(RESET)"
 
 $(LIBFT):
-	@make -C ./library/Libft > /dev/null 2>&1
-
-%.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@ 
+	make -C ./library/Libft -s
 
 clean:
-	@$(MAKE) -C ./library/Libft clean > /dev/null 2>&1
-	@rm -f $(OBJ)
-	@rm -f $(OBJ_BNS)
-	@echo "$(BOLD)obj file removed 🗑$(RESET)"
+	$(MAKE) -C ./library/Libft clean 
+	rm -f $(OBJ)
+	rm -f $(OBJ_BNS)
+
 
 fclean: clean
-	@$(MAKE) -C ./library/Libft fclean > /dev/null 2>&1
-	@rm -f $(NAME)
-	@rm -f $(NAME_BONUS)
-	@echo "$(BOLD)all obj and exec file are removed 💔$(RESET)"
+	$(MAKE) -C ./library/Libft fclean
+	rm -f $(NAME)
+	rm -f $(NAME_BONUS)
 
 re: fclean all 
 
-re_bonus: fclean bonus clean
+re_bonus: fclean bonus
 
+.SECONDARY:
 .PHONY: all clean fclean re bonus
