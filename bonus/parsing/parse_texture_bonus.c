@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 08:54:39 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/08 15:47:14 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/13 10:23:38 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ char	*parse_texture_line(t_game *game, char *line)
 
 	trimmed_line = ft_strtrim(line, " \t");
 	if (ft_strncmp(trimmed_line, "NO ", 3) == 0)
-		parse_texture(line, game, 0);
+		parse_texture(line, game, 0, trimmed_line);
 	else if (ft_strncmp(trimmed_line, "SO ", 3) == 0)
-		parse_texture(line, game, 1);
+		parse_texture(line, game, 1, trimmed_line);
 	else if (ft_strncmp(trimmed_line, "WE ", 3) == 0)
-		parse_texture(line, game, 2);
+		parse_texture(line, game, 2, trimmed_line);
 	else if (ft_strncmp(trimmed_line, "EA ", 3) == 0)
-		parse_texture(line, game, 3);
+		parse_texture(line, game, 3, trimmed_line);
 	else
 	{
 		free(trimmed_line);
@@ -108,7 +108,7 @@ char	*parse_textures_and_colors(t_game *game, char *line, int fd)
 	return (game->line);
 }
 
-void	parse_texture(char *line, t_game *game, int n)
+void	parse_texture(char *line, t_game *game, int n, char *trimed)
 {
 	char	*trimmed_line;
 	char	**split_line;
@@ -131,6 +131,7 @@ void	parse_texture(char *line, t_game *game, int n)
 	{
 		ft_free_split(split_line);
 		free(trimmed_line);
+		free(trimed);
 		third_free(game, "Error\nInvalid texture line format.");
 	}
 	ft_free_split(split_line);

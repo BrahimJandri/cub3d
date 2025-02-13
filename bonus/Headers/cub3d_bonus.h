@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:41:13 by bjandri           #+#    #+#             */
-/*   Updated: 2025/02/08 18:51:15 by bjandri          ###   ########.fr       */
+/*   Updated: 2025/02/13 10:23:55 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,7 +303,7 @@ char				*skip_empty_lines(int fd, t_game *game);
 char				*parse_textures_and_colors(t_game *game, char *line,
 						int fd);
 char				*skip_texture_colors(int fd, char *line);
-void				parse_texture(char *line, t_game *game, int n);
+void				parse_texture(char *line, t_game *game, int n, char *trimed);
 int					parse_color(char *str, t_game *game);
 int					count_sep(char *str);
 int					open_file(const char *file);
