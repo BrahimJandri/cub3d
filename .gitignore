@@ -1,0 +1,21 @@
+# Object files
+*.o
+
+# Executables
+cub3D
+cub3D_bonus
+
+# Library files
+*.a
+
+# IDE/Editor files
+.vscode/
+.DS_Store
+
+# Temporary files
+*.tmp
+*.swp
+*~
+
+# Debug files
+*.dSYM/
